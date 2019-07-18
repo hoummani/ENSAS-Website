@@ -2,7 +2,7 @@ var express = require('express');
 var app = express();
 
 //--------  Routers  ---------//
-var serverRouter=require('./src/routers/server');
+var serverRouter=require('./routers/main');
 
 
 
