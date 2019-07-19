@@ -1,13 +1,22 @@
 <template>
-  <HelloWorld />
+  <div>
+    <Caroussel/> 
+  </div>
 </template>
 
 <script>
-  import HelloWorld from '../components/HelloWorld'
 
-  export default {
-    components: {
-      HelloWorld
+import Caroussel from "@/components/core/Caroussel";
+
+export default {
+  data(){
+    return{
+      
     }
+  },
+  components: {
+   Caroussel
+    
   }
+};
 </script>
