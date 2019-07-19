@@ -9,7 +9,7 @@
       <v-spacer></v-spacer>
       <v-toolbar-items class="hidden-md-and-down">
         <v-btn color="grey" flat to="/">Accueil</v-btn>
-        <v-btn color="grey" flat>Actualite</v-btn>
+        <v-btn color="grey" flat>Calendrier</v-btn>
         <v-menu offset-y>
           <v-btn flat slot="activator" color="grey">
             <v-icon left>expand_more</v-icon>
@@ -31,7 +31,7 @@
       </v-toolbar-items>
     </v-toolbar>
     <!-- Navigation drawer -->
-    <v-navigation-drawer absolute temporary app floating v-model="drawer" value="true">
+    <v-navigation-drawer floating app  v-model="drawer" offset-x>
       <v-toolbar flat>
         <v-list>
           <v-list-tile>
@@ -43,22 +43,22 @@
       <v-divider></v-divider>
       <!-- list -->
       <v-list>
-        <v-list-tile router to="/">
+        <v-list-tile router to="/" >
           <v-list-tile-action >
-            <v-icon>home</v-icon>
+            <v-icon >home</v-icon>
           </v-list-tile-action>
           <v-list-tile-title>Accueil</v-list-tile-title>
         </v-list-tile>
 
         <v-list-group prepend-icon="school" >
           <template v-slot:activator>
-            <v-list-tile>
+            <v-list-tile >
               <v-list-tile-title>Concour Ci</v-list-tile-title>
             </v-list-tile>
           </template>
           <v-list-group no-action sub-group >
             <template v-slot:activator>
-              <v-list-tile>
+              <v-list-tile >
                 <v-list-tile-title>3eme Annee</v-list-tile-title>
               </v-list-tile>
             </template>
@@ -67,37 +67,37 @@
 
           <v-list-group sub-group no-action>
             <template v-slot:activator>
-              <v-list-tile>
+              <v-list-tile >
                 <v-list-tile-title>4eme Annee</v-list-tile-title>
               </v-list-tile>
             </template>
           </v-list-group>
         </v-list-group>
         <!-- 3 -->
-        <v-list-tile>
+        <v-list-tile >
           <v-list-tile-action>
-            <v-icon>group_add</v-icon>
+            <v-icon >group_add</v-icon>
           </v-list-tile-action>
           <v-list-tile-title>Reinscription</v-list-tile-title>
         </v-list-tile>
         <!-- 4  -->
-        <v-list-tile>
+        <v-list-tile >
           <v-list-tile-action>
-            <v-icon>rate_review</v-icon>
+            <v-icon >rate_review</v-icon>
           </v-list-tile-action>
           <v-list-tile-title>Choix de Filiere</v-list-tile-title>
         </v-list-tile>
         <!-- 5 -->
-        <v-list-tile router to="/about">
+        <v-list-tile  router to="/about">
           <v-list-tile-action>
-            <v-icon>info</v-icon>
+            <v-icon >info</v-icon>
           </v-list-tile-action>
           <v-list-tile-title>About</v-list-tile-title>
         </v-list-tile>
         <!-- 6 -->
-        <v-list-tile>
+        <v-list-tile >
           <v-list-tile-action>
-            <v-icon>contact_support</v-icon>
+            <v-icon >contact_support</v-icon>
           </v-list-tile-action>
           <v-list-tile-title>Contact Us</v-list-tile-title>
         </v-list-tile>
