@@ -1,11 +1,16 @@
 <template>
   <nav>
-    <v-toolbar app>
+    <v-toolbar app class="white" height="80">
       <v-toolbar-side-icon @click="drawer=!drawer"></v-toolbar-side-icon>
+      <!--
       <v-toolbar-title class="grey--text">
         <span class="font-weight-light">e-</span>
-        <span>ENSAS</span>
+        <span class="ensas">ENSAS</span>
       </v-toolbar-title>
+      -->
+      <div class="pt-3">
+        <img src="/img/logo.png" width="" height="50px"/>
+      </div>
       <v-spacer></v-spacer>
       <v-toolbar-items class="hidden-md-and-down">
         <v-btn color="grey" flat to="/">Accueil</v-btn>
@@ -32,10 +37,10 @@
     </v-toolbar>
     <!-- Navigation drawer -->
     <v-navigation-drawer floating app  v-model="drawer" offset-x>
-      <v-toolbar flat>
+      <v-toolbar flat height="80" >
         <v-list>
           <v-list-tile>
-            <v-list-tile-title class="title">e-ENSAS</v-list-tile-title>
+            <v-list-tile-title class="title text-xs-center">e-ENSAS</v-list-tile-title>
           </v-list-tile>
         </v-list>
       </v-toolbar>
@@ -113,16 +118,6 @@ export default {
   data() {
     return {
       drawer: false,
-      /*
-      links: [
-        { icon: "announcement", text: "Actualite", route: "/" },
-        { icon: "school", text: "Concour Ci", route: "/" },
-        { icon: "group_add", text: "Reinscription", route: "/" },
-        { icon: "rate_review", text: "Choix de filiere", route: "/" },
-        { icon: "info", text: "About", route: "/" },
-        { icon: "contact_support", text: "Contact us", route: "/" }
-      ]*/
-
       right: null
     };
   }
