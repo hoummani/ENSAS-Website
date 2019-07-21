@@ -14,7 +14,7 @@
       <v-spacer></v-spacer>
       <v-toolbar-items class="hidden-md-and-down">
         <v-btn color="grey" flat to="/">Accueil</v-btn>
-        <v-btn color="grey" flat>Calendrier</v-btn>
+        <v-btn color="grey" flat to="/calendar">Calendrier</v-btn>
         <v-menu offset-y>
           <v-btn flat slot="activator" color="grey">
             <v-icon left>expand_more</v-icon>
@@ -31,8 +31,9 @@
         </v-menu>
         <v-btn color="grey" flat>Reinscription</v-btn>
         <v-btn color="grey" flat>Choix de filiere</v-btn>
+        <v-btn color="grey" flat>Espace PFE</v-btn>
         <v-btn flat color="grey" to="/about">About</v-btn>
-        <v-btn flat color="grey">Contact us</v-btn>
+        
       </v-toolbar-items>
     </v-toolbar>
     <!-- Navigation drawer -->
@@ -53,6 +54,13 @@
             <v-icon >home</v-icon>
           </v-list-tile-action>
           <v-list-tile-title>Accueil</v-list-tile-title>
+        </v-list-tile>
+
+        <v-list-tile router to="/calendar" >
+          <v-list-tile-action >
+            <v-icon >calendar_today</v-icon>
+          </v-list-tile-action>
+          <v-list-tile-title>Calendrier</v-list-tile-title>
         </v-list-tile>
 
         <v-list-group prepend-icon="school" >
@@ -89,10 +97,18 @@
         <v-list-tile >
           <v-list-tile-action>
             <v-icon >rate_review</v-icon>
+            
           </v-list-tile-action>
           <v-list-tile-title>Choix de Filiere</v-list-tile-title>
         </v-list-tile>
         <!-- 5 -->
+        <v-list-tile >
+          <v-list-tile-action>
+            <v-icon >fas fa-certificate</v-icon>
+          </v-list-tile-action>
+          <v-list-tile-title>Espace PFE</v-list-tile-title>
+        </v-list-tile>
+
         <v-list-tile  router to="/about">
           <v-list-tile-action>
             <v-icon >info</v-icon>
@@ -100,12 +116,14 @@
           <v-list-tile-title>About</v-list-tile-title>
         </v-list-tile>
         <!-- 6 -->
+        <!--
         <v-list-tile >
           <v-list-tile-action>
             <v-icon >contact_support</v-icon>
           </v-list-tile-action>
           <v-list-tile-title>Contact Us</v-list-tile-title>
         </v-list-tile>
+        -->
       </v-list>
     </v-navigation-drawer>
   </nav>

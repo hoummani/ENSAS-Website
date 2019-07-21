@@ -29,7 +29,7 @@
       
       
     </v-container>
-    <Footer/>
+    
   </div>
   
 </template>
@@ -40,7 +40,7 @@ import Caroussel from "@/components/core/Caroussel";
 import LatestAlert from "@/components/core/LatestAlert";
 import Actualities from "@/components/core/Actualities";
 import Contact from "@/components/core/Contact";
-import Footer from "@/components/core/Footer";
+
 export default {
   data(){
     return{
@@ -52,7 +52,7 @@ export default {
     LatestAlert,
     Actualities,
     Contact,
-    Footer
+    
 
     
   }
