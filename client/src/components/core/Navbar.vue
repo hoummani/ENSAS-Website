@@ -22,10 +22,10 @@
           </v-btn>
           <v-list>
             <v-list-tile router>
-              <v-list-tile-title>3eme Annee</v-list-tile-title>
+              <v-list-tile-title>Acces bac+2</v-list-tile-title>
             </v-list-tile>
             <v-list-tile router>
-              <v-list-tile-title>4eme Annee</v-list-tile-title>
+              <v-list-tile-title>Acces bac+3</v-list-tile-title>
             </v-list-tile>
           </v-list>
         </v-menu>
@@ -72,7 +72,7 @@
           <v-list-group no-action sub-group >
             <template v-slot:activator>
               <v-list-tile >
-                <v-list-tile-title>3eme Annee</v-list-tile-title>
+                <v-list-tile-title>Acces bac+2</v-list-tile-title>
               </v-list-tile>
             </template>
             
@@ -81,7 +81,7 @@
           <v-list-group sub-group no-action>
             <template v-slot:activator>
               <v-list-tile >
-                <v-list-tile-title>4eme Annee</v-list-tile-title>
+                <v-list-tile-title>Acces bac+3</v-list-tile-title>
               </v-list-tile>
             </template>
           </v-list-group>

@@ -9,7 +9,7 @@
                 <h3 class="display-2">{{ slide.title }}</h3>
 
                 <p class="caption">{{slide.text}}</p>
-                <v-btn class="mx-0" color="purple" to="/about" large>Plus de Detailes</v-btn>
+                <v-btn class="mx-0" color="#c7254e" to="/about" large>Plus de Detailes</v-btn>
               </v-flex>
             </v-layout>
           </v-container>

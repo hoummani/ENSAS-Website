@@ -11,37 +11,94 @@
       </p>
       <v-divider></v-divider>
       <div>
-      <v-tabs
-        color="indigo lighten-1"
-        dark
-        next-icon="mdi-arrow-right-bold-box-outline"
-        prev-icon="mdi-arrow-left-bold-box-outline"
-        show-arrows
-      >
-        <v-tabs-slider color="yellow"></v-tabs-slider>
-        <v-tab v-for="i in 30" :key="i" :href="'#tab-' + i">Item {{ i }}</v-tab>
+        <v-tabs centered color="indigo lighten-1" dark show-arrows icons-and-text>
+          <v-tabs-slider color="yellow"></v-tabs-slider>
 
-        <v-tabs-items>
-          <v-tab-item v-for="i in 30" :key="i" :value="'tab-' + i">
-            <v-card flat>
-              <v-card-text>{{ text }}</v-card-text>
+          <v-tab href="#tab-1">
+            Reinscription
+            <v-icon>group_add</v-icon>
+          </v-tab>
+
+          <v-tab href="#tab-2">
+            Concour bac+2
+            <v-icon>school</v-icon>
+          </v-tab>
+
+          <v-tab href="#tab-3">
+            Concour bac+3
+            <v-icon>school</v-icon>
+          </v-tab>
+
+          <v-tab href="#tab-4">
+            Choix de filiere
+            <v-icon>rate_review</v-icon>
+          </v-tab>
+
+           <v-tab href="#tab-5">
+            Espace PFE(Info+GTR)
+            <v-icon>fas fa-certificate</v-icon>
+          </v-tab>
+          <!-- reinscription tab content -->
+          <v-tab-item  :value="'tab-1'">
+            <v-card flat class="pa-3">
+              <Reinscription/>
             </v-card>
           </v-tab-item>
-        </v-tabs-items>
-      </v-tabs>
-    </div>
+
+          <!-- concour 3eme annee tab content -->
+          <v-tab-item  :value="'tab-2'">
+            <v-card flat class="pa-3">
+              <Concour3a/>
+            </v-card>
+          </v-tab-item>
+
+          <!-- concour 4eme annee tab content -->
+          <v-tab-item  :value="'tab-3'">
+            <v-card flat class="pa-3">
+              <Concour4a/>
+            </v-card>
+          </v-tab-item>
+
+          <!-- concour choix de filiere tab content -->
+          <v-tab-item  :value="'tab-4'">
+            <v-card flat class="pa-3">
+              <ChoixFiliereInfo/>
+            </v-card>
+          </v-tab-item>
+
+          <!-- concour pfe tab content -->
+          <v-tab-item  :value="'tab-5'">
+            <v-card flat class="pa-3">
+              <PfeInfo/>
+            </v-card>
+          </v-tab-item>
+        </v-tabs>
+      </div>
     </v-container>
-    
   </div>
 </template>
 
 <script>
+
+import Reinscription from "@/components/about/Reinscription";
+import Concour3a from "@/components/about/Concour3a";
+import Concour4a from "@/components/about/Concour4a";
+import ChoixFiliereInfo from "@/components/about/ChoixFiliereInfo";
+import PfeInfo from "@/components/about/PfeInfo";
+
 export default {
+
+  
   data() {
     return {
-      text:
-        "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat."
-    };
+    }
+  },
+  components:{
+    Reinscription,
+    Concour3a,
+    Concour4a,
+    ChoixFiliereInfo,
+    PfeInfo
   }
 };
 </script>

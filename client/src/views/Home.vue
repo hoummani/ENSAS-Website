@@ -22,6 +22,8 @@
       </v-layout>
       <v-divider></v-divider>
       <br>
+      <!-- ## concour d'acces ### -->
+      <ConcourAcces/>
       <!--#### Contact -->
       <Contact/>
       <v-divider></v-divider>
@@ -40,7 +42,7 @@ import Caroussel from "@/components/core/Caroussel";
 import LatestAlert from "@/components/core/LatestAlert";
 import Actualities from "@/components/core/Actualities";
 import Contact from "@/components/core/Contact";
-
+import ConcourAcces from "@/components/core/ConcourAcces";
 export default {
   data(){
     return{
@@ -52,8 +54,7 @@ export default {
     LatestAlert,
     Actualities,
     Contact,
-    
-
+    ConcourAcces
     
   }
 };
