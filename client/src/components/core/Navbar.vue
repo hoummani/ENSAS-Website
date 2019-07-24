@@ -2,30 +2,25 @@
   <nav>
     <v-toolbar app class="white" height="80">
       <v-toolbar-side-icon @click="drawer=!drawer"></v-toolbar-side-icon>
-      <!--
-      <v-toolbar-title class="grey--text">
-        <span class="font-weight-light">e-</span>
-        <span class="ensas">ENSAS</span>
-      </v-toolbar-title>
-      -->
+      
       <div class="pt-3">
         <img src="/img/logo.png" width="" height="50px"/>
       </div>
       <v-spacer></v-spacer>
-      <v-toolbar-items class="hidden-md-and-down">
+      <v-toolbar-items class="hidden-md-and-down" v-if="toolbar_items_show">
         <v-btn color="grey" flat to="/">Accueil</v-btn>
         <v-btn color="grey" flat to="/calendar">Calendrier</v-btn>
         <v-menu offset-y>
           <v-btn flat slot="activator" color="grey">
-            <v-icon left>expand_more</v-icon>
+            <v-icon right>expand_more</v-icon>
             <span>Concour Ci</span>
           </v-btn>
           <v-list>
             <v-list-tile router>
-              <v-list-tile-title>Acces bac+2</v-list-tile-title>
+              <v-list-tile-title>ACCES BAC+2</v-list-tile-title>
             </v-list-tile>
             <v-list-tile router>
-              <v-list-tile-title>Acces bac+3</v-list-tile-title>
+              <v-list-tile-title>ACCES BAC+3</v-list-tile-title>
             </v-list-tile>
           </v-list>
         </v-menu>
@@ -33,11 +28,25 @@
         <v-btn color="grey" flat>Choix de filiere</v-btn>
         <v-btn color="grey" flat>Espace PFE</v-btn>
         <v-btn flat color="grey" to="/about">About</v-btn>
+        <v-menu offset-y>
+          <v-btn flat slot="activator" color="grey">
+            <v-icon right>expand_more</v-icon>
+            <span>Comptes</span>
+          </v-btn>
+          <v-list>
+            <v-list-tile router>
+              <v-list-tile-title>SE CONNECTER</v-list-tile-title>
+            </v-list-tile>
+            <v-list-tile router>
+              <v-list-tile-title>S'ENREGISTRER</v-list-tile-title>
+            </v-list-tile>
+          </v-list>
+        </v-menu>
         
       </v-toolbar-items>
     </v-toolbar>
     <!-- Navigation drawer -->
-    <v-navigation-drawer floating app  v-model="drawer" offset-x>
+    <v-navigation-drawer floating app  v-model="drawer" offset-x @transitionend="toolbar_items_show=!toolbar_items_show">
       <v-toolbar flat height="80" >
         <v-list>
           <v-list-tile>
@@ -72,7 +81,7 @@
           <v-list-group no-action sub-group >
             <template v-slot:activator>
               <v-list-tile >
-                <v-list-tile-title>Acces bac+2</v-list-tile-title>
+                <v-list-tile-title>ACCES BAC+2</v-list-tile-title>
               </v-list-tile>
             </template>
             
@@ -81,7 +90,7 @@
           <v-list-group sub-group no-action>
             <template v-slot:activator>
               <v-list-tile >
-                <v-list-tile-title>Acces bac+3</v-list-tile-title>
+                <v-list-tile-title>ACCES BAC+3</v-list-tile-title>
               </v-list-tile>
             </template>
           </v-list-group>
@@ -115,7 +124,31 @@
           </v-list-tile-action>
           <v-list-tile-title>About</v-list-tile-title>
         </v-list-tile>
+        
         <!-- 6 -->
+        <v-list-group prepend-icon="account_box" >
+          <template v-slot:activator>
+            <v-list-tile >
+              <v-list-tile-title>Comptes</v-list-tile-title>
+            </v-list-tile>
+          </template>
+          <v-list-group no-action sub-group >
+            <template v-slot:activator>
+              <v-list-tile >
+                <v-list-tile-title>SE CONNECTER</v-list-tile-title>
+              </v-list-tile>
+            </template>
+            
+          </v-list-group>
+
+          <v-list-group sub-group no-action>
+            <template v-slot:activator>
+              <v-list-tile >
+                <v-list-tile-title>S'ENREGISTRER</v-list-tile-title>
+              </v-list-tile>
+            </template>
+          </v-list-group>
+        </v-list-group>
         <!--
         <v-list-tile >
           <v-list-tile-action>
@@ -136,7 +169,8 @@ export default {
   data() {
     return {
       drawer: false,
-      right: null
+      right: null,
+      toolbar_items_show:true,
     };
   }
 };

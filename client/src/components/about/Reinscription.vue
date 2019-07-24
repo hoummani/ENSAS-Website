@@ -20,7 +20,7 @@
         <li class="body-2 font-weight-bold red--text">{{item.name}}</li>
     </ul>
     <div>
-        <v-btn class="mt-3" right>Inscivez-vous maintenant</v-btn>
+        <v-btn  class="mt-3" right>Inscivez-vous maintenant</v-btn>
     </div>
   </div>
 </template>

@@ -1,19 +1,24 @@
 <template>
   <div id="header-carousel">
-    <v-carousel style="height: 100%">
-      <v-carousel-item v-for="(slide, i) in slides" :src="slide.src" :key="i">
+    <v-carousel style="height: 100%" >
+      <v-carousel-item  v-for="(slide, i) in slides" :src="slide.src" :key="i">
+        <!--
         <v-jumbotron dark :gradient="gradient" style="height: 100%">
+          -->
           <v-container fill-height>
             <v-layout align-center>
               <v-flex>
-                <h3 class="display-2">{{ slide.title }}</h3>
-
-                <p class="caption">{{slide.text}}</p>
+                <h3  class="display-2 font-weight-light indigo lighten-1  text-sm-center white--text">{{ slide.title }}</h3>
+                
+                <p class="subheading black white--text text-sm-center">{{slide.text}}</p>
+                
+              <v-flex xs4 sm2 md2 lg2 offset-md5 offset-sm5 offset-lg5>
                 <v-btn class="mx-0" color="#c7254e" to="/about" large>Plus de Detailes</v-btn>
+              </v-flex>
               </v-flex>
             </v-layout>
           </v-container>
-        </v-jumbotron>
+        <!-- </v-jumbotron> -->
       </v-carousel-item>
     </v-carousel>
   </div>
@@ -63,6 +68,9 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.e-ensas{
+  color: #c7254e;
+}
 </style>
 
 

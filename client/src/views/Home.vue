@@ -3,7 +3,7 @@
     <Caroussel/> 
     <v-container>
       <h2 class="display-2 text-sm-center font-weight-light">Annonces et actualités</h2>
-      <p class="caption text-sm-center">Lisez attentivement les annonces publiées dans cette page avant de commencer à postuler ou à s'inscrire!</p>
+      <p class="subheading font-weight-bold text-sm-center">Lisez attentivement les annonces publiées dans cette page avant de commencer à postuler ou à s'inscrire!</p>
       <v-divider></v-divider>
       <v-layout row wrap justify-space-between class="my-3">
         <v-flex xs12 sm12 md6 lg6 class="pa-1">
@@ -24,6 +24,9 @@
       <br>
       <!-- ## concour d'acces ### -->
       <ConcourAcces/>
+
+      <!--  Reinscription --->
+      <ReinscriptionInfo/>
       <!--#### Contact -->
       <Contact/>
       <v-divider></v-divider>
@@ -43,6 +46,7 @@ import LatestAlert from "@/components/core/LatestAlert";
 import Actualities from "@/components/core/Actualities";
 import Contact from "@/components/core/Contact";
 import ConcourAcces from "@/components/core/ConcourAcces";
+import ReinscriptionInfo from "@/components/core/ReinscriptionInfo";
 export default {
   data(){
     return{
@@ -54,7 +58,8 @@ export default {
     LatestAlert,
     Actualities,
     Contact,
-    ConcourAcces
+    ConcourAcces,
+    ReinscriptionInfo
     
   }
 };

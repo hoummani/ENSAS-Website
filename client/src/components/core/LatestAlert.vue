@@ -5,8 +5,7 @@
         <template v-slot:header>
           <div>
             <v-chip small left class="white--text annonce">Nouvelle Annonce</v-chip>
-            
-            {{item.title}}
+            <span class="font-weight-bold">{{item.title}}</span>
           </div>
         </template>
         <v-card>
