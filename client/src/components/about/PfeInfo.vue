@@ -1,27 +1,31 @@
 <template>
   <div>
-    <h5
-      class="headline font-weight-light text-sm-center"
-    >Calendrier de PFE pour Département Informatique, Réseaux et Télécommunications</h5>
+    <h5 class="headline font-weight-light text-sm-center">
+      Calendrier de PFE pour Département Informatique, Réseaux et
+      Télécommunications
+    </h5>
     <v-container class="my-5">
-
       <v-card v-for="item in pfe_calendars" :key="item.calendar_date">
         <v-layout row wrap class="pa-3 calendarBorder">
           <v-flex xs12 sm4 md4>
             <div class="caption grey--text">La date</div>
-            <div>{{item.calendar_date}}</div>
+            <div>{{ item.calendar_date }}</div>
           </v-flex>
 
           <v-flex xs12 sm8 md8>
             <div class="caption grey--text">Information</div>
             <div>
-              <p><span  class="font-weight-bold">{{item.pfe_info.title}} :</span> {{item.pfe_info.description}}</p>
+              <p>
+                <span class="font-weight-bold"
+                  >{{ item.pfe_info.title }} :</span
+                >
+                {{ item.pfe_info.description }}
+              </p>
             </div>
           </v-flex>
         </v-layout>
         <v-divider></v-divider>
       </v-card>
-      
     </v-container>
   </div>
 </template>
@@ -129,5 +133,3 @@ export default {
   border-left: 4px solid #c7254e;
 }
 </style>
-
-

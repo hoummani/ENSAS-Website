@@ -5,13 +5,21 @@
         Aprpos de
         <span class="e-ensas">e-ENSAS</span>
       </h2>
-      <p class="subheading text-sm-center">
-        e-ENSAS est une plate-forme de l'ENSA Safi, a pour but de regrouper l'accès à toutes les applications d'inscription, réinscription, choix de filière et bien d'autres prochaines applications.
+      <p class="subheading font-weight-bold text-sm-center">
+        e-ENSAS est une plate-forme de l'ENSA Safi, a pour but de regrouper
+        l'accès à toutes les applications d'inscription, réinscription, choix de
+        filière et bien d'autres prochaines applications.
         <br />Les applications actuellements disponibles sur la plateform:
       </p>
       <v-divider></v-divider>
       <div>
-        <v-tabs centered color="indigo lighten-1" dark show-arrows icons-and-text>
+        <v-tabs
+          centered
+          color="indigo lighten-1"
+          dark
+          show-arrows
+          icons-and-text
+        >
           <v-tabs-slider color="yellow"></v-tabs-slider>
 
           <v-tab href="#tab-1">
@@ -34,42 +42,42 @@
             <v-icon>rate_review</v-icon>
           </v-tab>
 
-           <v-tab href="#tab-5">
+          <v-tab href="#tab-5">
             Espace PFE(Info+GTR)
             <v-icon>fas fa-certificate</v-icon>
           </v-tab>
           <!-- reinscription tab content -->
-          <v-tab-item  :value="'tab-1'">
+          <v-tab-item :value="'tab-1'">
             <v-card flat class="pa-3">
-              <Reinscription/>
+              <Reinscription />
             </v-card>
           </v-tab-item>
 
           <!-- concour 3eme annee tab content -->
-          <v-tab-item  :value="'tab-2'">
+          <v-tab-item :value="'tab-2'">
             <v-card flat class="pa-3">
-              <Concour3a/>
+              <Concour3a />
             </v-card>
           </v-tab-item>
 
           <!-- concour 4eme annee tab content -->
-          <v-tab-item  :value="'tab-3'">
+          <v-tab-item :value="'tab-3'">
             <v-card flat class="pa-3">
-              <Concour4a/>
+              <Concour4a />
             </v-card>
           </v-tab-item>
 
           <!-- concour choix de filiere tab content -->
-          <v-tab-item  :value="'tab-4'">
+          <v-tab-item :value="'tab-4'">
             <v-card flat class="pa-3">
-              <ChoixFiliereInfo/>
+              <ChoixFiliereInfo />
             </v-card>
           </v-tab-item>
 
           <!-- concour pfe tab content -->
-          <v-tab-item  :value="'tab-5'">
+          <v-tab-item :value="'tab-5'">
             <v-card flat class="pa-3">
-              <PfeInfo/>
+              <PfeInfo />
             </v-card>
           </v-tab-item>
         </v-tabs>
@@ -79,7 +87,6 @@
 </template>
 
 <script>
-
 import Reinscription from "@/components/about/Reinscription";
 import Concour3a from "@/components/about/Concour3a";
 import Concour4a from "@/components/about/Concour4a";
@@ -87,13 +94,10 @@ import ChoixFiliereInfo from "@/components/about/ChoixFiliereInfo";
 import PfeInfo from "@/components/about/PfeInfo";
 
 export default {
-
-  
   data() {
-    return {
-    }
+    return {};
   },
-  components:{
+  components: {
     Reinscription,
     Concour3a,
     Concour4a,
@@ -108,4 +112,3 @@ export default {
   color: #c7254e;
 }
 </style>
-

@@ -11,12 +11,16 @@
 
         <v-divider></v-divider>
         <ul class="mt-3 mb-3">
-          <li
-            class="red--text"
-          >Tout candidat admis en liste principale n’ayant pas inscrit administrativement dans les dates limites sera remplacé par un candidat de la liste d’attente en respectant l’ordre de mérite.</li>
+          <li class="red--text">
+            Tout candidat admis en liste principale n’ayant pas inscrit
+            administrativement dans les dates limites sera remplacé par un
+            candidat de la liste d’attente en respectant l’ordre de mérite.
+          </li>
           <li>
             Consulter
-            <router-link class="e-ensas" to="/" tag="a">l'espace d'actualite</router-link>vous allez trouver les information a propos de chaque nouveautee !
+            <router-link class="e-ensas" to="/" tag="a"
+              >l'espace d'actualite</router-link
+            >vous allez trouver les information a propos de chaque nouveautee !
           </li>
         </ul>
       </v-card>
@@ -24,15 +28,18 @@
         <v-layout row wrap class="pa-3 calendarBorder">
           <v-flex xs6 sm4 md4>
             <div class="caption grey--text">La date</div>
-            <div>{{item.calendar_date}}</div>
+            <div>{{ item.calendar_date }}</div>
           </v-flex>
 
           <v-flex xs6 sm8 md8>
             <div class="caption grey--text">Operation effectuee</div>
             <div>
-              <p>{{item.operations.title_operation}}</p>
-              <ul v-for="item in item.operations.list_operation" :key="item.field_operation">
-                <li>{{item.field_operation}}</li>
+              <p>{{ item.operations.title_operation }}</p>
+              <ul
+                v-for="item in item.operations.list_operation"
+                :key="item.field_operation"
+              >
+                <li>{{ item.field_operation }}</li>
               </ul>
             </div>
           </v-flex>
@@ -40,10 +47,13 @@
         <v-divider></v-divider>
       </v-card>
       <v-card class="mt-3 pa-2">
-        <h2 class="headline font-weight-light text-sm-center">A propos de concour</h2>
-        <h5
-          class="subheading"
-        >Le concours est sous forme d'une présélection sur dossier suivie d'un entretien pour des places limitées aux filières suivantes:</h5>
+        <h2 class="headline font-weight-light text-sm-center">
+          A propos de concour
+        </h2>
+        <h5 class="subheading">
+          Le concours est sous forme d'une présélection sur dossier suivie d'un
+          entretien pour des places limitées aux filières suivantes:
+        </h5>
         <v-divider></v-divider>
         <ul class="mt-3 mb-3">
           <li>Génie Informatique</li>
@@ -148,6 +158,3 @@ export default {
   cursor: pointer;
 }
 </style>
-
-
-

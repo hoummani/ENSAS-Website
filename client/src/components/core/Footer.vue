@@ -12,19 +12,19 @@
         <ul class="footer-coordonnees">
           <li>
             <v-icon left>home</v-icon>
-            <span>{{coordonnees.address}}</span>
+            <span>{{ coordonnees.address }}</span>
           </li>
           <li>
             <v-icon left>phone</v-icon>
-            <span>{{coordonnees.phone}}</span>
+            <span>{{ coordonnees.phone }}</span>
           </li>
           <li>
             <v-icon left>ring_volume</v-icon>
-            <span>{{coordonnees.fax}}</span>
+            <span>{{ coordonnees.fax }}</span>
           </li>
           <li>
             <v-icon left>email</v-icon>
-            <span>{{coordonnees.email}}</span>
+            <span>{{ coordonnees.email }}</span>
           </li>
         </ul>
 
@@ -66,7 +66,7 @@ export default {
 };
 </script>
 <style lang="scss" scoped>
-.footer-coordonnees{
+.footer-coordonnees {
   list-style-type: none;
 }
 </style>

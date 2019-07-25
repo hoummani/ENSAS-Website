@@ -4,12 +4,14 @@
       <v-expansion-panel-content v-for="item in alerts" :key="item.title">
         <template v-slot:header>
           <div>
-            <v-chip small left class="white--text annonce">Nouvelle Annonce</v-chip>
-            <span class="font-weight-bold">{{item.title}}</span>
+            <v-chip small left class="white--text annonce"
+              >Nouvelle Annonce</v-chip
+            >
+            <span class="font-weight-bold">{{ item.title }}</span>
           </div>
         </template>
         <v-card>
-          <v-card-text class="grey lighten-3">{{item.content}}</v-card-text>
+          <v-card-text class="grey lighten-3">{{ item.content }}</v-card-text>
         </v-card>
       </v-expansion-panel-content>
     </v-expansion-panel>
@@ -23,7 +25,8 @@ export default {
       panel: [false, true, true],
       alerts: [
         {
-          title: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore",
+          title:
+            "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore",
           content:
             "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
           status: null,
@@ -61,25 +64,21 @@ export default {
 color e-ENSAS=#c7254e
 */
 
-.item.toujour{
-  background:  #3cd1c2;
+.item.toujour {
+  background: #3cd1c2;
 }
 
-.item.encours{
-   background:  orange;
+.item.encours {
+  background: orange;
 }
 
-.item.termine{
-   background:  tomato;
+.item.termine {
+  background: tomato;
 }
-.item.proche{
-    background: #c7254e;
-}
-.annonce{
+.item.proche {
   background: #c7254e;
 }
-
-
+.annonce {
+  background: #c7254e;
+}
 </style>
-
-

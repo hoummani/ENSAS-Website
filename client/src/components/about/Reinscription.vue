@@ -1,26 +1,34 @@
 <template>
   <div id="reinscription" class="mb-5">
-    <h5
-      class="headline font-weight-light"
-    >Pour la première inscription à l'ENSA Safi, Les candidats admis au(Concours commun des ENSA Maroc, CNC, Concours cycle Ingénieur) doivent obligatoirement déposer :</h5>
+    <h5 class="headline font-weight-light">
+      Pour la première inscription à l'ENSA Safi, Les candidats admis
+      au(Concours commun des ENSA Maroc, CNC, Concours cycle Ingénieur) doivent
+      obligatoirement déposer :
+    </h5>
     <ul class="mt-2" v-for="item in reinscriptionObjects" :key="item.name">
-      <li class="body-2 font-weight-bold">{{item.name}}</li>
+      <li class="body-2 font-weight-bold">{{ item.name }}</li>
     </ul>
     <ul v-for="item in fiches" :key="item.name">
       <li class="body-2 font-weight-bold">
-        {{item.name}}
-        <router-link v-if="item.externel==false" class="e-ensas"  :to="item.url" tag="a">ICI</router-link>
+        {{ item.name }}
+        <router-link
+          v-if="item.externel == false"
+          class="e-ensas"
+          :to="item.url"
+          tag="a"
+          >ICI</router-link
+        >
         <a v-else class="e-ensas" target="_blank" :href="item.url"> ICI</a>
       </li>
     </ul>
     <div class="subheading font-weight-bold mt-3 red--text">
-        Les étudiants issus du CNC doivent en plus fournir :
+      Les étudiants issus du CNC doivent en plus fournir :
     </div>
     <ul v-for="item in etudiants_CNC_objects" :key="item.name">
-        <li class="body-2 font-weight-bold red--text">{{item.name}}</li>
+      <li class="body-2 font-weight-bold red--text">{{ item.name }}</li>
     </ul>
     <div>
-        <v-btn  class="mt-3" right>Inscivez-vous maintenant</v-btn>
+      <v-btn class="mt-3" right>Inscivez-vous maintenant</v-btn>
     </div>
   </div>
 </template>
@@ -42,8 +50,7 @@ export default {
         {
           name:
             "Assurance; (95dh) à payer à l'agence ASSURANCES BABBOUH SARL, 06.AVENUE LA LIBERTÉ. VILLE NOUVELLE. SAFI"
-        },
-        
+        }
       ],
       fiches: [
         {
@@ -57,9 +64,9 @@ export default {
           externel: true
         }
       ],
-      etudiants_CNC_objects:[
-          {name:"L'Attestation d'admissibilité"},
-          {name:"L'Attestation d'affectation"},
+      etudiants_CNC_objects: [
+        { name: "L'Attestation d'admissibilité" },
+        { name: "L'Attestation d'affectation" }
       ]
     };
   }
@@ -72,5 +79,3 @@ export default {
   cursor: pointer;
 }
 </style>
-
-

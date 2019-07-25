@@ -3,12 +3,16 @@
     <v-divider></v-divider>
     <h2
       class="display-2 my-2 font-weight-thin text-sm-center font-weight-light"
-    >Inscription et Réinscription en ligne - ENSA Safi</h2>
-    <p
-      class="subheading font-weight-bold text-sm-center"
-    >Les nouveaux admis à l'ENSA Safi et les anciens étudiant(e)s sont invités à effectuer cette réinscription en ligne.</p>
+    >
+      Inscription et Réinscription en ligne - ENSA Safi
+    </h2>
+    <p class="subheading font-weight-bold text-sm-center">
+      Les nouveaux admis à l'ENSA Safi et les anciens étudiant(e)s sont invités
+      à effectuer cette réinscription en ligne.
+    </p>
     <p class="e-ensas subheading text-sm-center font-weight-bold">
-      <strong>Attention :</strong>le reçu téléchargé est obligatoirement demandé pour valider votre inscription au service de la scolarité .
+      <strong>Attention :</strong>le reçu téléchargé est obligatoirement demandé
+      pour valider votre inscription au service de la scolarité .
     </p>
     <v-divider></v-divider>
     <v-layout class="my-3">
@@ -29,5 +33,3 @@ export default {};
   color: #c7254e;
 }
 </style>
-
-
