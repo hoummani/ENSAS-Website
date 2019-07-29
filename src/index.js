@@ -1,13 +1,15 @@
 var express = require('express');
 var app = express();
 
-//--------  Routers  ---------//
-var serverRouter=require('./routers/main');
+//--------  GraphQL  ---------//
 
 
 
-app.use('/', serverRouter);
-//-------- end routers  -----//
+
+app.use('/', (req,res,next)=>{
+    res.send('Preparing to graphql !');
+});
+//-------- end GraphQL  -----//
 
 //--------- Database  --------//
 
