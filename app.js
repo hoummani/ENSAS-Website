@@ -20,6 +20,6 @@ app.use('/', (req,res,next)=>{
 
 
 //----------  app config  ------ //
-app.listen(4200,()=>{
-    console.log("Your app is listen now to port 4200 !");
+app.listen(process.env.PORT,()=>{
+    console.log(`Your app is listen now to port ${process.env.PORT} !`);
 });
