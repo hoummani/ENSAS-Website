@@ -13,11 +13,10 @@ var app = express();
 
 
 app.use('/eEnsas',graphqlHTTP({
-    
+
     graphiql:true
 }));
 //-------- end GraphQL  -----//
-
 
 
 
@@ -36,4 +35,3 @@ mongoose.connect(process.env.MONGOOSE_URL).then((value) => {
     console.log(":( :( ==> "+err.message+" <== ): ):");
     console.log("-----------------------------");
     });
-
