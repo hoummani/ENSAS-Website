@@ -1,5 +1,6 @@
 var express = require('express');
 var mongoose=require('mongoose');
+const graphqlHTTP=require('express-graphql');
 
 
 
@@ -11,15 +12,13 @@ var app = express();
 
 
 
-app.use('/', (req,res,next)=>{
-    res.send('Preparing to graphql !');
-});
+app.use('/eEnsas',graphqlHTTP({
+    
+    graphiql:true
+}));
 //-------- end GraphQL  -----//
 
-//--------- Database  --------//
 
-
-//--------- end database   ----//
 
 
 
@@ -34,7 +33,7 @@ mongoose.connect(process.env.MONGOOSE_URL).then((value) => {
 })
 .catch((err) => {
     console.log("-----------------------------");
-    console.log(":( :("+err.message+" ): ):");
+    console.log(":( :( ==> "+err.message+" <== ): ):");
     console.log("-----------------------------");
     });
 
