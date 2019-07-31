@@ -1,0 +1,124 @@
+<template>
+  <nav>
+    <v-toolbar dense flat>
+      <v-app-bar-nav-icon @click="onDrawer()"></v-app-bar-nav-icon>
+
+      <v-toolbar-title>Admin Dashboard</v-toolbar-title>
+
+      <v-spacer></v-spacer>
+
+      <v-btn icon>
+        <v-icon>search</v-icon>
+      </v-btn>
+
+      <v-btn icon>
+        <v-menu offset-y>
+          <template v-slot:activator="{ on, attrs }">
+            <v-badge
+              class="align-self-center"
+              color="warning"
+              
+              right
+              overlap
+            >
+              <template v-slot:badge>
+                <span>3</span>
+              </template>
+              <v-icon v-bind="attrs" v-on="on">mdi-bell</v-icon>
+            </v-badge>
+            
+          </template>
+
+          <v-list v-for="notification in notifications" :key="notification.content">
+            <v-list-item @click="method">
+              <v-list-item-title @click="onNotif(notification.content)">{{notification.content}}</v-list-item-title>
+            </v-list-item>
+          </v-list>
+        </v-menu>
+      </v-btn>
+
+      <v-btn icon>
+        <v-icon>person</v-icon>
+      </v-btn>
+      <v-btn icon>
+        <v-icon>mdi-settings</v-icon>
+      </v-btn>
+
+      <v-btn icon>
+        <v-icon>more_vert</v-icon>
+      </v-btn>
+    </v-toolbar>
+    <v-navigation-drawer v-model="drawer" class="indigo lighten-2" dark app>
+      <v-list-item>
+        <v-list-item-content>
+          <v-list-item-title class="title">e-ENSAS</v-list-item-title>
+          <v-list-item-subtitle>Nouvelle plateforme</v-list-item-subtitle>
+        </v-list-item-content>
+      </v-list-item>
+
+      <v-divider></v-divider>
+
+      <v-list dense nav>
+        <v-list-item v-for="item in items" :key="item.title" link>
+          <v-list-item-icon>
+            <v-icon>{{ item.icon }}</v-icon>
+          </v-list-item-icon>
+
+          <v-list-item-content>
+            <v-list-item-title>{{ item.title }}</v-list-item-title>
+          </v-list-item-content>
+        </v-list-item>
+      </v-list>
+    </v-navigation-drawer>
+  </nav>
+</template>
+
+<script>
+export default {
+  data() {
+    return {
+      drawer: true,
+      items: [
+        { title: "Dashboard", icon: "mdi-view-dashboard" },
+        { title: "Profile", icon: "person" },
+        { title: "Anonces", icon: "announcement" },
+        { title: "Aclualitees", icon: "assignment" },
+        { title: "Calendrier", icon: "date_range" },
+        { title: "Reinscription", icon: "input" },
+        { title: "Concours", icon: "question_answer" },
+        { title: "Choix de filieres", icon: "mdi-help-box" },
+        { title: "Espace PFE", icon: "school" },
+        { title: "Parametres", icon: "settings" }
+      ],
+      right: null,
+      notifications: [
+        {
+          content: "Mike, John responded to your email"
+        },
+        {
+          content: "You have 5 new tasks"
+        },
+        {
+          content: "You're now a friend with Andrew"
+        },
+        {
+          content: "Another Notification"
+        },
+        {
+            content:"Abdessadek Hoummani !"
+        }
+      ]
+    };
+  },
+  methods: {
+    onDrawer() {
+      this.drawer = !this.drawer;
+    },
+    method() {},
+    onNotif(notif){
+        alert(notif);
+    }
+  }
+};
+</script>
+
