@@ -16,7 +16,7 @@
           <template v-slot:activator="{ on, attrs }">
             <v-badge
               class="align-self-center"
-              color="warning"
+              color="#c7254e"
               
               right
               overlap
@@ -31,7 +31,7 @@
 
           <v-list v-for="notification in notifications" :key="notification.content">
             <v-list-item @click="method">
-              <v-list-item-title @click="onNotif(notification.content)">{{notification.content}}</v-list-item-title>
+              <v-list-item-title>{{notification.content}}</v-list-item-title>
             </v-list-item>
           </v-list>
         </v-menu>
@@ -59,7 +59,7 @@
       <v-divider></v-divider>
 
       <v-list dense nav>
-        <v-list-item v-for="item in items" :key="item.title" link>
+        <v-list-item v-for="item in items" :key="item.title" link  :to="item.url">
           <v-list-item-icon>
             <v-icon>{{ item.icon }}</v-icon>
           </v-list-item-icon>
@@ -79,16 +79,16 @@ export default {
     return {
       drawer: true,
       items: [
-        { title: "Dashboard", icon: "mdi-view-dashboard" },
-        { title: "Profile", icon: "person" },
-        { title: "Anonces", icon: "announcement" },
-        { title: "Aclualitees", icon: "assignment" },
-        { title: "Calendrier", icon: "date_range" },
-        { title: "Reinscription", icon: "input" },
-        { title: "Concours", icon: "question_answer" },
-        { title: "Choix de filieres", icon: "mdi-help-box" },
-        { title: "Espace PFE", icon: "school" },
-        { title: "Parametres", icon: "settings" }
+        { title: "Dashboard", icon: "mdi-view-dashboard", url:"/" },
+        { title: "Profile", icon: "person" , url:"/profile" },
+        { title: "Anonces", icon: "announcement" , url:null },
+        { title: "Aclualitees", icon: "assignment" , url:null },
+        { title: "Calendrier", icon: "date_range" , url:null },
+        { title: "Reinscription", icon: "input" , url:null },
+        { title: "Concours", icon: "question_answer" , url:null },
+        { title: "Choix de filieres", icon: "mdi-help-box" , url:null },
+        { title: "Espace PFE", icon: "school" , url:null },
+        { title: "Parametres", icon: "settings" , url:null}
       ],
       right: null,
       notifications: [
@@ -115,9 +115,7 @@ export default {
       this.drawer = !this.drawer;
     },
     method() {},
-    onNotif(notif){
-        alert(notif);
-    }
+    
   }
 };
 </script>
