@@ -1,13 +1,28 @@
 <template>
   <div>
     <v-container>
-        <h4 class="display-2 font-weight-thin grey--text text-xs-center text-sm-center">Connexion</h4>
+      <h4
+        class="display-2 font-weight-thin grey--text text-xs-center text-sm-center"
+      >
+        Connexion
+      </h4>
       <v-form ref="form" v-model="valid" lazy-validation>
+        <v-text-field
+          v-model="email"
+          type="email"
+          :rules="emailRules"
+          label="E-mail"
+          required
+        ></v-text-field>
 
-          <v-text-field v-model="email" type="email" :rules="emailRules" label="E-mail" required></v-text-field>
-
-        <v-text-field v-model="password" type="password" :counter="6" :rules="passwordRules" label="Password" required></v-text-field>
-
+        <v-text-field
+          v-model="password"
+          type="password"
+          :counter="6"
+          :rules="passwordRules"
+          label="Password"
+          required
+        ></v-text-field>
 
         <v-checkbox
           v-model="checkbox"
@@ -16,13 +31,16 @@
           required
         ></v-checkbox>
         <div class="font-weight-bold mb-4">
-            <router-link to="/register" tag="a">Nouveau Compte ?</router-link>
+          <router-link to="/register" tag="a">Nouveau Compte ?</router-link>
         </div>
 
-        <v-btn :disabled="!valid" color="primary" class="mr-4" @click="validate">Connexion</v-btn>
+        <v-btn :disabled="!valid" color="primary" class="mr-4" @click="validate"
+          >Connexion</v-btn
+        >
 
-        <v-btn class="mr-4 indigo lighten-1" @click="reset" dark>Réinitialiser</v-btn>
-
+        <v-btn class="mr-4 indigo lighten-1" @click="reset" dark
+          >Réinitialiser</v-btn
+        >
       </v-form>
     </v-container>
   </div>
@@ -41,8 +59,7 @@ export default {
       v => !!v || "E-mail is required",
       v => /.+@.+\..+/.test(v) || "E-mail must be valid"
     ],
-    
-    
+
     checkbox: false
   }),
 
@@ -61,4 +78,3 @@ export default {
   }
 };
 </script>
-

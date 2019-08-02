@@ -1,7 +1,11 @@
 <template>
   <div>
     <v-container>
-      <h4 class="display-2 font-weight-thin grey--text text-xs-center text-sm-center">Nouveau Compte</h4>
+      <h4
+        class="display-2 font-weight-thin grey--text text-xs-center text-sm-center"
+      >
+        Nouveau Compte
+      </h4>
       <form @submit.prevent="handleSubmit">
         <!--  Name -->
         <v-text-field
@@ -47,11 +51,17 @@
         ></v-text-field>
 
         <div class="font-weight-bold mb-4">
-            <router-link to="/login" tag="a">Connexion ?</router-link>
+          <router-link to="/login" tag="a">Connexion ?</router-link>
         </div>
         <div class="mt-3">
-          <v-btn class="mr-4" color="primary" :disabled="$v.$invalid" type="submit">Enregistrer</v-btn>
-        <v-btn class="indigo lighten-1" dark type="reset">Reset</v-btn>
+          <v-btn
+            class="mr-4"
+            color="primary"
+            :disabled="$v.$invalid"
+            type="submit"
+            >Enregistrer</v-btn
+          >
+          <v-btn class="indigo lighten-1" dark type="reset">Reset</v-btn>
         </div>
       </form>
     </v-container>
@@ -139,7 +149,7 @@ export default {
     }
   },
   methods: {
-    handleSubmit(e) {
+    handleSubmit() {
       this.submitted = true;
 
       // stop here if form is invalid
@@ -154,6 +164,4 @@ export default {
 };
 </script>
 
-<style>
-</style>
-
+<style></style>

@@ -5,27 +5,26 @@
       <Drawer/>
     </v-app-bar>
     -->
-    <Drawer/>
-    <v-content>
-      <v-container fluid>
-
-      <!-- If using vue-router -->
-      <router-view></router-view>
-    </v-container>
+    <Drawer />
+    <v-content fluid transition="slide-x-transition">
+      <v-container>
+        <!-- If using vue-router -->
+        <router-view></router-view>
+      </v-container>
     </v-content>
   </v-app>
 </template>
 
 <script>
-import Drawer from './components/core/Drawer';
+import Drawer from "./components/core/Drawer";
 
 export default {
-  name: 'App',
+  name: "App",
   components: {
     Drawer
   },
   data: () => ({
     //
-  }),
+  })
 };
 </script>

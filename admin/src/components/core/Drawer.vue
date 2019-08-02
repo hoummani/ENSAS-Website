@@ -3,49 +3,52 @@
     <v-toolbar dense flat>
       <v-app-bar-nav-icon @click="onDrawer()"></v-app-bar-nav-icon>
 
-      <v-toolbar-title>Admin Dashboard</v-toolbar-title>
+      <v-toolbar-title>e-ENSAS Dashboard</v-toolbar-title>
 
       <v-spacer></v-spacer>
 
+      <div>
+        <v-text-field
+          label="Recherche..."
+          single-line
+          class="mt-4"
+        ></v-text-field>
+      </div>
       <v-btn icon>
-        <v-icon>search</v-icon>
+        <v-icon >search</v-icon>
       </v-btn>
 
       <v-btn icon>
         <v-menu offset-y>
           <template v-slot:activator="{ on, attrs }">
-            <v-badge
-              class="align-self-center"
-              color="#c7254e"
-              
-              right
-              overlap
-            >
+            <v-badge class="align-self-center" color="#c7254e" right overlap>
               <template v-slot:badge>
                 <span>3</span>
               </template>
-              <v-icon v-bind="attrs" v-on="on">mdi-bell</v-icon>
+              <v-icon  v-bind="attrs" v-on="on">mdi-bell</v-icon>
             </v-badge>
-            
           </template>
 
-          <v-list v-for="notification in notifications" :key="notification.content">
+          <v-list
+            v-for="notification in notifications"
+            :key="notification.content"
+          >
             <v-list-item @click="method">
-              <v-list-item-title>{{notification.content}}</v-list-item-title>
+              <v-list-item-title>{{ notification.content }}</v-list-item-title>
             </v-list-item>
           </v-list>
         </v-menu>
       </v-btn>
 
       <v-btn icon>
-        <v-icon>person</v-icon>
+        <v-icon >person</v-icon>
       </v-btn>
       <v-btn icon>
-        <v-icon>mdi-settings</v-icon>
+        <v-icon >mdi-settings</v-icon>
       </v-btn>
 
       <v-btn icon>
-        <v-icon>more_vert</v-icon>
+        <v-icon >more_vert</v-icon>
       </v-btn>
     </v-toolbar>
     <v-navigation-drawer v-model="drawer" class="indigo lighten-2" dark app>
@@ -59,7 +62,12 @@
       <v-divider></v-divider>
 
       <v-list dense nav>
-        <v-list-item v-for="item in items" :key="item.title" link  :to="item.url">
+        <v-list-item
+          v-for="item in items"
+          :key="item.title"
+          link
+          :to="item.url"
+        >
           <v-list-item-icon>
             <v-icon>{{ item.icon }}</v-icon>
           </v-list-item-icon>
@@ -79,16 +87,16 @@ export default {
     return {
       drawer: true,
       items: [
-        { title: "Dashboard", icon: "mdi-view-dashboard", url:"/" },
-        { title: "Profile", icon: "person" , url:"/profile" },
-        { title: "Anonces", icon: "announcement" , url:null },
-        { title: "Aclualitees", icon: "assignment" , url:null },
-        { title: "Calendrier", icon: "date_range" , url:null },
-        { title: "Reinscription", icon: "input" , url:null },
-        { title: "Concours", icon: "question_answer" , url:null },
-        { title: "Choix de filieres", icon: "mdi-help-box" , url:null },
-        { title: "Espace PFE", icon: "school" , url:null },
-        { title: "Parametres", icon: "settings" , url:null}
+        { title: "Dashboard", icon: "mdi-view-dashboard", url: "/" },
+        { title: "Profile", icon: "person", url: "/profile" },
+        { title: "Anonces", icon: "announcement", url: null },
+        { title: "Aclualitees", icon: "assignment", url: null },
+        { title: "Calendrier", icon: "date_range", url: null },
+        { title: "Reinscription", icon: "input", url: null },
+        { title: "Concours", icon: "question_answer", url: null },
+        { title: "Choix de filieres", icon: "mdi-help-box", url: null },
+        { title: "Espace PFE", icon: "school", url: null },
+        { title: "Parametres", icon: "settings", url: null }
       ],
       right: null,
       notifications: [
@@ -105,7 +113,7 @@ export default {
           content: "Another Notification"
         },
         {
-            content:"Abdessadek Hoummani !"
+          content: "Abdessadek Hoummani !"
         }
       ]
     };
@@ -114,9 +122,7 @@ export default {
     onDrawer() {
       this.drawer = !this.drawer;
     },
-    method() {},
-    
+    method() {}
   }
 };
 </script>
-
