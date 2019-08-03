@@ -7,10 +7,14 @@
 
           <v-card-text class="pt-0">
             <div class="title font-weight-light mb-2">User Registrations</div>
-            <div class="subheading font-weight-light grey--text">Last Campaign Performance</div>
+            <div class="subheading font-weight-light grey--text">
+              Last Campaign Performance
+            </div>
             <v-divider class="my-2"></v-divider>
             <v-icon class="mr-2" small>mdi-clock</v-icon>
-            <span class="caption grey--text font-weight-light">last registration 26 minutes ago</span>
+            <span class="caption grey--text font-weight-light"
+              >last registration 26 minutes ago</span
+            >
           </v-card-text>
         </v-card>
       </v-flex>
@@ -22,10 +26,14 @@
 
           <v-card-text class="pt-0">
             <div class="title font-weight-light mb-2">User Registrations</div>
-            <div class="subheading font-weight-light grey--text">Last Campaign Performance</div>
+            <div class="subheading font-weight-light grey--text">
+              Last Campaign Performance
+            </div>
             <v-divider class="my-2"></v-divider>
             <v-icon class="mr-2" small>mdi-clock</v-icon>
-            <span class="caption grey--text font-weight-light">last registration 26 minutes ago</span>
+            <span class="caption grey--text font-weight-light"
+              >last registration 26 minutes ago</span
+            >
           </v-card-text>
         </v-card>
       </v-flex>
@@ -52,19 +60,21 @@
 
             <v-card-text class="pt-0">
               <div class="title font-weight-light mb-2">User Registrations</div>
-              <div class="subheading font-weight-light grey--text">Last Campaign Performance</div>
+              <div class="subheading font-weight-light grey--text">
+                Last Campaign Performance
+              </div>
               <v-divider class="my-2"></v-divider>
               <v-icon class="mr-2" small>mdi-clock</v-icon>
-              <span class="caption grey--text font-weight-light">last registration 26 minutes ago</span>
+              <span class="caption grey--text font-weight-light"
+                >last registration 26 minutes ago</span
+              >
             </v-card-text>
           </v-card>
         </v-container>
       </v-flex>
     </v-layout>
     <v-layout row wrap>
-      <v-flex md12 lg6>
-        
-      </v-flex>
+      <v-flex md12 lg6> </v-flex>
     </v-layout>
   </div>
 </template>
@@ -90,10 +100,10 @@ export default {
     ChoixFiliereChart
   },
   methods: {
-      complete (index) {
-      this.list[index] = !this.list[index]
+    complete(index) {
+      this.list[index] = !this.list[index];
     }
-  },
+  }
 };
 </script>
 <style lang="scss" scoped>

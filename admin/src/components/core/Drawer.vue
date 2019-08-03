@@ -1,6 +1,7 @@
 <template>
   <nav>
-    <v-toolbar dense flat>
+    <v-app-bar dense app elevate-on-scroll >
+    
       <v-app-bar-nav-icon @click="onDrawer()"></v-app-bar-nav-icon>
 
       <v-toolbar-title>e-ENSAS Dashboard</v-toolbar-title>
@@ -15,7 +16,7 @@
         ></v-text-field>
       </div>
       <v-btn icon>
-        <v-icon >search</v-icon>
+        <v-icon>search</v-icon>
       </v-btn>
 
       <v-btn icon>
@@ -25,7 +26,7 @@
               <template v-slot:badge>
                 <span>3</span>
               </template>
-              <v-icon  v-bind="attrs" v-on="on">mdi-bell</v-icon>
+              <v-icon v-bind="attrs" v-on="on">mdi-bell</v-icon>
             </v-badge>
           </template>
 
@@ -41,16 +42,16 @@
       </v-btn>
 
       <v-btn icon>
-        <v-icon >person</v-icon>
+        <v-icon>person</v-icon>
       </v-btn>
       <v-btn icon>
-        <v-icon >mdi-settings</v-icon>
+        <v-icon>mdi-settings</v-icon>
       </v-btn>
 
       <v-btn icon>
-        <v-icon >more_vert</v-icon>
+        <v-icon>more_vert</v-icon>
       </v-btn>
-    </v-toolbar>
+    </v-app-bar>
     <v-navigation-drawer v-model="drawer" class="indigo lighten-2" dark app>
       <v-list-item>
         <v-list-item-content>
@@ -89,8 +90,8 @@ export default {
       items: [
         { title: "Dashboard", icon: "mdi-view-dashboard", url: "/" },
         { title: "Profile", icon: "person", url: "/profile" },
-        { title: "Anonces", icon: "announcement", url: null },
-        { title: "Aclualitees", icon: "assignment", url: null },
+        { title: "Anonces", icon: "announcement", url: "/annonces" },
+        { title: "Aclualitees", icon: "assignment", url: "/actualitees" },
         { title: "Calendrier", icon: "date_range", url: null },
         { title: "Reinscription", icon: "input", url: null },
         { title: "Concours", icon: "question_answer", url: null },

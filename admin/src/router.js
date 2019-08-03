@@ -4,6 +4,8 @@ import Home from "./views/Home.vue";
 import Login from "./views/Login.vue";
 import Register from "./views/Register.vue";
 import Profile from "./views/Profile.vue";
+import Annonces from "./views/Annonces.vue";
+import Actualitees from "./views/Actualitees.vue";
 
 Vue.use(Router);
 
@@ -30,6 +32,16 @@ export default new Router({
       path: "/profile",
       name: "profile",
       component: Profile
+    },
+    {
+      path: "/annonces",
+      name: "annonces",
+      component: Annonces
+    },
+    {
+      path: "/actualitees",
+      name: "actualitees",
+      component: Actualitees
     }
   ]
 });
