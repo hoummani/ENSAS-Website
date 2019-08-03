@@ -29,19 +29,18 @@ import Charts from "../components/core/Charts";
 export default {
   data() {
     return {
-      
-      items_settings:[
+      items_settings: [
         {
-          content:"Arial"
+          content: "Arial"
         },
         {
-          content:"Calibri"
+          content: "Calibri"
         },
         {
-          content:"Courier"
+          content: "Courier"
         },
         {
-          content:"Verdana"
+          content: "Verdana"
         }
       ]
     };

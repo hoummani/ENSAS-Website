@@ -6,7 +6,7 @@
         :headers="headers"
         :search="search"
         :items="alerts"
-        sort-by="calories"
+        sort-by="end_date"
         class="elevation-1"
       >
         <template v-slot:top>
@@ -14,7 +14,7 @@
             <v-text-field
               v-model="search"
               append-icon="search"
-              label="Search"
+              label="Recherche..."
               single-line
               hide-details
             ></v-text-field>
@@ -22,7 +22,9 @@
             <v-spacer></v-spacer>
             <v-dialog v-model="dialog" max-width="500px">
               <template v-slot:activator="{ on }">
-                <v-btn color="primary" dark class="mb-2" v-on="on">Nouvelle Annonce</v-btn>
+                <v-btn color="secondary" dark class="mb-2" v-on="on"
+                  >Nouvelle Annonce</v-btn
+                >
               </template>
               <v-card>
                 <v-card-title>
@@ -33,13 +35,19 @@
                   <v-container grid-list-md>
                     <v-layout wrap>
                       <v-flex xs12 sm12 md12>
-                        <v-textarea v-model="editedItem.title" label="Titre d'annonce"></v-textarea>
+                        <v-textarea
+                          v-model="editedItem.title"
+                          label="Titre d'annonce"
+                        ></v-textarea>
                         <!--
                         <v-text-field v-model="editedItem.title" label="Titre d'annonce"></v-text-field>
                         -->
                       </v-flex>
                       <v-flex xs12 sm12 md12>
-                        <v-text-field v-model="editedItem.end_at" label="Date limite"></v-text-field>
+                        <v-text-field
+                          v-model="editedItem.end_at"
+                          label="Date limite"
+                        ></v-text-field>
                       </v-flex>
                       <!--
                       <v-flex xs12 sm12 md12>
@@ -58,8 +66,12 @@
 
                 <v-card-actions>
                   <v-spacer></v-spacer>
-                  <v-btn color="blue darken-1" text @click="close">Cancel</v-btn>
-                  <v-btn color="blue darken-1" text @click="save">Enregistrer</v-btn>
+                  <v-btn color="blue darken-1" text @click="close"
+                    >Cancel</v-btn
+                  >
+                  <v-btn color="blue darken-1" text @click="save"
+                    >Enregistrer</v-btn
+                  >
                 </v-card-actions>
               </v-card>
             </v-dialog>
@@ -70,7 +82,7 @@
           <v-icon small @click="deleteItem(item)">delete</v-icon>
         </template>
         <template v-slot:no-data>
-          <v-btn color="primary" @click="initialize">Oublier</v-btn>
+          <v-btn color="secondary" @click="initialize">Oublier</v-btn>
         </template>
       </v-data-table>
       <!-- snackbar -->
@@ -93,11 +105,11 @@ export default {
     return {
       //snackbar
       color: "success",
-      
+
       snackbar: false,
       snackBar_text: "",
       timeout: 6000,
-      snackbar_color:"",
+      snackbar_color: "",
       x: null,
       y: "top",
       //snackbar end
@@ -163,49 +175,49 @@ export default {
         {
           title:
             "Le nombre de places vacantes par chaque filière est précisé dans la rubrique",
-          end_at: new Date(),
+          end_at: new Date().toDateString(),
           status: "En cours"
         },
         {
           title:
             "Inscription des listes d'attente (3ème et 4ème année) le 24 et 25 Juillet",
-          end_at: new Date(),
+          end_at: new Date().toDateString(),
           status: "En cours"
         },
         {
           title:
             "Le nombre de places vacantes par chaque filière est précisé dans la rubrique",
-          end_at: new Date(),
+          end_at: new Date().toDateString(),
           status: "En cours"
         },
         {
           title:
             "Inscription des listes d'attente (3ème et 4ème année) le 24 et 25 Juillet",
-          end_at: new Date(),
+          end_at: new Date().toDateString(),
           status: "En cours"
         },
         {
           title:
             "Le nombre de places vacantes par chaque filière est précisé dans la rubrique",
-          end_at: new Date(),
+          end_at: new Date().toDateString(),
           status: "En cours"
         },
         {
           title:
             "Inscription des listes d'attente (3ème et 4ème année) le 24 et 25 Juillet",
-          end_at: new Date(),
+          end_at: new Date().toDateString(),
           status: "En cours"
         },
         {
           title:
             "Le nombre de places vacantes par chaque filière est précisé dans la rubrique",
-          end_at: new Date(),
+          end_at: new Date().toDateString(),
           status: "En cours"
         },
         {
           title:
             "Inscription des listes d'attente (3ème et 4ème année) le 24 et 25 Juillet",
-          end_at: new Date(),
+          end_at: new Date().toDateString(),
           status: "En cours"
         }
       ];
@@ -218,22 +230,23 @@ export default {
 
     deleteItem(item) {
       const index = this.alerts.indexOf(item);
-      const deleteStatus=confirm("Are you sure you want to delete this item?");
-      
+      const deleteStatus = confirm(
+        "Are you sure you want to delete this item?"
+      );
+
       // if(!deleteStatus){
       //   this.snackbar=true;
       //   this.snackBar_text="You are cancel delete !";
       // }
-      if(deleteStatus){
+      if (deleteStatus) {
         this.alerts.splice(index, 1);
-        this.snackbar=true;
-        this.snackbar_color="success";
-        this.snackBar_text="Delete with success status !";
-        
-      }else{
-        this.snackbar=true;
-        this.snackbar_color="error";
-        this.snackBar_text="You are cancel delete !";
+        this.snackbar = true;
+        this.snackbar_color = "success";
+        this.snackBar_text = "Delete with success status !";
+      } else {
+        this.snackbar = true;
+        this.snackbar_color = "error";
+        this.snackBar_text = "You are cancel delete !";
       }
     },
 
@@ -256,4 +269,3 @@ export default {
   }
 };
 </script>
-

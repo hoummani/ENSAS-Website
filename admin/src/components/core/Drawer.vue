@@ -1,7 +1,6 @@
 <template>
   <nav>
-    <v-app-bar dense app elevate-on-scroll >
-    
+    <v-app-bar dense app elevate-on-scroll>
       <v-app-bar-nav-icon @click="onDrawer()"></v-app-bar-nav-icon>
 
       <v-toolbar-title>e-ENSAS Dashboard</v-toolbar-title>
