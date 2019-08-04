@@ -39,9 +39,7 @@
                           v-model="editedItem.title"
                           label="Titre d'annonce"
                         ></v-textarea>
-                        <!--
-                        <v-text-field v-model="editedItem.title" label="Titre d'annonce"></v-text-field>
-                        -->
+                        
                       </v-flex>
                       <v-flex xs12 sm12 md12>
                         <v-text-field
@@ -49,17 +47,7 @@
                           label="Date limite"
                         ></v-text-field>
                       </v-flex>
-                      <!--
-                      <v-flex xs12 sm12 md12>
-                        <v-text-field v-model="editedItem.filiere" label="Filiere"></v-text-field>
-                      </v-flex>
-                      <v-flex xs12 sm12 md12>
-                        <v-text-field v-model="editedItem.level" label="Niveau"></v-text-field>
-                      </v-flex>
-                      <v-flex xs12 sm12 md12>
-                        <v-text-field v-model="editedItem.status" label="Etat"></v-text-field>
-                      </v-flex>
-                      -->
+                      
                     </v-layout>
                   </v-container>
                 </v-card-text>
