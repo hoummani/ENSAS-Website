@@ -24,46 +24,15 @@
         </v-tooltip>
         <v-spacer></v-spacer>
         <!-- modal -->
-        <v-dialog v-model="dialog" max-width="500px">
-          <template v-slot:activator="{ on }">
-            <v-btn color="secondary" dark class="mb-2" v-on="on">Nouvelle Actualite</v-btn>
-          </template>
-          <v-card>
-            <v-card-title>
-              <span class="headline">{{ formTitle }}</span>
-            </v-card-title>
-
-            <v-card-text>
-              <v-container grid-list-md>
-                <v-layout wrap>
-                  <v-flex xs12 sm12 md12>
-                    <v-textarea v-model="editedItem.title" label="Titre d'actualite"></v-textarea>
-                  </v-flex>
-                  <v-flex xs12 sm12 md12>
-                    <v-text-field v-model="editedItem.date" label="Date limite"></v-text-field>
-                  </v-flex>
-                  <v-flex xs12 sm12 md12>
-                    <v-text-field v-model="editedItem.description_content" label="Contenu de description"></v-text-field>
-                  </v-flex>
-                  <v-flex xs12 sm12 md12>
-                    <v-text-field v-model="editedItem.description_url" label="Reference de description"></v-text-field>
-                  </v-flex>
-                </v-layout>
-              </v-container>
-            </v-card-text>
-
-            <v-card-actions>
-              <v-spacer></v-spacer>
-              <v-btn color="blue darken-1" text @click="close">Cancel</v-btn>
-              <v-btn color="blue darken-1" text @click="save">Enregistrer</v-btn>
-            </v-card-actions>
-          </v-card>
-        </v-dialog>
+        <v-btn color="secondary" dark class="mb-2"
+              >Nouvelle Actualite</v-btn
+            >
+        
       </v-layout>
       <v-card flat class="pa-2" v-for="item in actualities" :key="item.title">
         <v-layout row wrap :class="`pa-3 actualite ${item.status}`">
           <v-flex xs12 sm6 md8>
-            <div class="caption grey--text">Titre d'anonce</div>
+            <div class="caption grey--text">Titre d'actualite</div>
             <div class="body-2 font-weight-bold">{{ item.title }}</div>
           </v-flex>
 
@@ -105,15 +74,15 @@
       </v-card>
     </div>
     <!-- snackbar -->
-      <v-snackbar
-        v-model="snackbar"
-        bottom
-        :color="snackbar_color"
-        :timeout="timeout"
-      >
-        {{ snackBar_text }}
-        <v-btn dark text @click="snackbar = false">Close</v-btn>
-      </v-snackbar>
+    <v-snackbar
+      v-model="snackbar"
+      bottom
+      :color="snackbar_color"
+      :timeout="timeout"
+    >
+      {{ snackBar_text }}
+      <v-btn dark text @click="snackbar = false">Close</v-btn>
+    </v-snackbar>
   </div>
 </template>
 
@@ -122,7 +91,7 @@ export default {
   data() {
     return {
       //snackbar
-      color: "success",
+      
 
       snackbar: false,
       snackBar_text: "",
@@ -132,33 +101,15 @@ export default {
       y: "top",
       //snackbar end
       actualities: [],
-      dialog: false,
-      editedIndex: -1,
-      editedItem: {
-        title: "",
-        date: new Date().toDateString(),
-        description_content: "",
-        description_url: "",
-        status: ""
-      },
-      defaultItem: {
-        title: "",
-        date: new Date().toDateString(),
-        description_content: "",
-        description_url: "",
-        status: ""
-      }
+      
+      
     };
   },
   created() {
     this.initialize();
   },
   computed: {
-    formTitle() {
-      return this.editedIndex === -1
-        ? "Ajouter Une Actualite"
-        : "Editer une Actualite";
-    }
+    
   },
   methods: {
     initialize() {
@@ -223,22 +174,13 @@ export default {
     sortedBy(prop) {
       this.actualities.sort((a, b) => (a[prop] < b[prop] ? -1 : 1));
     },
-    editItem(item) {
-      this.editedIndex = this.actualities.indexOf(item);
-      this.editedItem = Object.assign({}, item);
-      this.dialog = true;
-    },
+    
 
     deleteItem(item) {
       const index = this.actualities.indexOf(item);
       const deleteStatus = confirm(
         "Are you sure you want to delete this item?"
       );
-
-      // if(!deleteStatus){
-      //   this.snackbar=true;
-      //   this.snackBar_text="You are cancel delete !";
-      // }
       if (deleteStatus) {
         this.actualities.splice(index, 1);
         this.snackbar = true;
@@ -250,22 +192,7 @@ export default {
         this.snackBar_text = "You are cancel delete !";
       }
     },
-    close() {
-      this.dialog = false;
-      setTimeout(() => {
-        this.editedItem = Object.assign({}, this.defaultItem);
-        this.editedIndex = -1;
-      }, 300);
-    },
-
-    save() {
-      if (this.editedIndex > -1) {
-        Object.assign(this.actualities[this.editedIndex], this.editedItem);
-      } else {
-        this.actualities.push(this.editedItem);
-      }
-      this.close();
-    }
+    
   }
 };
 </script>

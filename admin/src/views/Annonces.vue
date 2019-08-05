@@ -39,7 +39,6 @@
                           v-model="editedItem.title"
                           label="Titre d'annonce"
                         ></v-textarea>
-                        
                       </v-flex>
                       <v-flex xs12 sm12 md12>
                         <v-text-field
@@ -47,7 +46,6 @@
                           label="Date limite"
                         ></v-text-field>
                       </v-flex>
-                      
                     </v-layout>
                   </v-container>
                 </v-card-text>
