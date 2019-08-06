@@ -24,7 +24,7 @@
         </v-tooltip>
         <v-spacer></v-spacer>
         <!-- modal -->
-        <v-btn color="secondary" dark class="mb-2"
+        <v-btn color="secondary" to="/addActualitee" dark class="mb-2"
               >Nouvelle Actualite</v-btn
             >
         
@@ -87,6 +87,8 @@
 </template>
 
 <script>
+
+
 export default {
   data() {
     return {
@@ -107,6 +109,9 @@ export default {
   },
   created() {
     this.initialize();
+  },
+  components:{
+
   },
   computed: {
     

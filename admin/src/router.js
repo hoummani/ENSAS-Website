@@ -6,6 +6,7 @@ import Register from "./views/Register.vue";
 import Profile from "./views/Profile.vue";
 import Annonces from "./views/Annonces.vue";
 import Actualitees from "./views/Actualitees.vue";
+import AddActualitee from "./views/actualitee/AddActualitee.vue";
 
 Vue.use(Router);
 
@@ -42,6 +43,11 @@ export default new Router({
       path: "/actualitees",
       name: "actualitees",
       component: Actualitees
+    },
+    {
+      path: "/addActualitee",
+      name: "addActualitee",
+      component: AddActualitee
     }
   ]
 });
