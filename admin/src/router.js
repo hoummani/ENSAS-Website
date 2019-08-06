@@ -7,6 +7,7 @@ import Profile from "./views/Profile.vue";
 import Annonces from "./views/Annonces.vue";
 import Actualitees from "./views/Actualitees.vue";
 import AddActualitee from "./views/actualitee/AddActualitee.vue";
+import Calendar from "./views/Calendar.vue";
 
 Vue.use(Router);
 
@@ -48,6 +49,11 @@ export default new Router({
       path: "/addActualitee",
       name: "addActualitee",
       component: AddActualitee
+    },
+    {
+      path: "/calendar",
+      name: "calendar",
+      component: Calendar
     }
   ]
 });

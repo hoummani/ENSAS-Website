@@ -2,9 +2,7 @@
   <div id="addActualite">
     <h4
       class="display-2 font-weight-thin grey--text text-xs-center text-sm-center"
-    >
-      Ajouter une actualitee
-    </h4>
+    >Ajouter une actualitee</h4>
     <v-btn text class="grey--text" to="/actualitees">
       <v-icon left>arrow_back</v-icon>
       <span>Retour</span>
@@ -21,12 +19,7 @@
           required
         ></v-text-field>
         <!--  date -->
-        <v-menu
-          v-model="menu2"
-          :close-on-content-click="false"
-          full-width
-          max-width="290"
-        >
+        <v-menu v-model="menu2" :close-on-content-click="false" full-width max-width="290">
           <template v-slot:activator="{ on }">
             <v-text-field
               :value="formatedDate"
@@ -37,10 +30,7 @@
               v-on="on"
             ></v-text-field>
           </template>
-          <v-date-picker
-            v-model="actualitee.ended_at"
-            @change="menu2 = false"
-          ></v-date-picker>
+          <v-date-picker v-model="actualitee.ended_at" @change="menu2 = false"></v-date-picker>
         </v-menu>
 
         <!-- select content -->
@@ -54,14 +44,7 @@
         ></v-select>
         <v-layout row wrap>
           <!-- urls content -->
-          <v-flex
-            xs12
-            sm12
-            md12
-            lg12
-            v-for="(row, index) in actualitee.urls"
-            :key="index"
-          >
+          <v-flex xs12 sm12 md12 lg12 v-for="(row, index) in actualitee.urls" :key="index">
             <v-card class="mb-3 pa-5">
               <v-text-field
                 v-model="row.link_title"
@@ -91,29 +74,11 @@
 
           <!-- content as list of text -->
 
-          <v-flex
-            xs12
-            sm12
-            md12
-            lg12
-            v-for="(row, index) in actualitee.contents"
-            :key="index"
-          >
+          <v-flex xs12 sm12 md12 lg12 v-for="(row, index) in actualitee.contents" :key="index">
             <v-card class="mb-3 pa-5">
-              <v-textarea
-                v-model="row.message"
-                :rules="messageRules"
-                label="Message"
-                required
-              ></v-textarea>
+              <v-textarea v-model="row.message" :rules="messageRules" label="Message" required></v-textarea>
               <div>
-                <v-btn
-                  class="mx-2"
-                  fab
-                  @click="removeContentRow(index)"
-                  small
-                  text
-                >
+                <v-btn class="mx-2" fab @click="removeContentRow(index)" small text>
                   <v-icon>remove</v-icon>
                 </v-btn>
                 <v-btn fab small @click="addContentRow" text>
@@ -125,9 +90,9 @@
         </v-layout>
         <!-- buttons  -->
         <div class="mt-4">
-          <v-btn color="primary" class="mr-4">Enregistrer</v-btn>
+          <v-btn color="primary" @click="submit" class="mr-4">Enregistrer</v-btn>
 
-          <v-btn>Réinitialiser</v-btn>
+          <v-btn @click="reset()">Réinitialiser</v-btn>
         </div>
       </v-form>
     </v-container>
@@ -221,18 +186,22 @@ export default {
     },
     removeUrlRow(index) {
       this.actualitee.urls.splice(index, 1);
-    }
+    },
     //------------ end select methods  ---->
-  },
-  watch: {
-    "actualitee.select_type": function(v) {
-      if (v == "Liste de texte") {
-        console.log("Text");
-      } else if (v == "Liste de liens") {
-        console.log("Link");
-      } else {
-        console.log("other");
+
+    submit() {
+      if (this.$refs.form.validate()) {
+        console.log(this.actualitee.title);
+        console.log(this.actualitee.ended_at);
+        console.log(this.actualitee.contents);
+        console.log(this.actualitee.urls);
+        
+      }else{
+        console.log("Not valid !");
       }
+    },
+    reset() {
+      this.$refs.form.reset();
     }
   }
 };
