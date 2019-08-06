@@ -25,9 +25,8 @@
         <v-spacer></v-spacer>
         <!-- modal -->
         <v-btn color="secondary" to="/addActualitee" dark class="mb-2"
-              >Nouvelle Actualite</v-btn
-            >
-        
+          >Nouvelle Actualite</v-btn
+        >
       </v-layout>
       <v-card flat class="pa-2" v-for="item in actualities" :key="item.title">
         <v-layout row wrap :class="`pa-3 actualite ${item.status}`">
@@ -87,13 +86,10 @@
 </template>
 
 <script>
-
-
 export default {
   data() {
     return {
       //snackbar
-      
 
       snackbar: false,
       snackBar_text: "",
@@ -102,20 +98,14 @@ export default {
       x: null,
       y: "top",
       //snackbar end
-      actualities: [],
-      
-      
+      actualities: []
     };
   },
   created() {
     this.initialize();
   },
-  components:{
-
-  },
-  computed: {
-    
-  },
+  components: {},
+  computed: {},
   methods: {
     initialize() {
       this.actualities = [
@@ -179,7 +169,6 @@ export default {
     sortedBy(prop) {
       this.actualities.sort((a, b) => (a[prop] < b[prop] ? -1 : 1));
     },
-    
 
     deleteItem(item) {
       const index = this.actualities.indexOf(item);
@@ -196,8 +185,7 @@ export default {
         this.snackbar_color = "error";
         this.snackBar_text = "You are cancel delete !";
       }
-    },
-    
+    }
   }
 };
 </script>

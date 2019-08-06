@@ -2,7 +2,9 @@
   <div id="addActualite">
     <h4
       class="display-2 font-weight-thin grey--text text-xs-center text-sm-center"
-    >Ajouter une actualitee</h4>
+    >
+      Ajouter une actualitee
+    </h4>
     <v-btn text class="grey--text" to="/actualitees">
       <v-icon left>arrow_back</v-icon>
       <span>Retour</span>
@@ -19,7 +21,12 @@
           required
         ></v-text-field>
         <!--  date -->
-        <v-menu v-model="menu2" :close-on-content-click="false" full-width max-width="290">
+        <v-menu
+          v-model="menu2"
+          :close-on-content-click="false"
+          full-width
+          max-width="290"
+        >
           <template v-slot:activator="{ on }">
             <v-text-field
               :value="formatedDate"
@@ -30,7 +37,10 @@
               v-on="on"
             ></v-text-field>
           </template>
-          <v-date-picker v-model="actualitee.ended_at" @change="menu2 = false"></v-date-picker>
+          <v-date-picker
+            v-model="actualitee.ended_at"
+            @change="menu2 = false"
+          ></v-date-picker>
         </v-menu>
 
         <!-- select content -->
@@ -39,22 +49,41 @@
           :items="items"
           label="Selectioner le type de votre contenu"
           :rules="aclualiteeRules.select_type_content"
-          v-on:change="optionChoose" 
+          v-on:change="optionChoose"
           required
         ></v-select>
         <v-layout row wrap>
           <!-- urls content -->
-          <v-flex xs12 sm12 md12 lg12 v-for="(row,index) in actualitee.urls" :key="index">
+          <v-flex
+            xs12
+            sm12
+            md12
+            lg12
+            v-for="(row, index) in actualitee.urls"
+            :key="index"
+          >
             <v-card class="mb-3 pa-5">
-              <v-text-field v-model="row.link_title" :rules="link_titleRules" type="text" label="Titre de lien" required></v-text-field>
+              <v-text-field
+                v-model="row.link_title"
+                :rules="link_titleRules"
+                type="text"
+                label="Titre de lien"
+                required
+              ></v-text-field>
 
-              <v-text-field v-model="row.link" type="url" :rules="linkRules" label="Le lien" required></v-text-field>
-              <div >
-                <v-btn class="mx-2" fab  @click="removeUrlRow(index)" small text>
-                  <v-icon >remove</v-icon>
+              <v-text-field
+                v-model="row.link"
+                type="url"
+                :rules="linkRules"
+                label="Le lien"
+                required
+              ></v-text-field>
+              <div>
+                <v-btn class="mx-2" fab @click="removeUrlRow(index)" small text>
+                  <v-icon>remove</v-icon>
                 </v-btn>
-                <v-btn fab  @click="addUrlRowPerformClick" small text>
-                  <v-icon >add</v-icon>
+                <v-btn fab @click="addUrlRow" small text>
+                  <v-icon>add</v-icon>
                 </v-btn>
               </div>
             </v-card>
@@ -62,22 +91,33 @@
 
           <!-- content as list of text -->
 
-          <v-flex xs12 sm12 md12 lg12 v-for="(row,index) in actualitee.contents" :key="index">
-            <v-card class="mb-3 pa-5" >
-              <v-textarea v-model="row.message" :rules="messageRules" label="Message" required></v-textarea>
-              <div >
+          <v-flex
+            xs12
+            sm12
+            md12
+            lg12
+            v-for="(row, index) in actualitee.contents"
+            :key="index"
+          >
+            <v-card class="mb-3 pa-5">
+              <v-textarea
+                v-model="row.message"
+                :rules="messageRules"
+                label="Message"
+                required
+              ></v-textarea>
+              <div>
                 <v-btn
                   class="mx-2"
                   fab
                   @click="removeContentRow(index)"
-                  
                   small
                   text
                 >
-                  <v-icon >remove</v-icon>
+                  <v-icon>remove</v-icon>
                 </v-btn>
-                <v-btn fab  small @click="addContentRowPerformClick" text>
-                  <v-icon >add</v-icon>
+                <v-btn fab small @click="addContentRow" text>
+                  <v-icon>add</v-icon>
                 </v-btn>
               </div>
             </v-card>
@@ -94,7 +134,6 @@
   </div>
 </template>
 
-
 <script>
 import format from "date-fns/format";
 export default {
@@ -106,13 +145,13 @@ export default {
       actualitee: {
         title: "",
         ended_at: new Date().toISOString().substr(0, 10),
-        
+
         contents: [],
         urls: []
       },
-      message:"",
-      link:"",
-      link_title:"",
+      message: "",
+      link: "",
+      link_title: "",
 
       //------  Validation Rules  ------>
       aclualiteeRules: {
@@ -123,17 +162,21 @@ export default {
         ended_atRules: [v => !!v || "Limit date is required"],
         select_type_content: [v => !!v || "One option is required"]
       },
-      messageRules:[
+      messageRules: [
         v => !!v || "Text message is required",
-        v => (v && v.length >= 4) || "Text message must be great than 4 characters"
+        v =>
+          (v && v.length >= 4) || "Text message must be great than 4 characters"
       ],
-      link_titleRules:[
+      link_titleRules: [
         v => !!v || "Link title is required",
         v => (v && v.length >= 6) || "Link title  must be valid"
       ],
-      linkRules:[
+      linkRules: [
         v => !!v || "Link field is required !",
-        v => /[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_\+.~#?&//=]*)?/gi.test(v) || "Link field must bes valid !"
+        v =>
+          /[-a-zA-Z0-9@:%._+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_+.~#?&//=]*)?/gi.test(
+            v
+          ) || "Link field must bes valid !"
       ]
       //------- End of Validation Rules -------->
     };
@@ -149,10 +192,10 @@ export default {
     //------- select methods  ----->
     optionChoose(e) {
       if (e == "Liste de texte") {
-        this.actualitee.contents=[];
+        this.actualitee.contents = [];
         this.addContentRow();
       } else if (e == "Liste de liens") {
-        this.actualitee.urls=[];
+        this.actualitee.urls = [];
         this.addUrlRow();
       } else {
         console.log("other choose !");
@@ -164,25 +207,11 @@ export default {
         message: ""
       });
     },
-    addContentRowPerformClick(){
-      if(this.message=""){
-        console.log("Write some content !");
-        
-      }else{
-        this.addContentRow();
-      }
-    },
+
     removeContentRow(index) {
-     this.actualitee.contents.splice(index, 1);
-      
+      this.actualitee.contents.splice(index, 1);
     },
-    addUrlRowPerformClick(){
-      if(this.link_title!="" && this.link!=""){
-        this.addUrlRow();
-      }else{
-        console.log("Write something..!");
-      }
-    },
+
     addUrlRow() {
       this.actualitee.contents = [];
       this.actualitee.urls.push({
@@ -192,20 +221,19 @@ export default {
     },
     removeUrlRow(index) {
       this.actualitee.urls.splice(index, 1);
-    },
+    }
     //------------ end select methods  ---->
   },
   watch: {
-    "actualitee.select_type":function(v){
-      if(v=="Liste de texte"){
+    "actualitee.select_type": function(v) {
+      if (v == "Liste de texte") {
         console.log("Text");
-      }else if(v=="Liste de liens"){
+      } else if (v == "Liste de liens") {
         console.log("Link");
-      }else{
+      } else {
         console.log("other");
       }
     }
-  },
+  }
 };
 </script>
-
