@@ -11,38 +11,62 @@
       ></v-text-field>
       <v-spacer></v-spacer>
       <!-- add event dialog  -->
-      <v-layout justify-center>
+      <v-layout justify-end>
         <v-dialog v-model="dialog" persistent max-width="600px">
           <template v-slot:activator="{ on }">
             <v-btn color="secondary" dark v-on="on">Nouvelle evenement</v-btn>
           </template>
           <v-card>
-            <v-card-title>
-              <span class="headline">Ajouter un evenment</span>
-            </v-card-title>
-            <v-card-text>
-              <v-container grid-list-md>
-                <v-layout wrap>
-                  <v-flex xs12 sm12 md12 lg12>
-                    <v-text-field label="Titre d'action" required></v-text-field>
-                  </v-flex>
-                  <v-flex xs12 sm12 md12 lg12>
-                    <v-text-field label="Description"></v-text-field>
-                  </v-flex>
-                  <v-flex xs12 sm12 md12 lg12>
-                    <v-text-field label="Date limite" required></v-text-field>
-                  </v-flex>
-                  <v-flex xs12 sm12 md12 lg12>
-                    <v-select :items="['red', 'yellow', 'indigo', 'pink','purpel']" label="Coleur" required></v-select>
-                  </v-flex>
-                </v-layout>
-              </v-container>
-            </v-card-text>
-            <v-card-actions>
-              <v-spacer></v-spacer>
-              <v-btn color="blue darken-1" text @click="dialog = false">Close</v-btn>
-              <v-btn color="blue darken-1" text @click="dialog = false">Save</v-btn>
-            </v-card-actions>
+            <v-form ref="form" v-model="valid" lazy-validation>
+              <v-card-title>
+                <span class="headline">Ajouter un evenment</span>
+              </v-card-title>
+              <v-card-text>
+                <v-container grid-list-md>
+                  <v-layout wrap>
+                    <v-flex xs12 sm12 md12 lg12>
+                      <v-text-field
+                        v-model="event.name"
+                        :rules="eventValidation.name"
+                        label="Titre d'action"
+                        required
+                      ></v-text-field>
+                    </v-flex>
+                    <v-flex xs12 sm12 md12 lg12>
+                      <v-text-field
+                        v-model="event.details"
+                        label="Description"
+                        :rules="eventValidation.details"
+                      ></v-text-field>
+                    </v-flex>
+                    <v-flex xs12 sm12 md12 lg12>
+                      <v-text-field
+                        label="Date limite"
+                        :rules="eventValidation.end"
+                        v-model="event.end_at"
+                        required
+                      ></v-text-field>
+                    </v-flex>
+                    <v-flex xs12 sm12 md12 lg12>
+                      <v-select
+                        :items="['red', 'yellow', 'indigo', 'pink', 'purpel']"
+                        v-model="event.color"
+                        label="Couleur"
+                        :rules="eventValidation.color"
+                        required
+                      ></v-select>
+                    </v-flex>
+                  </v-layout>
+                </v-container>
+              </v-card-text>
+              <v-card-actions>
+                <v-spacer></v-spacer>
+                <v-btn color="blue darken-1" text @click="reset">Fermer</v-btn>
+                <v-btn color="blue darken-1" @click="submit" text
+                  >Enregistrer</v-btn
+                >
+              </v-card-actions>
+            </v-form>
           </v-card>
         </v-dialog>
       </v-layout>
@@ -126,7 +150,9 @@
                 <span v-html="selectedEvent.details"></span>
               </v-card-text>
               <v-card-actions>
-                <v-btn text color="secondary" @click="selectedOpen = false">Cancel</v-btn>
+                <v-btn text color="secondary" @click="selectedOpen = false"
+                  >Cancel</v-btn
+                >
               </v-card-actions>
             </v-card>
           </v-menu>
@@ -145,8 +171,8 @@ export default {
       search: "",
 
       //calendar data
-      today: new Date(),
-      focus: new Date(),
+      today: "2019-01-08",
+      focus: "2019-01-08",
       type: "month",
       typeToLabel: {
         month: "Month",
@@ -159,6 +185,29 @@ export default {
       selectedEvent: {},
       selectedElement: null,
       selectedOpen: false,
+
+      //form add event
+      valid: false,
+      event: {
+        name: "",
+        details: "",
+        start_at: "",
+        end_at: "",
+        color: "cyan"
+      },
+      eventValidation: {
+        name: [
+          v => !!v || "Name is required",
+          v => (v && v.length >= 4) || "Name must be valid"
+        ],
+        details: [
+          v => !!v || "Details are required",
+          v => (v && v.length >= 6) || "Details must be valid"
+        ],
+
+        end: [v => !!v || "End date is required"],
+        color: [v => !!v || "Color is required"]
+      },
       events: [
         {
           name: "Vacation",
@@ -366,8 +415,18 @@ export default {
       return d > 3 && d < 21
         ? "th"
         : ["th", "st", "nd", "rd", "th", "th", "th", "th", "th", "th"][d % 10];
+    },
+    submit() {
+      if (this.$refs.form.validate()) {
+        console.log("Valid :)");
+      } else {
+        console.log("Not valid :( !");
+      }
+    },
+    reset() {
+      this.dialog = false;
+      this.$refs.form.reset();
     }
   }
 };
 </script>
-

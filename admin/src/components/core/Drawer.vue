@@ -61,7 +61,7 @@
 
       <v-divider></v-divider>
 
-      <v-list dense nav >
+      <v-list dense nav>
         <v-list-item
           v-for="item in items"
           :key="item.title"
@@ -70,11 +70,11 @@
           class="ensas-nav"
         >
           <v-list-item-icon>
-            <v-icon >{{ item.icon }}</v-icon>
+            <v-icon>{{ item.icon }}</v-icon>
           </v-list-item-icon>
 
           <v-list-item-content>
-            <v-list-item-title >{{ item.title }}</v-list-item-title>
+            <v-list-item-title>{{ item.title }}</v-list-item-title>
           </v-list-item-content>
         </v-list-item>
       </v-list>
@@ -129,15 +129,14 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.ensas-nav:active{
+.ensas-nav:active {
   color: white;
 }
-.ensas-nav:hover{
-   color: white;
+.ensas-nav:hover {
+  color: white;
 }
-.ensas-nav:link:focus{
+.ensas-nav:link:focus {
   color: white;
   text-decoration-color: white;
 }
 </style>
-
