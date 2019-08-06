@@ -10,9 +10,43 @@
         hide-details
       ></v-text-field>
       <v-spacer></v-spacer>
-      <v-btn color="secondary"  dark class="mb-2"
-                  >Nouvelle evenement</v-btn
-                >
+      <!-- add event dialog  -->
+      <v-layout justify-center>
+        <v-dialog v-model="dialog" persistent max-width="600px">
+          <template v-slot:activator="{ on }">
+            <v-btn color="secondary" dark v-on="on">Nouvelle evenement</v-btn>
+          </template>
+          <v-card>
+            <v-card-title>
+              <span class="headline">Ajouter un evenment</span>
+            </v-card-title>
+            <v-card-text>
+              <v-container grid-list-md>
+                <v-layout wrap>
+                  <v-flex xs12 sm12 md12 lg12>
+                    <v-text-field label="Titre d'action" required></v-text-field>
+                  </v-flex>
+                  <v-flex xs12 sm12 md12 lg12>
+                    <v-text-field label="Description"></v-text-field>
+                  </v-flex>
+                  <v-flex xs12 sm12 md12 lg12>
+                    <v-text-field label="Date limite" required></v-text-field>
+                  </v-flex>
+                  <v-flex xs12 sm12 md12 lg12>
+                    <v-select :items="['red', 'yellow', 'indigo', 'pink','purpel']" label="Coleur" required></v-select>
+                  </v-flex>
+                </v-layout>
+              </v-container>
+            </v-card-text>
+            <v-card-actions>
+              <v-spacer></v-spacer>
+              <v-btn color="blue darken-1" text @click="dialog = false">Close</v-btn>
+              <v-btn color="blue darken-1" text @click="dialog = false">Save</v-btn>
+            </v-card-actions>
+          </v-card>
+        </v-dialog>
+      </v-layout>
+      <!-- end add event  -->
     </v-layout>
     <v-layout fill-height>
       <v-flex>
@@ -106,7 +140,11 @@
 export default {
   data() {
     return {
+      //search and add event
+      dialog: false,
       search: "",
+
+      //calendar data
       today: new Date(),
       focus: new Date(),
       type: "month",

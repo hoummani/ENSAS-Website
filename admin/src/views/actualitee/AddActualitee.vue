@@ -30,7 +30,7 @@
               v-on="on"
             ></v-text-field>
           </template>
-          <v-date-picker v-model="actualitee.ended_at" @change="menu2 = false"></v-date-picker>
+          <v-date-picker v-model="actualitee.ended_at" locale="fr" @change="menu2 = false"></v-date-picker>
         </v-menu>
 
         <!-- select content -->
