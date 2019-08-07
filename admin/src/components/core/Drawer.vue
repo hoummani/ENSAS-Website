@@ -93,7 +93,7 @@ export default {
         { title: "Anonces", icon: "announcement", url: "/annonces" },
         { title: "Aclualitees", icon: "assignment", url: "/actualitees" },
         { title: "Calendrier", icon: "date_range", url: "/calendar" },
-        { title: "Reinscription", icon: "input", url: null },
+        { title: "Reinscription", icon: "input", url: "/reinscription" },
         { title: "Concours", icon: "question_answer", url: null },
         { title: "Choix de filieres", icon: "mdi-help-box", url: null },
         { title: "Espace PFE", icon: "school", url: null },
