@@ -28,7 +28,13 @@
           >Nouvelle Actualite</v-btn
         >
       </v-layout>
-      <v-card flat class="pa-2" v-for="item in actualities" :key="item.title">
+      <v-card
+        flat
+        class="pa-2"
+        v-for="item in actualities"
+        :key="item.title"
+        v-ripple="{ class: `indigo--text lighten-2` }"
+      >
         <v-layout row wrap :class="`pa-3 actualite ${item.status}`">
           <v-flex xs12 sm6 md8>
             <div class="caption grey--text">Titre d'actualite</div>

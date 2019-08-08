@@ -7,14 +7,14 @@
 
       <v-spacer></v-spacer>
 
-      <div>
+      <div class="hidden-xs-only">
         <v-text-field
           label="Recherche..."
           single-line
           class="mt-4"
         ></v-text-field>
       </div>
-      <v-btn icon>
+      <v-btn icon class="hidden-xs-only">
         <v-icon>search</v-icon>
       </v-btn>
 
@@ -40,14 +40,14 @@
         </v-menu>
       </v-btn>
 
-      <v-btn icon>
+      <v-btn icon class="hidden-xs-only">
         <v-icon>person</v-icon>
       </v-btn>
-      <v-btn icon>
+      <v-btn icon class="hidden-xs-only">
         <v-icon>mdi-settings</v-icon>
       </v-btn>
 
-      <v-btn icon>
+      <v-btn icon class="hidden-xs-only">
         <v-icon>more_vert</v-icon>
       </v-btn>
     </v-app-bar>

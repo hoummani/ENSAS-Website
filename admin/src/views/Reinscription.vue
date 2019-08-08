@@ -60,11 +60,21 @@
 
         <template v-slot:default="props">
           <v-layout wrap>
-            <v-flex v-for="item in props.items" :key="item.cin" xs12 sm6 md4 lg3>
+            <v-flex
+              v-for="item in props.items"
+              :key="item.cin"
+              xs12
+              sm6
+              md4
+              lg3
+            >
               <v-card>
                 <v-card-title>
                   <v-avatar class="mr-3">
-                    <img src="https://cdn.vuetifyjs.com/images/john.jpg" alt="John" />
+                    <img
+                      src="https://cdn.vuetifyjs.com/images/john.jpg"
+                      alt="John"
+                    />
                   </v-avatar>
                   <div class="body-1 font-weight-thin">{{ item.nom }}</div>
                 </v-card-title>
@@ -79,9 +89,7 @@
                   >
                     <v-list-item-content>{{ key }}:</v-list-item-content>
                     <v-list-item-content class="align-end">
-                      {{
-                      item[key.toLowerCase()]
-                      }}
+                      {{ item[key.toLowerCase()] }}
                     </v-list-item-content>
                   </v-list-item>
                 </v-list>
@@ -97,7 +105,7 @@
                     <v-icon>email</v-icon>
                   </v-btn>
                   <!-- ------  -->
-                   <!--  edit operation  -->
+                  <!--  edit operation  -->
                   <v-layout row justify-center>
                     <v-dialog v-model="dialog" persistent max-width="600px">
                       <template v-slot:activator="{ on }">
@@ -107,13 +115,19 @@
                       </template>
                       <v-card>
                         <v-card-title>
-                          <span class="headline">Editer le profile de {{item.nom}}</span>
+                          <span class="headline"
+                            >Editer le profile de {{ item.nom }}</span
+                          >
                         </v-card-title>
                         <v-card-text>
                           <v-container grid-list-md>
                             <v-layout wrap>
                               <v-flex xs12 sm6 md4>
-                                <v-text-field v-model="item.nom" label="Legal first name*" required></v-text-field>
+                                <v-text-field
+                                  v-model="item.nom"
+                                  label="Legal first name*"
+                                  required
+                                ></v-text-field>
                               </v-flex>
                               <v-flex xs12 sm6 md4>
                                 <v-text-field
@@ -130,10 +144,17 @@
                                 ></v-text-field>
                               </v-flex>
                               <v-flex xs12>
-                                <v-text-field label="Email*" required></v-text-field>
+                                <v-text-field
+                                  label="Email*"
+                                  required
+                                ></v-text-field>
                               </v-flex>
                               <v-flex xs12>
-                                <v-text-field label="Password*" type="password" required></v-text-field>
+                                <v-text-field
+                                  label="Password*"
+                                  type="password"
+                                  required
+                                ></v-text-field>
                               </v-flex>
                               <v-flex xs12 sm6>
                                 <v-select
@@ -144,25 +165,42 @@
                               </v-flex>
                               <v-flex xs12 sm6>
                                 <v-autocomplete
-                                  :items="['Skiing', 'Ice hockey', 'Soccer', 'Basketball', 'Hockey', 'Reading', 'Writing', 'Coding', 'Basejump']"
+                                  :items="[
+                                    'Skiing',
+                                    'Ice hockey',
+                                    'Soccer',
+                                    'Basketball',
+                                    'Hockey',
+                                    'Reading',
+                                    'Writing',
+                                    'Coding',
+                                    'Basejump'
+                                  ]"
                                   label="Interests"
                                   multiple
                                 ></v-autocomplete>
                               </v-flex>
                             </v-layout>
                           </v-container>
-                          
                         </v-card-text>
                         <v-card-actions>
                           <v-spacer></v-spacer>
-                          <v-btn color="blue darken-1" text @click="dialog = false">Close</v-btn>
-                          <v-btn color="blue darken-1" text @click="dialog = false">Save</v-btn>
+                          <v-btn
+                            color="blue darken-1"
+                            text
+                            @click="dialog = false"
+                            >Close</v-btn
+                          >
+                          <v-btn
+                            color="blue darken-1"
+                            text
+                            @click="dialog = false"
+                            >Save</v-btn
+                          >
                         </v-card-actions>
                       </v-card>
                     </v-dialog>
                   </v-layout>
-                 
-                  
 
                   <!-- end edit operation  -->
 
@@ -199,7 +237,9 @@
 
             <v-spacer></v-spacer>
 
-            <span class="mr-4 grey--text">Page {{ page }} de {{ numberOfPages }}</span>
+            <span class="mr-4 grey--text"
+              >Page {{ page }} de {{ numberOfPages }}</span
+            >
             <v-btn text fab class="mr-1" @click="formerPage">
               <v-icon>keyboard_arrow_left</v-icon>
             </v-btn>
