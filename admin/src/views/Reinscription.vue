@@ -4,13 +4,13 @@
     <div>
       <v-container>
         <v-select
-        label="Selectioner le niveau universitaire"
-        :items="levels"
-        v-model="level_select"
-        item-text="name"
-        item-value="value"
-        autocomplete
-      ></v-select>
+          label="Selectioner le niveau universitaire"
+          :items="levels"
+          v-model="level_select"
+          item-text="name"
+          item-value="value"
+          autocomplete
+        ></v-select>
       </v-container>
     </div>
     <v-container fluid grid-list-md>
@@ -60,13 +60,23 @@
 
         <template v-slot:default="props">
           <v-layout wrap>
-            <v-flex v-for="item in props.items" :key="item.name" xs12 sm6 md4 lg3>
+            <v-flex
+              v-for="item in props.items"
+              :key="item.name"
+              xs12
+              sm6
+              md4
+              lg3
+            >
               <v-card>
                 <v-card-title>
                   <v-avatar class="mr-3">
-                    <img src="https://cdn.vuetifyjs.com/images/john.jpg" alt="John" />
+                    <img
+                      src="https://cdn.vuetifyjs.com/images/john.jpg"
+                      alt="John"
+                    />
                   </v-avatar>
-                  <div class="body-1 font-weight-thin">{{item.name}}</div>
+                  <div class="body-1 font-weight-thin">{{ item.name }}</div>
                 </v-card-title>
 
                 <v-divider></v-divider>
@@ -78,7 +88,9 @@
                     :color="sortBy === key ? `blue lighten-4` : `white`"
                   >
                     <v-list-item-content>{{ key }}:</v-list-item-content>
-                    <v-list-item-content class="align-end">{{ item[key.toLowerCase()] }}</v-list-item-content>
+                    <v-list-item-content class="align-end">{{
+                      item[key.toLowerCase()]
+                    }}</v-list-item-content>
                   </v-list-item>
                 </v-list>
                 <!-- actions  -->
@@ -127,7 +139,9 @@
 
             <v-spacer></v-spacer>
 
-            <span class="mr-4 grey--text">Page {{ page }} de {{ numberOfPages }}</span>
+            <span class="mr-4 grey--text"
+              >Page {{ page }} de {{ numberOfPages }}</span
+            >
             <v-btn text fab class="mr-1" @click="formerPage">
               <v-icon>keyboard_arrow_left</v-icon>
             </v-btn>
@@ -146,8 +160,8 @@ export default {
   data() {
     return {
       //select level
-      level_select:null,
-      
+      level_select: null,
+
       levels: [
         { header: "Cycle preparatoire" },
         { name: "1ere Annee", value: "first" },
@@ -316,4 +330,3 @@ export default {
   }
 };
 </script>
-

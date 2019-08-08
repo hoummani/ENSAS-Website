@@ -57,9 +57,9 @@ export default new Router({
       component: Calendar
     },
     {
-      path:"/reinscription",
-      name:"reinscription",
-      component:Reinscription
+      path: "/reinscription",
+      name: "reinscription",
+      component: Reinscription
     }
   ]
 });
