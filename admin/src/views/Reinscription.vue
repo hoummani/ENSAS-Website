@@ -32,7 +32,7 @@
               solo-inverted
               hide-details
               prepend-inner-icon="search"
-              label="Search"
+              label="Recherche.."
             ></v-text-field>
             <template v-if="$vuetify.breakpoint.mdAndUp">
               <v-spacer></v-spacer>
@@ -43,7 +43,7 @@
                 hide-details
                 :items="keys"
                 prepend-inner-icon="search"
-                label="Sort by"
+                label="Trier par"
               ></v-select>
               <v-spacer></v-spacer>
               <v-btn-toggle v-model="sortDesc" mandatory>
@@ -60,53 +60,113 @@
 
         <template v-slot:default="props">
           <v-layout wrap>
-            <v-flex
-              v-for="item in props.items"
-              :key="item.name"
-              xs12
-              sm6
-              md4
-              lg3
-            >
+            <v-flex v-for="item in props.items" :key="item.cin" xs12 sm6 md4 lg3>
               <v-card>
                 <v-card-title>
                   <v-avatar class="mr-3">
-                    <img
-                      src="https://cdn.vuetifyjs.com/images/john.jpg"
-                      alt="John"
-                    />
+                    <img src="https://cdn.vuetifyjs.com/images/john.jpg" alt="John" />
                   </v-avatar>
-                  <div class="body-1 font-weight-thin">{{ item.name }}</div>
+                  <div class="body-1 font-weight-thin">{{ item.nom }}</div>
                 </v-card-title>
 
                 <v-divider></v-divider>
 
-                <v-list dense>
+                <v-list>
                   <v-list-item
                     v-for="(key, index) in filteredKeys"
                     :key="index"
                     :color="sortBy === key ? `blue lighten-4` : `white`"
                   >
                     <v-list-item-content>{{ key }}:</v-list-item-content>
-                    <v-list-item-content class="align-end">{{
+                    <v-list-item-content class="align-end">
+                      {{
                       item[key.toLowerCase()]
-                    }}</v-list-item-content>
+                      }}
+                    </v-list-item-content>
                   </v-list-item>
                 </v-list>
                 <!-- actions  -->
                 <v-divider></v-divider>
                 <v-card-actions>
                   <v-spacer></v-spacer>
+                  <v-btn icon>
+                    <v-icon>more</v-icon>
+                  </v-btn>
 
-                  <v-btn icon @click="sendEmail(item.name)">
+                  <v-btn icon>
                     <v-icon>email</v-icon>
                   </v-btn>
+                  <!-- ------  -->
+                   <!--  edit operation  -->
+                  <v-layout row justify-center>
+                    <v-dialog v-model="dialog" persistent max-width="600px">
+                      <template v-slot:activator="{ on }">
+                        <v-btn icon v-on="on">
+                          <v-icon>add</v-icon>
+                        </v-btn>
+                      </template>
+                      <v-card>
+                        <v-card-title>
+                          <span class="headline">Editer le profile de {{item.nom}}</span>
+                        </v-card-title>
+                        <v-card-text>
+                          <v-container grid-list-md>
+                            <v-layout wrap>
+                              <v-flex xs12 sm6 md4>
+                                <v-text-field v-model="item.nom" label="Legal first name*" required></v-text-field>
+                              </v-flex>
+                              <v-flex xs12 sm6 md4>
+                                <v-text-field
+                                  label="Legal middle name"
+                                  hint="example of helper text only on focus"
+                                ></v-text-field>
+                              </v-flex>
+                              <v-flex xs12 sm6 md4>
+                                <v-text-field
+                                  label="Legal last name*"
+                                  hint="example of persistent helper text"
+                                  persistent-hint
+                                  required
+                                ></v-text-field>
+                              </v-flex>
+                              <v-flex xs12>
+                                <v-text-field label="Email*" required></v-text-field>
+                              </v-flex>
+                              <v-flex xs12>
+                                <v-text-field label="Password*" type="password" required></v-text-field>
+                              </v-flex>
+                              <v-flex xs12 sm6>
+                                <v-select
+                                  :items="['0-17', '18-29', '30-54', '54+']"
+                                  label="Age*"
+                                  required
+                                ></v-select>
+                              </v-flex>
+                              <v-flex xs12 sm6>
+                                <v-autocomplete
+                                  :items="['Skiing', 'Ice hockey', 'Soccer', 'Basketball', 'Hockey', 'Reading', 'Writing', 'Coding', 'Basejump']"
+                                  label="Interests"
+                                  multiple
+                                ></v-autocomplete>
+                              </v-flex>
+                            </v-layout>
+                          </v-container>
+                          
+                        </v-card-text>
+                        <v-card-actions>
+                          <v-spacer></v-spacer>
+                          <v-btn color="blue darken-1" text @click="dialog = false">Close</v-btn>
+                          <v-btn color="blue darken-1" text @click="dialog = false">Save</v-btn>
+                        </v-card-actions>
+                      </v-card>
+                    </v-dialog>
+                  </v-layout>
+                 
+                  
 
-                  <v-btn icon>
-                    <v-icon>edit</v-icon>
-                  </v-btn>
+                  <!-- end edit operation  -->
 
-                  <v-btn icon>
+                  <v-btn icon @click="deleteItem(item)">
                     <v-icon>delete</v-icon>
                   </v-btn>
                 </v-card-actions>
@@ -139,9 +199,7 @@
 
             <v-spacer></v-spacer>
 
-            <span class="mr-4 grey--text"
-              >Page {{ page }} de {{ numberOfPages }}</span
-            >
+            <span class="mr-4 grey--text">Page {{ page }} de {{ numberOfPages }}</span>
             <v-btn text fab class="mr-1" @click="formerPage">
               <v-icon>keyboard_arrow_left</v-icon>
             </v-btn>
@@ -191,119 +249,73 @@ export default {
       sortDesc: false,
       page: 1,
       itemsPerPage: 4,
-      sortBy: "name",
+      sortBy: "nom",
       keys: [
-        "Name",
-        "Calories",
-        "Fat",
-        "Carbs",
-        "Protein",
-        "Sodium",
-        "Calcium",
-        "Iron"
+        "Nom",
+        "Prenom",
+        "CIN",
+        "CNE",
+        "Email",
+        "Adresse",
+        "Naissance",
+        "Telephone"
       ],
       items: [
         {
-          name: "Frozen Yogurt",
-          calories: 159,
-          fat: 6.0,
-          carbs: 24,
-          protein: 4.0,
-          sodium: 87,
-          calcium: "14%",
-          iron: "1%"
+          nom: "Handi",
+          prenom: "Fouad",
+          cin: "HH234567",
+          cne: 122456578,
+          email: "handi.fouad@gmail.com",
+          adresse: "Azib darai rue 24",
+          naissance: "12-08-1996",
+          telephone: "0976545678"
         },
         {
-          name: "Ice cream sandwich",
-          calories: 237,
-          fat: 9.0,
-          carbs: 37,
-          protein: 4.3,
-          sodium: 129,
-          calcium: "8%",
-          iron: "1%"
+          nom: "Handi",
+          prenom: "Fouad",
+          cin: "HH2674567",
+          cne: 122456578,
+          email: "handi.fouad@gmail.com",
+          adresse: "Azib darai rue 24",
+          naissance: "12-08-1996",
+          telephone: "0976545678"
         },
         {
-          name: "Eclair",
-          calories: 262,
-          fat: 16.0,
-          carbs: 23,
-          protein: 6.0,
-          sodium: 337,
-          calcium: "6%",
-          iron: "7%"
+          nom: "Handi",
+          prenom: "Fouad",
+          cin: "HH2094567",
+          cne: 122456578,
+          email: "handi.fouad@gmail.com",
+          adresse: "Azib darai rue 24",
+          naissance: "12-08-1996",
+          telephone: "0976545678"
         },
         {
-          name: "Cupcake",
-          calories: 305,
-          fat: 3.7,
-          carbs: 67,
-          protein: 4.3,
-          sodium: 413,
-          calcium: "3%",
-          iron: "8%"
+          nom: "Handi",
+          prenom: "Fouad",
+          cin: "HH134567",
+          cne: 122456578,
+          email: "handi.fouad@gmail.com",
+          adresse: "Azib darai rue 24",
+          naissance: "12-08-1996",
+          telephone: "0976545678"
         },
         {
-          name: "Gingerbread",
-          calories: 356,
-          fat: 16.0,
-          carbs: 49,
-          protein: 3.9,
-          sodium: 327,
-          calcium: "7%",
-          iron: "16%"
-        },
-        {
-          name: "Jelly bean",
-          calories: 375,
-          fat: 0.0,
-          carbs: 94,
-          protein: 0.0,
-          sodium: 50,
-          calcium: "0%",
-          iron: "0%"
-        },
-        {
-          name: "Lollipop",
-          calories: 392,
-          fat: 0.2,
-          carbs: 98,
-          protein: 0,
-          sodium: 38,
-          calcium: "0%",
-          iron: "2%"
-        },
-        {
-          name: "Honeycomb",
-          calories: 408,
-          fat: 3.2,
-          carbs: 87,
-          protein: 6.5,
-          sodium: 562,
-          calcium: "0%",
-          iron: "45%"
-        },
-        {
-          name: "Donut",
-          calories: 452,
-          fat: 25.0,
-          carbs: 51,
-          protein: 4.9,
-          sodium: 326,
-          calcium: "2%",
-          iron: "22%"
-        },
-        {
-          name: "KitKat",
-          calories: 518,
-          fat: 26.0,
-          carbs: 65,
-          protein: 7,
-          sodium: 54,
-          calcium: "12%",
-          iron: "6%"
+          nom: "Handi",
+          prenom: "Fouad",
+          cin: "HH6734567",
+          cne: 122456578,
+          email: "handi.fouad@gmail.com",
+          adresse: "Azib darai rue 24",
+          naissance: "12-08-1996",
+          telephone: "0976545678"
         }
-      ]
+      ],
+
+      //edit operation properties
+
+      dialog: false
     };
   },
   computed: {
@@ -311,7 +323,7 @@ export default {
       return Math.ceil(this.items.length / this.itemsPerPage);
     },
     filteredKeys() {
-      return this.keys.filter(key => key !== `Name`);
+      return this.keys.filter(key => key !== `Nom`);
     }
   },
   methods: {
@@ -324,8 +336,12 @@ export default {
     updateItemsPerPage(number) {
       this.itemsPerPage = number;
     },
-    sendEmail(email) {
-      alert(email);
+
+    //my own methods
+
+    deleteItem(item) {
+      const index = this.items.indexOf(item);
+      console.log(index);
     }
   }
 };

@@ -47,6 +47,7 @@
             :events="events"
             :event-color="getEventColor"
             :event-margin-bottom="3"
+            rippleCalendar
             locale="fr"
             :type="type"
             @click:event="showEvent"
@@ -59,10 +60,11 @@
             :close-on-content-click="false"
             :activator="selectedElement"
             full-width
+            
             offset-x
           >
             <v-card color="grey lighten-4" min-width="350px" flat>
-              <v-toolbar :color="selectedEvent.color" dark>
+              <v-toolbar :color="selectedEvent.color"  dark>
                 <v-btn icon>
                   <v-icon>edit</v-icon>
                 </v-btn>
