@@ -11,7 +11,6 @@
               v-model="filiere_selected"
               v-on:change="filiereSelected"
               v-on:focus="onFocus"
-              
               item-text="name"
               item-value="value"
             ></v-select>
@@ -29,7 +28,12 @@
           </v-flex>
         </v-layout>
         <v-layout>
-          <v-text-field color="primary" v-if="loading" loading disabled></v-text-field>
+          <v-text-field
+            color="primary"
+            v-if="loading"
+            loading
+            disabled
+          ></v-text-field>
         </v-layout>
       </v-container>
     </div>
@@ -53,21 +57,37 @@
           type="error"
           style="border-left:5px solid;"
           icon="mdi-alert"
-        >Attention ! Assurer limergence entre la filiere et le niveau selectionne !</v-alert>
+          >Attention ! Assurer limergence entre la filiere et le niveau
+          selectionne !</v-alert
+        >
         <v-list three-line v-if="!noItems">
           <template v-for="(item, index) in filtredItems">
-            <v-subheader v-if="item.header" :key="item.header" v-text="item.header"></v-subheader>
+            <v-subheader
+              v-if="item.header"
+              :key="item.header"
+              v-text="item.header"
+            ></v-subheader>
 
-            <v-divider v-else-if="item.divider" :key="index" :inset="item.inset"></v-divider>
+            <v-divider
+              v-else-if="item.divider"
+              :key="index"
+              :inset="item.inset"
+            ></v-divider>
 
-            <v-list-item v-else :key="item.title" v-ripple="{ class: `indigo--text lighten-2` }">
+            <v-list-item
+              v-else
+              :key="item.title"
+              v-ripple="{ class: `indigo--text lighten-2` }"
+            >
               <v-list-item-avatar size="80">
                 <v-img :src="item.avatar"></v-img>
               </v-list-item-avatar>
 
               <v-list-item-content>
                 <v-list-item-title v-html="item.name"></v-list-item-title>
-                <v-list-item-subtitle v-html="item.email"></v-list-item-subtitle>
+                <v-list-item-subtitle
+                  v-html="item.email"
+                ></v-list-item-subtitle>
               </v-list-item-content>
 
               <v-spacer class="hidden-xs-only"></v-spacer>
@@ -79,10 +99,15 @@
                         <v-icon v-bind="attrs" v-on="on">more_vert</v-icon>
                       </template>
 
-                      <v-list v-for="operation in operations" :key="operation.name">
+                      <v-list
+                        v-for="operation in operations"
+                        :key="operation.name"
+                      >
                         <v-list-item @click="method(operation.name, item)">
                           <v-icon left>{{ operation.icon }}</v-icon>
-                          <v-list-item-title>{{ operation.name }}</v-list-item-title>
+                          <v-list-item-title>{{
+                            operation.name
+                          }}</v-list-item-title>
                         </v-list-item>
                       </v-list>
                     </v-menu>
@@ -99,7 +124,9 @@
       <v-layout justify-center v-if="selected_item != null">
         <v-dialog v-model="dialog_edit" max-width="590">
           <v-card>
-            <v-card-title class="headline">Editer le profile de {{ selected_item.name }}</v-card-title>
+            <v-card-title class="headline"
+              >Editer le profile de {{ selected_item.name }}</v-card-title
+            >
             <v-divider></v-divider>
             <v-card-text>
               Let Google help apps determine location. This means sending
@@ -109,9 +136,13 @@
             <v-card-actions>
               <v-spacer></v-spacer>
 
-              <v-btn color="indigo darken-1" text @click="dialog_edit = false">Annuler</v-btn>
+              <v-btn color="indigo darken-1" text @click="dialog_edit = false"
+                >Annuler</v-btn
+              >
 
-              <v-btn color="indigo darken-1" text @click="dialog_edit = false">Modifier</v-btn>
+              <v-btn color="indigo darken-1" text @click="dialog_edit = false"
+                >Modifier</v-btn
+              >
             </v-card-actions>
           </v-card>
         </v-dialog>
@@ -121,7 +152,9 @@
       <v-layout justify-center v-if="selected_item != null">
         <v-dialog v-model="dialog_detail" max-width="590">
           <v-card>
-            <v-card-title class="headline">Plus d'informations sur {{ selected_item.name }}</v-card-title>
+            <v-card-title class="headline"
+              >Plus d'informations sur {{ selected_item.name }}</v-card-title
+            >
             <v-divider></v-divider>
             <v-card-text>
               Let Google help apps determine location. This means sending
@@ -131,7 +164,9 @@
             <v-card-actions>
               <v-spacer></v-spacer>
 
-              <v-btn color="indigo darken-1" text @click="dialog_detail = false">Fermer</v-btn>
+              <v-btn color="indigo darken-1" text @click="dialog_detail = false"
+                >Fermer</v-btn
+              >
             </v-card-actions>
           </v-card>
         </v-dialog>
@@ -148,7 +183,7 @@ export default {
       level_selected: "1",
       filiere_selected: "prepa",
       loading: false,
-      noItems:false,
+      noItems: false,
       //level_select:"",
 
       levels: [
@@ -290,7 +325,7 @@ export default {
           );
         });
       } else {
-        return this.items.filter(item => {
+        return this.items.filter(() => {
           return true;
         });
       }
@@ -303,11 +338,11 @@ export default {
     }
   },
   watch: {
-    filtredItems:function(v){
-      if(v.length <= 0){
-        this.noItems=true;
-      }else{
-        this.noItems=false;
+    filtredItems: function(v) {
+      if (v.length <= 0) {
+        this.noItems = true;
+      } else {
+        this.noItems = false;
       }
     }
   },
@@ -329,12 +364,11 @@ export default {
     filiereSelected() {},
     levelSelected() {},
     onFocus() {
-      this.loading=true;
-      setTimeout(()=>{
-        this.loading=false;
-      },2000)
-    },
-    
+      this.loading = true;
+      setTimeout(() => {
+        this.loading = false;
+      }, 2000);
+    }
   }
 };
 </script>

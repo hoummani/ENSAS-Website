@@ -9,6 +9,7 @@ import Actualitees from "./views/Actualitees.vue";
 import AddActualitee from "./views/actualitee/AddActualitee.vue";
 import Calendar from "./views/Calendar.vue";
 import Reinscription from "./views/Reinscription.vue";
+import Concours from "./views/Concours.vue";
 
 Vue.use(Router);
 
@@ -60,6 +61,11 @@ export default new Router({
       path: "/reinscription",
       name: "reinscription",
       component: Reinscription
+    },
+    {
+      path: "/concours",
+      name: "concours",
+      component: Concours
     }
   ]
 });
