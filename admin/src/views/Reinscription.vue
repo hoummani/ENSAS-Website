@@ -9,8 +9,12 @@
           v-model="level_select"
           item-text="name"
           item-value="value"
-          autocomplete
+          v-on:change="filiereSelected()"
+          return-object
         ></v-select>
+        <!--
+        <v-text-field label="Taper quelque chose" v-model="level_select"></v-text-field>
+        -->
       </v-container>
     </div>
     <div>
@@ -27,19 +31,33 @@
       </v-layout>
       <v-card>
         <v-list three-line>
-          <template v-for="(item, index) in items">
-            <v-subheader v-if="item.header" :key="item.header" v-text="item.header"></v-subheader>
+          <template v-for="(item, index) in filtredItems">
+            <v-subheader
+              v-if="item.header"
+              :key="item.header"
+              v-text="item.header"
+            ></v-subheader>
 
-            <v-divider v-else-if="item.divider" :key="index" :inset="item.inset"></v-divider>
+            <v-divider
+              v-else-if="item.divider"
+              :key="index"
+              :inset="item.inset"
+            ></v-divider>
 
-            <v-list-item v-else :key="item.title" v-ripple="{ class: `indigo--text lighten-2` }">
+            <v-list-item
+              v-else
+              :key="item.title"
+              v-ripple="{ class: `indigo--text lighten-2` }"
+            >
               <v-list-item-avatar size="80">
                 <v-img :src="item.avatar"></v-img>
               </v-list-item-avatar>
 
               <v-list-item-content>
                 <v-list-item-title v-html="item.name"></v-list-item-title>
-                <v-list-item-subtitle v-html="item.email"></v-list-item-subtitle>
+                <v-list-item-subtitle
+                  v-html="item.email"
+                ></v-list-item-subtitle>
               </v-list-item-content>
 
               <v-spacer class="hidden-xs-only"></v-spacer>
@@ -51,13 +69,14 @@
                         <v-icon v-bind="attrs" v-on="on">more_vert</v-icon>
                       </template>
 
-                      <v-list v-for="operation in operations" :key="operation.name">
+                      <v-list
+                        v-for="operation in operations"
+                        :key="operation.name"
+                      >
                         <v-list-item @click="method(operation.name, item)">
                           <v-icon left>{{ operation.icon }}</v-icon>
                           <v-list-item-title>
-                            {{
-                            operation.name
-                            }}
+                            {{ operation.name }}
                           </v-list-item-title>
                         </v-list-item>
                       </v-list>
@@ -75,20 +94,25 @@
       <v-layout justify-center v-if="selected_item != null">
         <v-dialog v-model="dialog_edit" max-width="590">
           <v-card>
-            <v-card-title class="headline">Editer le profile de {{ selected_item.name }}</v-card-title>
+            <v-card-title class="headline"
+              >Editer le profile de {{ selected_item.name }}</v-card-title
+            >
             <v-divider></v-divider>
             <v-card-text>
               Let Google help apps determine location. This means sending
-              anonymous location data to Google, even when no apps are
-              running.
+              anonymous location data to Google, even when no apps are running.
             </v-card-text>
 
             <v-card-actions>
               <v-spacer></v-spacer>
 
-              <v-btn color="indigo darken-1" text @click="dialog_edit = false">Annuler</v-btn>
+              <v-btn color="indigo darken-1" text @click="dialog_edit = false"
+                >Annuler</v-btn
+              >
 
-              <v-btn color="indigo darken-1" text @click="dialog_edit = false">Modifier</v-btn>
+              <v-btn color="indigo darken-1" text @click="dialog_edit = false"
+                >Modifier</v-btn
+              >
             </v-card-actions>
           </v-card>
         </v-dialog>
@@ -98,18 +122,21 @@
       <v-layout justify-center v-if="selected_item != null">
         <v-dialog v-model="dialog_detail" max-width="590">
           <v-card>
-            <v-card-title class="headline">Plus d'informations sur {{ selected_item.name }}</v-card-title>
+            <v-card-title class="headline"
+              >Plus d'informations sur {{ selected_item.name }}</v-card-title
+            >
             <v-divider></v-divider>
             <v-card-text>
               Let Google help apps determine location. This means sending
-              anonymous location data to Google, even when no apps are
-              running.
+              anonymous location data to Google, even when no apps are running.
             </v-card-text>
 
             <v-card-actions>
               <v-spacer></v-spacer>
 
-              <v-btn color="indigo darken-1" text @click="dialog_detail = false">Fermer</v-btn>
+              <v-btn color="indigo darken-1" text @click="dialog_detail = false"
+                >Fermer</v-btn
+              >
             </v-card-actions>
           </v-card>
         </v-dialog>
@@ -123,7 +150,11 @@ export default {
   data() {
     return {
       //select level
-      level_select: null,
+      level_select: {
+        name: "",
+        value: ""
+      },
+      //level_select:"",
 
       levels: [
         { header: "Cycle preparatoire" },
@@ -153,35 +184,61 @@ export default {
           avatar: "https://cdn.vuetifyjs.com/images/lists/1.jpg",
           name: "Brunch this weekend?",
           email: "handi.fouad@gmail.com",
-          filiere: "info"
+          filiere: "info",
+          level: "3"
         },
         //{ divider: true, inset: true },
         {
           avatar: "https://cdn.vuetifyjs.com/images/lists/2.jpg",
           name: "handi.fouad@gmail.com",
           email: "handi.fouad@gmail.com",
-          filiere: "gtr"
+          filiere: "gtr",
+          level: "4"
         },
         //{ divider: true, inset: true },
         {
           avatar: "https://cdn.vuetifyjs.com/images/lists/3.jpg",
           name: "Oui oui",
           email: "handi.fouad@gmail.com",
-          filiere: "gpmc"
+          filiere: "gpmc",
+          level: "3"
         },
         //{ divider: true, inset: true },
         {
           avatar: "https://cdn.vuetifyjs.com/images/lists/4.jpg",
           name: "Birthday gift",
           email: "handi.fouad@gmail.com",
-          filiere: "info"
+          filiere: "info",
+          level: "3"
         },
         //{ divider: true, inset: true },
         {
           avatar: "https://cdn.vuetifyjs.com/images/lists/5.jpg",
           name: "Recipe to try",
           email: "handi.fouad@gmail.com",
-          filiere: "info"
+          filiere: "info",
+          level: "4"
+        },
+        {
+          avatar: "https://cdn.vuetifyjs.com/images/lists/3.jpg",
+          name: "Birouk",
+          email: "birouk.fouad@gmail.com",
+          filiere: "prepa",
+          level: "first"
+        },
+        {
+          avatar: "https://cdn.vuetifyjs.com/images/lists/3.jpg",
+          name: "Rakib",
+          email: "rakib.fouad@gmail.com",
+          filiere: "prepa",
+          level: "second"
+        },
+        {
+          avatar: "https://cdn.vuetifyjs.com/images/lists/3.jpg",
+          name: "Zineb",
+          email: "zineb.meryem@gmail.com",
+          filiere: "prepa",
+          level: "second"
         }
       ],
 
@@ -213,7 +270,15 @@ export default {
     };
   },
 
-  computed: {},
+  computed: {
+    filtredItems() {
+      return this.items.filter(item => {
+        return item.filiere
+          .toLowerCase()
+          .match(this.level_select.value.trim().toLowerCase());
+      });
+    }
+  },
   watch: {},
   methods: {
     method(operation, item) {
@@ -227,8 +292,10 @@ export default {
 
     sortedBy(prop) {
       this.items.sort((a, b) => (a[prop] < b[prop] ? -1 : 1));
-    }
+    },
+
+    //filter select
+    filiereSelected() {}
   }
 };
 </script>
-

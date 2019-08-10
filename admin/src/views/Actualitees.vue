@@ -174,7 +174,6 @@ export default {
     },
     sortedBy(prop) {
       this.actualities.sort((a, b) => (a[prop] < b[prop] ? -1 : 1));
-      
     },
 
     deleteItem(item) {
