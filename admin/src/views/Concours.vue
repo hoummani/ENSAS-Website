@@ -47,14 +47,17 @@
               class="mr-2"
               v-on="on"
               style="cursor:pointer"
-            >more</v-icon>
+              >more</v-icon
+            >
           </template>
           <span>Plus de details</span>
         </v-tooltip>
         <!-- validate candidate -->
         <v-tooltip top>
           <template v-slot:activator="{ on }">
-            <v-icon small class="mr-2" v-on="on" style="cursor:pointer">done</v-icon>
+            <v-icon small class="mr-2" v-on="on" style="cursor:pointer"
+              >done</v-icon
+            >
           </template>
           <span>Valider cette candidature</span>
         </v-tooltip>
@@ -63,7 +66,14 @@
 
         <v-tooltip bottom>
           <template v-slot:activator="{ on }">
-            <v-icon small class="mr-2" v-on="on" @click="editItem(item)" style="cursor:pointer">edit</v-icon>
+            <v-icon
+              small
+              class="mr-2"
+              v-on="on"
+              @click="editItem(item)"
+              style="cursor:pointer"
+              >edit</v-icon
+            >
           </template>
           <span>Editer</span>
         </v-tooltip>
@@ -71,7 +81,13 @@
         <!-- delete  -->
         <v-tooltip top>
           <template v-slot:activator="{ on }">
-            <v-icon small v-on="on" @click="deleteItem(item)" style="cursor:pointer">delete</v-icon>
+            <v-icon
+              small
+              v-on="on"
+              @click="deleteItem(item)"
+              style="cursor:pointer"
+              >delete</v-icon
+            >
           </template>
           <span>Supprimer</span>
         </v-tooltip>
@@ -84,7 +100,8 @@
           type="error"
           style="border-left:5px solid;"
           icon="mdi-alert"
-        >Attention ! Aucun donnees trouve pour cette specification !</v-alert>
+          >Attention ! Aucun donnees trouve pour cette specification !</v-alert
+        >
       </template>
     </v-data-table>
     <!-- modals  -->
@@ -92,7 +109,9 @@
     <v-layout justify-center>
       <v-dialog v-model="edit_dialog" persistent max-width="590">
         <v-card>
-          <v-card-title class="headline">Editer la candidature de {{edited_item.name}}</v-card-title>
+          <v-card-title class="headline"
+            >Editer la candidature de {{ edited_item.name }}</v-card-title
+          >
           <v-divider></v-divider>
           <v-card-text>
             <v-container grid-list-md>
@@ -120,30 +139,35 @@
       <!-- detail  -->
       <v-dialog v-model="detail_dialog" persistent max-width="590">
         <v-card>
-          <v-card-title class="headline">Details sur la candidature de {{detailed_item.name}}</v-card-title>
+          <v-card-title class="headline"
+            >Details sur la candidature de
+            {{ detailed_item.name }}</v-card-title
+          >
           <v-divider></v-divider>
           <v-card-text>
             <p class="subheading">
               <strong>Nom :</strong>
-              {{detailed_item.name}}
+              {{ detailed_item.name }}
             </p>
             <p class="subheading">
               <strong>Email :</strong>
-              {{detailed_item.email}}
+              {{ detailed_item.email }}
             </p>
             <p class="subheading">
               <strong>Filiere :</strong>
-              {{detailed_item.filiere}}
+              {{ detailed_item.filiere }}
             </p>
             <p class="subheading">
               <strong>Niveau :</strong>
-              {{detailed_item.level}}
+              {{ detailed_item.level }}
             </p>
           </v-card-text>
           <v-divider></v-divider>
           <v-card-actions>
             <v-spacer></v-spacer>
-            <v-btn color="indigo darken-1" @click="detail_dialog = false" text>Fermer</v-btn>
+            <v-btn color="indigo darken-1" @click="detail_dialog = false" text
+              >Fermer</v-btn
+            >
           </v-card-actions>
         </v-card>
       </v-dialog>
@@ -199,10 +223,8 @@ export default {
       },
 
       //validation rules
-      candidateRules:{
-        requiredItem:[
-          v => !!v || "Name is required"
-        ],
+      candidateRules: {
+        requiredItem: [v => !!v || "Name is required"]
       },
       satus_candidate: "",
       select_items_cand: ["Accepte(e)", "Refuse(e)"],
@@ -346,14 +368,14 @@ export default {
       this.edited_item = item;
       this.edit_dialog = true;
     },
-    reset(){
+    reset() {
       if (this.$refs.form.validate()) {
         this.edit_dialog = false;
       }
       //this.$refs.form.reset();
     },
 
-    submit(){
+    submit() {
       if (this.$refs.form.validate()) {
         console.log("valid");
       } else {

@@ -10,7 +10,6 @@
               :items="filieres"
               v-model="filiere_selected"
               v-on:change="filiereSelected"
-              
               item-text="name"
               item-value="value"
             ></v-select>
@@ -21,7 +20,6 @@
               :items="levels"
               v-model="level_selected"
               v-on:change="levelSelected"
-              
               item-text="name"
               item-value="value"
             ></v-select>
@@ -366,8 +364,7 @@ export default {
 
     //filter select
     filiereSelected() {},
-    levelSelected() {},
-    
+    levelSelected() {}
   }
 };
 </script>
