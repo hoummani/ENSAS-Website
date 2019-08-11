@@ -10,7 +10,7 @@
               :items="filieres"
               v-model="filiere_selected"
               v-on:change="filiereSelected"
-              v-on:focus="onFocus"
+              
               item-text="name"
               item-value="value"
             ></v-select>
@@ -21,7 +21,7 @@
               :items="levels"
               v-model="level_selected"
               v-on:change="levelSelected"
-              v-on:focus="onFocus"
+              
               item-text="name"
               item-value="value"
             ></v-select>
@@ -339,6 +339,10 @@ export default {
   },
   watch: {
     filtredItems: function(v) {
+      this.loading = true;
+      setTimeout(() => {
+        this.loading = false;
+      }, 2000);
       if (v.length <= 0) {
         this.noItems = true;
       } else {
@@ -363,12 +367,7 @@ export default {
     //filter select
     filiereSelected() {},
     levelSelected() {},
-    onFocus() {
-      this.loading = true;
-      setTimeout(() => {
-        this.loading = false;
-      }, 2000);
-    }
+    
   }
 };
 </script>
