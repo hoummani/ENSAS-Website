@@ -41,7 +41,13 @@
         <!-- detals  -->
         <v-tooltip bottom>
           <template v-slot:activator="{ on }">
-            <v-icon small @click="detailItem(item)" class="mr-2" v-on="on" style="cursor:pointer">more</v-icon>
+            <v-icon
+              small
+              @click="detailItem(item)"
+              class="mr-2"
+              v-on="on"
+              style="cursor:pointer"
+            >more</v-icon>
           </template>
           <span>Plus de details</span>
         </v-tooltip>
@@ -90,9 +96,15 @@
           <v-divider></v-divider>
           <v-card-text>
             <v-container grid-list-md>
-              <v-form>
+              <v-form ref="form" v-model="valid" lazy-validation>
                 <v-layout wrap>
-                  
+                  <v-text-field
+                    v-model="edited_item.name"
+                    type="text"
+                    :rules="candidateRules.requiredItem"
+                    label="Nom"
+                    required
+                  ></v-text-field>
                 </v-layout>
               </v-form>
             </v-container>
@@ -100,8 +112,8 @@
           <v-divider></v-divider>
           <v-card-actions>
             <v-spacer></v-spacer>
-            <v-btn color="indigo darken-1" text @click="edit_dialog = false">Disagree</v-btn>
-            <v-btn color="indigo darken-1" text @click="edit_dialog = false">Agree</v-btn>
+            <v-btn color="indigo darken-1" text @click="reset">Annuler</v-btn>
+            <v-btn color="indigo darken-1" text @click="submit">Modifier</v-btn>
           </v-card-actions>
         </v-card>
       </v-dialog>
@@ -111,16 +123,27 @@
           <v-card-title class="headline">Details sur la candidature de {{detailed_item.name}}</v-card-title>
           <v-divider></v-divider>
           <v-card-text>
-            <p class="subheading"><strong>Nom :</strong>{{detailed_item.name}}</p>
-            <p class="subheading"><strong>Email :</strong>{{detailed_item.email}}</p>
-            <p class="subheading"><strong>Filiere :</strong>{{detailed_item.filiere}}</p>
-            <p class="subheading"><strong>Niveau :</strong>{{detailed_item.level}}</p>
+            <p class="subheading">
+              <strong>Nom :</strong>
+              {{detailed_item.name}}
+            </p>
+            <p class="subheading">
+              <strong>Email :</strong>
+              {{detailed_item.email}}
+            </p>
+            <p class="subheading">
+              <strong>Filiere :</strong>
+              {{detailed_item.filiere}}
+            </p>
+            <p class="subheading">
+              <strong>Niveau :</strong>
+              {{detailed_item.level}}
+            </p>
           </v-card-text>
           <v-divider></v-divider>
           <v-card-actions>
             <v-spacer></v-spacer>
-            <v-btn color="indigo darken-1" text @click="detail_dialog = false">Disagree</v-btn>
-            <v-btn color="indigo darken-1" text @click="detail_dialog = false">Agree</v-btn>
+            <v-btn color="indigo darken-1" @click="detail_dialog = false" text>Fermer</v-btn>
           </v-card-actions>
         </v-card>
       </v-dialog>
@@ -164,6 +187,7 @@ export default {
       ],
       //edit candidature
       edit_dialog: false,
+      valid: false,
       edited_item: {
         name: "",
         email: "",
@@ -173,12 +197,19 @@ export default {
         score: 0,
         status: ""
       },
+
+      //validation rules
+      candidateRules:{
+        requiredItem:[
+          v => !!v || "Name is required"
+        ],
+      },
       satus_candidate: "",
       select_items_cand: ["Accepte(e)", "Refuse(e)"],
 
       //detail Item
-      detail_dialog:false,
-      detailed_item:{
+      detail_dialog: false,
+      detailed_item: {
         name: "",
         email: "",
         cin: "",
@@ -312,13 +343,27 @@ export default {
     },
 
     editItem(item) {
-      this.edited_item=item;
+      this.edited_item = item;
       this.edit_dialog = true;
     },
+    reset(){
+      if (this.$refs.form.validate()) {
+        this.edit_dialog = false;
+      }
+      //this.$refs.form.reset();
+    },
 
-    detailItem(item){
-      this.detailed_item=item;
-      this.detail_dialog=true;
+    submit(){
+      if (this.$refs.form.validate()) {
+        console.log("valid");
+      } else {
+        console.log("Not valid !");
+      }
+    },
+
+    detailItem(item) {
+      this.detailed_item = item;
+      this.detail_dialog = true;
     },
 
     deleteItem(item) {
