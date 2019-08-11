@@ -261,7 +261,7 @@ export default {
   },
 
   watch: {
-    filtredCandidate: function(v) {
+    filtredCandidate: function() {
       this.loading = true;
       setTimeout(() => {
         this.loading = false;
