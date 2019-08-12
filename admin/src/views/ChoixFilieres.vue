@@ -29,38 +29,40 @@
     </div>
     <!--   choix de filiere  -->
     <div>
-      <v-layout class="mb-3">
-        <v-tooltip top>
-          <template v-slot:activator="{ on }">
-            <v-btn
-              small
-              text
-              color="grey"
-              @click="sortedBy('firstName')"
-              v-on="on"
-            >
-              <v-icon left small>filter_list</v-icon>
-              <span class="caption text-lowercase">Enumeration par le nom</span>
-            </v-btn>
-          </template>
-          <span class="caption text-lowercase">Enumeration par le nom</span>
-        </v-tooltip>
-
-        <v-tooltip top>
-          <template v-slot:activator="{ on }">
-            <v-btn
-              small
-              text
-              color="grey"
-              
-              v-on="on"
-            >
-              <v-icon left small>settings</v-icon>
-              <span class="caption text-lowercase">Parametres des modes</span>
-            </v-btn>
-          </template>
-          <span class="caption text-lowercase">Parametres des modes</span>
-        </v-tooltip>
+      <v-layout class="mb-3" row wrap>
+        <v-flex xs12 sm4 md4 lg3>
+          <v-tooltip top>
+            <template v-slot:activator="{ on }">
+              <v-btn small text color="grey" @click="sortedBy('firstName')" v-on="on">
+                <v-icon left small>filter_list</v-icon>
+                <span class="caption text-lowercase">Enumeration par le nom</span>
+              </v-btn>
+            </template>
+            <span class="caption text-lowercase">Enumeration par le nom</span>
+          </v-tooltip>
+        </v-flex>
+        <v-flex xs12 sm6 md4 lg3>
+          <v-tooltip top>
+            <template v-slot:activator="{ on }">
+              <v-btn small text color="grey" v-on="on">
+                <v-icon left small>settings</v-icon>
+                <span class="caption text-lowercase">Parametres des modes</span>
+              </v-btn>
+            </template>
+            <span class="caption text-lowercase">Parametres des modes</span>
+          </v-tooltip>
+        </v-flex>
+        <v-flex xs12 sm6 md4 lg3>
+          <v-tooltip top>
+            <template v-slot:activator="{ on }">
+              <v-btn small text color="grey" v-on="on">
+                <v-icon left small>person</v-icon>
+                <span class="caption text-lowercase">Nombres des places disponibles</span>
+              </v-btn>
+            </template>
+            <span class="caption text-lowercase">Nombres des places disponibles</span>
+          </v-tooltip>
+        </v-flex>
         <!--
         <v-flex>
           <v-switch class="caption text-lowercase" v-model="autoMode" label="Activer le mode automatique ?"></v-switch>
@@ -77,12 +79,10 @@
         :key="item.cne"
         v-ripple="{ class: `indigo--text lighten-2` }"
       >
-        <v-layout row wrap :class="`pa-3 actualite ${item.status}`">
+        <v-layout row wrap :class="`pa-3 choice ${item.status}`">
           <v-flex xs12 sm6 md8>
             <div class="caption grey--text">Nom et Prenom</div>
-            <div class="body-2 font-weight-bold">
-              {{ item.firstName }} {{ item.lastName }}
-            </div>
+            <div class="body-2 font-weight-bold">{{ item.firstName }} {{ item.lastName }}</div>
             <div class="caption grey--text">CNE</div>
             <div class="body-2 font-weight-bold">{{ item.cne }}</div>
           </v-flex>
@@ -109,7 +109,12 @@
             <!-- filieres list -->
             <div>
               <ul v-for="choice in item.choices" :key="choice.filiere">
-                <li>Choix n <strong>{{choice.ranking}}</strong> : {{ choice.filiereFullName }}</li>
+                <li>
+                  Choix n
+                  <strong>{{ choice.ranking }}</strong>
+                  :
+                  {{ choice.filiereFullName }}
+                </li>
               </ul>
             </div>
           </v-flex>
@@ -128,9 +133,8 @@
 export default {
   data() {
     return {
-
       //too component
-      autoMode:false,
+      autoMode: false,
       //pagination
       pagination: {
         page: 1
@@ -147,6 +151,7 @@ export default {
           lastName: "Fouad",
           cne: "12346789",
           score: 156,
+          status: "not_valid",
           choices: [
             {
               ranking: 2,
@@ -176,6 +181,7 @@ export default {
           lastName: "Fouad",
           cne: "12344545",
           score: 256,
+          status: "valid",
           choices: [
             {
               ranking: 2,
@@ -204,6 +210,7 @@ export default {
           lastName: "Fouad",
           cne: "123888789",
           score: 136,
+          status: "not_valid",
           choices: [
             {
               ranking: 2,
@@ -232,6 +239,7 @@ export default {
           lastName: "Fouad",
           cne: "190046789",
           score: 99,
+          status: "not_valid",
           choices: [
             {
               ranking: 2,
@@ -260,6 +268,7 @@ export default {
           lastName: "Fouad",
           cne: "14444789",
           score: 34,
+          status: "valid",
           choices: [
             {
               ranking: 2,
@@ -315,4 +324,12 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+.choice.valid {
+  border-right: 4px solid #3cd1c2;
+}
+
+.choice.not_valid {
+  border-right: 4px solid tomato;
+}
+</style>
