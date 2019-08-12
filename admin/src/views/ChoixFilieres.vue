@@ -45,7 +45,7 @@
           <v-tooltip top>
             <template v-slot:activator="{ on }">
               <v-btn small text color="grey" v-on="on">
-                <v-icon left small>settings</v-icon>
+                <v-icon left small>build</v-icon>
                 <span class="caption text-lowercase">Parametres des modes</span>
               </v-btn>
             </template>
@@ -92,15 +92,36 @@
             <div>{{ item.score }}</div>
           </v-flex>
           <!-- operations -->
-          <v-flex xs6 sm2 md2 lg1>
+          <v-flex xs6 sm2 md2 lg2>
             <div class="caption grey--text">Operations</div>
             <div>
-              <v-btn small icon>
-                <v-icon small>edit</v-icon>
-              </v-btn>
-              <v-btn small icon>
-                <v-icon small>delete</v-icon>
-              </v-btn>
+              <!-- edit  -->
+              <v-tooltip top>
+                <template v-slot:activator="{ on }">
+                  <v-btn small icon v-on="on">
+                    <v-icon small>edit</v-icon>
+                  </v-btn>
+                </template>
+                <span class="caption text-lowercase">Editer</span>
+              </v-tooltip>
+              <!-- affectation  -->
+              <v-tooltip top>
+                <template v-slot:activator="{ on }">
+                  <v-btn small icon v-on="on">
+                    <v-icon small>assignment_turned_in</v-icon>
+                  </v-btn>
+                </template>
+                <span class="caption text-lowercase">Affectation</span>
+              </v-tooltip>
+              <!-- delete  -->
+              <v-tooltip top>
+                <template v-slot:activator="{ on }">
+                  <v-btn small icon v-on="on">
+                    <v-icon small>delete</v-icon>
+                  </v-btn>
+                </template>
+                <span class="caption text-lowercase">Supprimer</span>
+              </v-tooltip>
             </div>
           </v-flex>
 
@@ -125,6 +146,9 @@
         <v-pagination v-model="pagination.page" color="secondary" :total-visible="5" :length="lenPagination" circle>
       </v-pagination>
       -->
+
+      <!-- ################  -->
+      <!-- modals  -->
     </div>
   </div>
 </template>
