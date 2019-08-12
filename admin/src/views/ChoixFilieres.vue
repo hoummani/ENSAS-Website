@@ -15,7 +15,7 @@
           track-color="grey"
           always-dirty
           min="20"
-          max="500"
+          max="800"
         >
           <template v-slot:prepend>
             <v-icon :color="color" @click="decrement">mdi-minus</v-icon>
@@ -45,6 +45,27 @@
           </template>
           <span class="caption text-lowercase">Enumeration par le nom</span>
         </v-tooltip>
+
+        <v-tooltip top>
+          <template v-slot:activator="{ on }">
+            <v-btn
+              small
+              text
+              color="grey"
+              
+              v-on="on"
+            >
+              <v-icon left small>settings</v-icon>
+              <span class="caption text-lowercase">Parametres des modes</span>
+            </v-btn>
+          </template>
+          <span class="caption text-lowercase">Parametres des modes</span>
+        </v-tooltip>
+        <!--
+        <v-flex>
+          <v-switch class="caption text-lowercase" v-model="autoMode" label="Activer le mode automatique ?"></v-switch>
+        </v-flex>
+        -->
       </v-layout>
 
       <!-- card list  -->
@@ -88,7 +109,7 @@
             <!-- filieres list -->
             <div>
               <ul v-for="choice in item.choices" :key="choice.filiere">
-                <li>{{ choice.filiereFullName }}</li>
+                <li>Choix n <strong>{{choice.ranking}}</strong> : {{ choice.filiereFullName }}</li>
               </ul>
             </div>
           </v-flex>
@@ -107,6 +128,9 @@
 export default {
   data() {
     return {
+
+      //too component
+      autoMode:false,
       //pagination
       pagination: {
         page: 1
