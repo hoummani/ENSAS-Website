@@ -33,9 +33,17 @@
         <v-flex xs12 sm4 md4 lg3>
           <v-tooltip top>
             <template v-slot:activator="{ on }">
-              <v-btn small text color="grey" @click="sortedBy('firstName')" v-on="on">
+              <v-btn
+                small
+                text
+                color="grey"
+                @click="sortedBy('firstName')"
+                v-on="on"
+              >
                 <v-icon left small>filter_list</v-icon>
-                <span class="caption text-lowercase">Enumeration par le nom</span>
+                <span class="caption text-lowercase"
+                  >Enumeration par le nom</span
+                >
               </v-btn>
             </template>
             <span class="caption text-lowercase">Enumeration par le nom</span>
@@ -43,7 +51,12 @@
         </v-flex>
         <!-- settings  -->
         <v-flex xs12 sm6 md4 lg3>
-          <v-menu v-model="menu" :close-on-content-click="false" :nudge-width="200" offset-x>
+          <v-menu
+            v-model="menu"
+            :close-on-content-click="false"
+            :nudge-width="200"
+            offset-x
+          >
             <template v-slot:activator="{ on }">
               <v-btn small text color="grey" v-on="on">
                 <v-icon left small>build</v-icon>
@@ -70,7 +83,9 @@
                   <v-list-item-action>
                     <v-switch color="purple"></v-switch>
                   </v-list-item-action>
-                  <v-list-item-title>Desactiver le choix de filiere en ligne</v-list-item-title>
+                  <v-list-item-title
+                    >Desactiver le choix de filiere en ligne</v-list-item-title
+                  >
                 </v-list-item>
               </v-list>
               <v-divider></v-divider>
@@ -78,77 +93,55 @@
                 <v-spacer></v-spacer>
 
                 <v-btn text @click="menu = false">Fermer</v-btn>
-                <v-btn color="primary" text @click="menu = false">Enregistrer</v-btn>
+                <v-btn color="primary" text @click="menu = false"
+                  >Enregistrer</v-btn
+                >
               </v-card-actions>
             </v-card>
           </v-menu>
         </v-flex>
         <!--  -->
-        <!--
+
         <v-flex xs12 sm6 md4 lg3>
-          <v-tooltip top>
-            <template v-slot:activator="{ on }">
-              <v-btn small text color="grey" v-on="on">
-                <v-icon left small>build</v-icon>
-                <span class="caption text-lowercase">Parametres des modes</span>
-              </v-btn>
-            </template>
-            <span class="caption text-lowercase">Parametres des modes</span>
-          </v-tooltip>
-        </v-flex>
-        -->
-        <v-flex xs12 sm6 md4 lg3>
-          <!--
-          <v-tooltip top>
+          <v-menu
+            v-model="placesMenu"
+            :close-on-content-click="false"
+            :nudge-width="200"
+            offset-x
+          >
             <template v-slot:activator="{ on }">
               <v-btn small text color="grey" v-on="on">
                 <v-icon left small>person</v-icon>
-                <span class="caption text-lowercase">Nombres des places disponibles</span>
-              </v-btn>
-            </template>
-            <span class="caption text-lowercase">Nombres des places disponibles</span>
-          </v-tooltip>
-          -->
-          <v-menu v-model="placesMenu" :close-on-content-click="false" :nudge-width="200" offset-x>
-            <template v-slot:activator="{ on }">
-              <v-btn small text color="grey" v-on="on">
-                <v-icon left small>person</v-icon>
-                <span class="caption text-lowercase">Nombres des places restantes</span>
+                <span class="caption text-lowercase"
+                  >Nombres des places restantes</span
+                >
               </v-btn>
             </template>
             <v-card>
-              <ul  v-for="(place,index) in availablePlaces" :key="index">
+              <ul v-for="(place, index) in availablePlaces" :key="index">
                 <li>
-                  {{place.filiere}} :
+                  {{ place.filiere }} :
                   <strong>
-                    
                     <v-chip class="ma-2" color="indigo" text-color="white">
-                      <v-avatar left class="indigo darken-4">{{place.nPlaces}}</v-avatar>Place(s)
+                      <v-avatar left class="indigo darken-4">{{
+                        place.nPlaces
+                      }}</v-avatar
+                      >Place(s)
                     </v-chip>
                   </strong>
                 </li>
               </ul>
-              <!--
-              <v-list>
-                <v-list-item v-for="(place,index) in availablePlaces" :key="index">
-                  <v-list-item-title>{{place.filiere}} : <strong>{{place.nPlaces}}</strong></v-list-item-title>
-                </v-list-item>
-              </v-list>
-              -->
               <v-divider></v-divider>
               <v-card-actions>
                 <v-spacer></v-spacer>
 
-                <v-btn color="secondary" text @click="placesMenu = false">Fermer</v-btn>
+                <v-btn color="secondary" text @click="placesMenu = false"
+                  >Fermer</v-btn
+                >
               </v-card-actions>
             </v-card>
           </v-menu>
         </v-flex>
-        <!--
-        <v-flex>
-          <v-switch class="caption text-lowercase" v-model="autoMode" label="Activer le mode automatique ?"></v-switch>
-        </v-flex>
-        -->
       </v-layout>
 
       <!-- card list  -->
@@ -163,7 +156,9 @@
         <v-layout row wrap :class="`pa-3 choice ${item.status}`">
           <v-flex xs12 sm6 md8>
             <div class="caption grey--text">Nom et Prenom</div>
-            <div class="body-2 font-weight-bold">{{ item.firstName }} {{ item.lastName }}</div>
+            <div class="body-2 font-weight-bold">
+              {{ item.firstName }} {{ item.lastName }}
+            </div>
             <div class="caption grey--text">CNE</div>
             <div class="body-2 font-weight-bold">{{ item.cne }}</div>
           </v-flex>
@@ -211,7 +206,9 @@
             <!-- filieres list -->
             <div>
               <ul v-for="choice in item.choices" :key="choice.filiere">
-                <li :class="{'affected':(choice.filiere===item.choiceAffecte)}">
+                <li
+                  :class="{ affected: choice.filiere === item.choiceAffecte }"
+                >
                   Choix n
                   <strong>{{ choice.ranking }}</strong>
                   :
@@ -282,8 +279,12 @@
             <v-divider></v-divider>
             <v-card-actions>
               <v-spacer></v-spacer>
-              <v-btn color="indigo darken-1" text @click="edit_dialog = false">Fermer</v-btn>
-              <v-btn color="indigo darken-1" text @click="edit_dialog = false">Modifier</v-btn>
+              <v-btn color="indigo darken-1" text @click="edit_dialog = false"
+                >Fermer</v-btn
+              >
+              <v-btn color="indigo darken-1" text @click="edit_dialog = false"
+                >Modifier</v-btn
+              >
             </v-card-actions>
           </v-card>
         </v-dialog>
@@ -328,7 +329,9 @@
                       required
                     ></v-text-field>
                     <v-layout row>
-                      <div class="subheading grey--text">Affectation des filieres</div>
+                      <div class="subheading grey--text">
+                        Affectation des filieres
+                      </div>
                       <v-flex
                         xs12
                         sm12
@@ -337,7 +340,10 @@
                         v-for="choice in affected_item.choices"
                         :key="choice.filiere"
                       >
-                        <v-radio-group v-model="affectedChoice" :mandatory="false">
+                        <v-radio-group
+                          v-model="affectedChoice"
+                          :mandatory="false"
+                        >
                           <v-radio
                             color="primary"
                             :label="choice.filiereFullName"
@@ -353,8 +359,15 @@
             <v-divider></v-divider>
             <v-card-actions>
               <v-spacer></v-spacer>
-              <v-btn color="indigo darken-1" text @click="affectation_dialog = false">Fermer</v-btn>
-              <v-btn color="indigo darken-1" text @click="affectationSubmit()">Modifier</v-btn>
+              <v-btn
+                color="indigo darken-1"
+                text
+                @click="affectation_dialog = false"
+                >Fermer</v-btn
+              >
+              <v-btn color="indigo darken-1" text @click="affectationSubmit()"
+                >Modifier</v-btn
+              >
             </v-card-actions>
           </v-card>
         </v-dialog>
