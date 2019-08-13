@@ -33,17 +33,9 @@
         <v-flex xs12 sm4 md4 lg3>
           <v-tooltip top>
             <template v-slot:activator="{ on }">
-              <v-btn
-                small
-                text
-                color="grey"
-                @click="sortedBy('firstName')"
-                v-on="on"
-              >
+              <v-btn small text color="grey" @click="sortedBy('firstName')" v-on="on">
                 <v-icon left small>filter_list</v-icon>
-                <span class="caption text-lowercase"
-                  >Enumeration par le nom</span
-                >
+                <span class="caption text-lowercase">Enumeration par le nom</span>
               </v-btn>
             </template>
             <span class="caption text-lowercase">Enumeration par le nom</span>
@@ -65,14 +57,10 @@
             <template v-slot:activator="{ on }">
               <v-btn small text color="grey" v-on="on">
                 <v-icon left small>person</v-icon>
-                <span class="caption text-lowercase"
-                  >Nombres des places disponibles</span
-                >
+                <span class="caption text-lowercase">Nombres des places disponibles</span>
               </v-btn>
             </template>
-            <span class="caption text-lowercase"
-              >Nombres des places disponibles</span
-            >
+            <span class="caption text-lowercase">Nombres des places disponibles</span>
           </v-tooltip>
         </v-flex>
         <!--
@@ -94,9 +82,7 @@
         <v-layout row wrap :class="`pa-3 choice ${item.status}`">
           <v-flex xs12 sm6 md8>
             <div class="caption grey--text">Nom et Prenom</div>
-            <div class="body-2 font-weight-bold">
-              {{ item.firstName }} {{ item.lastName }}
-            </div>
+            <div class="body-2 font-weight-bold">{{ item.firstName }} {{ item.lastName }}</div>
             <div class="caption grey--text">CNE</div>
             <div class="body-2 font-weight-bold">{{ item.cne }}</div>
           </v-flex>
@@ -166,23 +152,56 @@
       <v-layout justify-center>
         <v-dialog v-model="edit_dialog" persistent max-width="590">
           <v-card>
-            <v-card-title class="headline"
-              >Editer le classement de {{ edited_item.firstName }}
-              {{ edited_item.lastName }}</v-card-title
-            >
-            <v-card-text
-              >Let Google help apps determine location. This means sending
-              anonymous location data to Google, even when no apps are
-              running.</v-card-text
-            >
+            <v-card-title class="headline">
+              Editer le classement de {{ edited_item.firstName }}
+              {{ edited_item.lastName }}
+            </v-card-title>
+            <v-card-text>
+              <v-container grid-list-md>
+                <v-form ref="form" v-model="editItemValid" lazy-validation>
+                  <v-layout wrap>
+
+                    <v-text-field
+                      v-model="edited_item.cne"
+                      readonly
+                      type="text"
+                      class="ma-1"
+                      label="CNE"
+                      required
+                    ></v-text-field>
+                    <v-text-field
+                      v-model="edited_item.firstName"
+                      type="text"
+                      readonly
+                      label="Nom"
+                      class="ma-1"
+                      required
+                    ></v-text-field>
+
+                    <v-text-field
+                      v-model="edited_item.lastName"
+                      type="text"
+                      readonly
+                      label="Prenom"
+                      class="ma-1"
+                      required
+                    ></v-text-field>
+
+                    <v-text-field
+                      v-model="edited_item.score"
+                      type="number"
+                      class="ma-1"
+                      label="Score"
+                      required
+                    ></v-text-field>
+                  </v-layout>
+                </v-form>
+              </v-container>
+            </v-card-text>
             <v-card-actions>
               <v-spacer></v-spacer>
-              <v-btn color="indigo darken-1" text @click="edit_dialog = false"
-                >Fermer</v-btn
-              >
-              <v-btn color="indigo darken-1" text @click="edit_dialog = false"
-                >Modifier</v-btn
-              >
+              <v-btn color="indigo darken-1" text @click="edit_dialog = false">Fermer</v-btn>
+              <v-btn color="indigo darken-1" text @click="edit_dialog = false">Modifier</v-btn>
             </v-card-actions>
           </v-card>
         </v-dialog>
@@ -213,7 +232,8 @@ export default {
       //modals
       //--->edit
       edit_dialog: false,
-      edited_item: {}
+      edited_item: {},
+      editItemValid:false,
     };
   },
   created() {
