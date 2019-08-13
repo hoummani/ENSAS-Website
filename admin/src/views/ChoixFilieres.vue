@@ -14,8 +14,8 @@
           :thumb-color="color"
           track-color="grey"
           always-dirty
-          min="20"
-          max="800"
+          min="0"
+          max="1000"
         >
           <template v-slot:prepend>
             <v-icon :color="color" @click="decrement">mdi-minus</v-icon>
@@ -33,9 +33,17 @@
         <v-flex xs12 sm4 md4 lg3>
           <v-tooltip top>
             <template v-slot:activator="{ on }">
-              <v-btn small text color="grey" @click="sortedBy('firstName')" v-on="on">
+              <v-btn
+                small
+                text
+                color="grey"
+                @click="sortedBy('firstName')"
+                v-on="on"
+              >
                 <v-icon left small>filter_list</v-icon>
-                <span class="caption text-lowercase">Enumeration par le nom</span>
+                <span class="caption text-lowercase"
+                  >Enumeration par le nom</span
+                >
               </v-btn>
             </template>
             <span class="caption text-lowercase">Enumeration par le nom</span>
@@ -57,10 +65,14 @@
             <template v-slot:activator="{ on }">
               <v-btn small text color="grey" v-on="on">
                 <v-icon left small>person</v-icon>
-                <span class="caption text-lowercase">Nombres des places disponibles</span>
+                <span class="caption text-lowercase"
+                  >Nombres des places disponibles</span
+                >
               </v-btn>
             </template>
-            <span class="caption text-lowercase">Nombres des places disponibles</span>
+            <span class="caption text-lowercase"
+              >Nombres des places disponibles</span
+            >
           </v-tooltip>
         </v-flex>
         <!--
@@ -82,7 +94,9 @@
         <v-layout row wrap :class="`pa-3 choice ${item.status}`">
           <v-flex xs12 sm6 md8>
             <div class="caption grey--text">Nom et Prenom</div>
-            <div class="body-2 font-weight-bold">{{ item.firstName }} {{ item.lastName }}</div>
+            <div class="body-2 font-weight-bold">
+              {{ item.firstName }} {{ item.lastName }}
+            </div>
             <div class="caption grey--text">CNE</div>
             <div class="body-2 font-weight-bold">{{ item.cne }}</div>
           </v-flex>
@@ -93,12 +107,12 @@
           </v-flex>
           <!-- operations -->
           <v-flex xs6 sm2 md2 lg2>
-            <div class="caption grey--text">Operations</div>
-            <div>
+            <div class="caption grey--text text-sm-center">Operations</div>
+            <div class="text-sm-center">
               <!-- edit  -->
               <v-tooltip top>
                 <template v-slot:activator="{ on }">
-                  <v-btn small icon v-on="on">
+                  <v-btn small icon @click="editItem(item)" v-on="on">
                     <v-icon small>edit</v-icon>
                   </v-btn>
                 </template>
@@ -149,6 +163,30 @@
 
       <!-- ################  -->
       <!-- modals  -->
+      <v-layout justify-center>
+        <v-dialog v-model="edit_dialog" persistent max-width="590">
+          <v-card>
+            <v-card-title class="headline"
+              >Editer le classement de {{ edited_item.firstName }}
+              {{ edited_item.lastName }}</v-card-title
+            >
+            <v-card-text
+              >Let Google help apps determine location. This means sending
+              anonymous location data to Google, even when no apps are
+              running.</v-card-text
+            >
+            <v-card-actions>
+              <v-spacer></v-spacer>
+              <v-btn color="indigo darken-1" text @click="edit_dialog = false"
+                >Fermer</v-btn
+              >
+              <v-btn color="indigo darken-1" text @click="edit_dialog = false"
+                >Modifier</v-btn
+              >
+            </v-card-actions>
+          </v-card>
+        </v-dialog>
+      </v-layout>
     </div>
   </div>
 </template>
@@ -157,7 +195,7 @@
 export default {
   data() {
     return {
-      //too component
+      //tool component
       autoMode: false,
       //pagination
       pagination: {
@@ -169,7 +207,36 @@ export default {
         val: 20
       },
       //students choice
-      studentChoice: [
+
+      studentChoice: [],
+
+      //modals
+      //--->edit
+      edit_dialog: false,
+      edited_item: {}
+    };
+  },
+  created() {
+    this.initialize();
+  },
+  computed: {
+    color() {
+      if (this.slider.val < 100) return "indigo";
+      if (this.slider.val < 200) return "teal";
+      if (this.slider.val < 300) return "green";
+      if (this.slider.val < 400) return "orange";
+      return "primary";
+    },
+    animationDuration() {
+      return `${60 / this.bpm}s`;
+    },
+    lenPagination() {
+      return this.studentChoice.length;
+    }
+  },
+  methods: {
+    initialize() {
+      this.studentChoice = [
         {
           firstName: "Handi",
           lastName: "Fouad",
@@ -316,25 +383,12 @@ export default {
             }
           ]
         }
-      ]
-    };
-  },
-  computed: {
-    color() {
-      if (this.slider.val < 100) return "indigo";
-      if (this.slider.val < 200) return "teal";
-      if (this.slider.val < 300) return "green";
-      if (this.slider.val < 400) return "orange";
-      return "primary";
+      ];
     },
-    animationDuration() {
-      return `${60 / this.bpm}s`;
+    editItem(item) {
+      this.edited_item = item;
+      this.edit_dialog = true;
     },
-    lenPagination() {
-      return this.studentChoice.length;
-    }
-  },
-  methods: {
     decrement() {
       this.slider.val--;
     },
