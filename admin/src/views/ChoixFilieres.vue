@@ -107,7 +107,7 @@
               <!-- affectation  -->
               <v-tooltip top>
                 <template v-slot:activator="{ on }">
-                  <v-btn small icon v-on="on">
+                  <v-btn small icon @click="affectItem(item)" v-on="on">
                     <v-icon small>assignment_turned_in</v-icon>
                   </v-btn>
                 </template>
@@ -156,11 +156,11 @@
               Editer le classement de {{ edited_item.firstName }}
               {{ edited_item.lastName }}
             </v-card-title>
+            <v-divider></v-divider>
             <v-card-text>
               <v-container grid-list-md>
                 <v-form ref="form" v-model="editItemValid" lazy-validation>
                   <v-layout wrap>
-
                     <v-text-field
                       v-model="edited_item.cne"
                       readonly
@@ -198,10 +198,71 @@
                 </v-form>
               </v-container>
             </v-card-text>
+            <v-divider></v-divider>
             <v-card-actions>
               <v-spacer></v-spacer>
               <v-btn color="indigo darken-1" text @click="edit_dialog = false">Fermer</v-btn>
               <v-btn color="indigo darken-1" text @click="edit_dialog = false">Modifier</v-btn>
+            </v-card-actions>
+          </v-card>
+        </v-dialog>
+      </v-layout>
+
+      <!--   affectation form  -->
+      <v-layout justify-center>
+        <v-dialog v-model="affectation_dialog" persistent max-width="590">
+          <v-card>
+            <v-card-title class="headline">
+              Validation de et affectation pour {{ affected_item.firstName }}
+              {{ affected_item.lastName }}
+            </v-card-title>
+            <v-divider></v-divider>
+            <v-card-text>
+              <v-container grid-list-md>
+                <v-form ref="form" v-model="affectItemValid" lazy-validation>
+                  <v-layout wrap>
+                    <v-text-field
+                      v-model="affected_item.cne"
+                      readonly
+                      type="text"
+                      class="ma-1"
+                      label="CNE"
+                      required
+                    ></v-text-field>
+                    <v-text-field
+                      v-model="affected_item.firstName"
+                      type="text"
+                      readonly
+                      label="Nom"
+                      class="ma-1"
+                      required
+                    ></v-text-field>
+
+                    <v-text-field
+                      v-model="affected_item.lastName"
+                      type="text"
+                      readonly
+                      label="Prenom"
+                      class="ma-1"
+                      required
+                    ></v-text-field>
+                    <v-layout row>
+                      <div class="subheading grey--text">Affectation des filieres</div>
+                      <v-flex xs12 sm12 md12 lg12 v-for="choice in affected_item.choices" :key="choice.filiere">
+                      <v-radio-group v-model="affectedChoice" :mandatory="false">
+                        <v-radio color="primary" :label="choice.filiereFullName" :value="choice.filiere"></v-radio>
+                      </v-radio-group>
+                    </v-flex>
+                    </v-layout>
+                  </v-layout>
+                </v-form>
+              </v-container>
+            </v-card-text>
+            <v-divider></v-divider>
+            <v-card-actions>
+              <v-spacer></v-spacer>
+              <v-btn color="indigo darken-1" text @click="affectation_dialog = false">Fermer</v-btn>
+              <v-btn color="indigo darken-1" text @click="affectationSubmit()">Modifier</v-btn>
             </v-card-actions>
           </v-card>
         </v-dialog>
@@ -233,7 +294,13 @@ export default {
       //--->edit
       edit_dialog: false,
       edited_item: {},
-      editItemValid:false,
+      editItemValid: false,
+
+      //---->affectation
+      affectItemValid: false,
+      affected_item: {},
+      affectation_dialog: false,
+      affectedChoice:"",
     };
   },
   created() {
@@ -408,6 +475,13 @@ export default {
     editItem(item) {
       this.edited_item = item;
       this.edit_dialog = true;
+    },
+    affectItem(item) {
+      this.affected_item = item;
+      this.affectation_dialog = true;
+    },
+    affectationSubmit(){
+      console.log(this.affectedChoice);
     },
     decrement() {
       this.slider.val--;
