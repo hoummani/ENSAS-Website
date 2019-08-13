@@ -41,6 +41,50 @@
             <span class="caption text-lowercase">Enumeration par le nom</span>
           </v-tooltip>
         </v-flex>
+        <!-- settings  -->
+        <v-flex xs12 sm6 md4 lg3>
+          <v-menu v-model="menu" :close-on-content-click="false" :nudge-width="200" offset-x>
+            <template v-slot:activator="{ on }">
+              <v-btn small text color="grey" v-on="on">
+                <v-icon left small>build</v-icon>
+                <span class="caption text-lowercase">Parametres des modes</span>
+              </v-btn>
+            </template>
+            <v-card>
+              <v-list>
+                <v-list-item>
+                  <v-list-item-action>
+                    <v-switch v-model="message" color="purple"></v-switch>
+                  </v-list-item-action>
+                  <v-list-item-title>Enable messages</v-list-item-title>
+                </v-list-item>
+
+                <v-list-item>
+                  <v-list-item-action>
+                    <v-switch v-model="hints" color="purple"></v-switch>
+                  </v-list-item-action>
+                  <v-list-item-title>Enable hints</v-list-item-title>
+                </v-list-item>
+
+                <v-list-item>
+                  <v-list-item-action>
+                    <v-switch color="purple"></v-switch>
+                  </v-list-item-action>
+                  <v-list-item-title>Desactiver le choix de filiere en ligne</v-list-item-title>
+                </v-list-item>
+              </v-list>
+              <v-divider></v-divider>
+              <v-card-actions>
+                <v-spacer></v-spacer>
+
+                <v-btn text @click="menu = false">Fermer</v-btn>
+                <v-btn color="primary" text @click="menu = false">Enregistrer</v-btn>
+              </v-card-actions>
+            </v-card>
+          </v-menu>
+        </v-flex>
+        <!--  -->
+        <!--
         <v-flex xs12 sm6 md4 lg3>
           <v-tooltip top>
             <template v-slot:activator="{ on }">
@@ -52,7 +96,9 @@
             <span class="caption text-lowercase">Parametres des modes</span>
           </v-tooltip>
         </v-flex>
+        -->
         <v-flex xs12 sm6 md4 lg3>
+          <!--
           <v-tooltip top>
             <template v-slot:activator="{ on }">
               <v-btn small text color="grey" v-on="on">
@@ -62,6 +108,41 @@
             </template>
             <span class="caption text-lowercase">Nombres des places disponibles</span>
           </v-tooltip>
+          -->
+          <v-menu v-model="placesMenu" :close-on-content-click="false" :nudge-width="200" offset-x>
+            <template v-slot:activator="{ on }">
+              <v-btn small text color="grey" v-on="on">
+                <v-icon left small>person</v-icon>
+                <span class="caption text-lowercase">Nombres des places restantes</span>
+              </v-btn>
+            </template>
+            <v-card>
+              <ul  v-for="(place,index) in availablePlaces" :key="index">
+                <li>
+                  {{place.filiere}} :
+                  <strong>
+                    
+                    <v-chip class="ma-2" color="indigo" text-color="white">
+                      <v-avatar left class="indigo darken-4">{{place.nPlaces}}</v-avatar>Place(s)
+                    </v-chip>
+                  </strong>
+                </li>
+              </ul>
+              <!--
+              <v-list>
+                <v-list-item v-for="(place,index) in availablePlaces" :key="index">
+                  <v-list-item-title>{{place.filiere}} : <strong>{{place.nPlaces}}</strong></v-list-item-title>
+                </v-list-item>
+              </v-list>
+              -->
+              <v-divider></v-divider>
+              <v-card-actions>
+                <v-spacer></v-spacer>
+
+                <v-btn color="secondary" text @click="placesMenu = false">Fermer</v-btn>
+              </v-card-actions>
+            </v-card>
+          </v-menu>
         </v-flex>
         <!--
         <v-flex>
@@ -248,11 +329,22 @@
                     ></v-text-field>
                     <v-layout row>
                       <div class="subheading grey--text">Affectation des filieres</div>
-                      <v-flex xs12 sm12 md12 lg12 v-for="choice in affected_item.choices" :key="choice.filiere">
-                      <v-radio-group v-model="affectedChoice" :mandatory="false">
-                        <v-radio color="primary" :label="choice.filiereFullName" :value="choice.filiere"></v-radio>
-                      </v-radio-group>
-                    </v-flex>
+                      <v-flex
+                        xs12
+                        sm12
+                        md12
+                        lg12
+                        v-for="choice in affected_item.choices"
+                        :key="choice.filiere"
+                      >
+                        <v-radio-group v-model="affectedChoice" :mandatory="false">
+                          <v-radio
+                            color="primary"
+                            :label="choice.filiereFullName"
+                            :value="choice.filiere"
+                          ></v-radio>
+                        </v-radio-group>
+                      </v-flex>
                     </v-layout>
                   </v-layout>
                 </v-form>
@@ -277,6 +369,28 @@ export default {
     return {
       //tool component
       autoMode: false,
+      menu: false,
+      message: false,
+      hints: true,
+      availablePlaces: [
+        {
+          filiere: "Genie Informatique",
+          nPlaces: 4
+        },
+        {
+          filiere: "Genie Industriel",
+          nPlaces: 6
+        },
+        {
+          filiere: "Genie de Procede et Ceramique",
+          nPlaces: 7
+        },
+        {
+          filiere: "Genie Reseaux et Telecommunication",
+          nPlaces: 2
+        }
+      ],
+      placesMenu: false,
       //pagination
       pagination: {
         page: 1
@@ -300,7 +414,7 @@ export default {
       affectItemValid: false,
       affected_item: {},
       affectation_dialog: false,
-      affectedChoice:"",
+      affectedChoice: ""
     };
   },
   created() {
@@ -353,7 +467,7 @@ export default {
               filiereFullName: "Genie Reseaux et Telecommunication"
             }
           ],
-          choiceAffecte:"",
+          choiceAffecte: ""
         },
         {
           firstName: "Handi",
@@ -383,7 +497,7 @@ export default {
               filiereFullName: "Genie Reseaux et Telecommunication"
             }
           ],
-          choiceAffecte:"",
+          choiceAffecte: ""
         },
         {
           firstName: "Handi",
@@ -413,7 +527,7 @@ export default {
               filiereFullName: "Genie Reseaux et Telecommunication"
             }
           ],
-          choiceAffecte:"",
+          choiceAffecte: ""
         },
         {
           firstName: "Handi",
@@ -443,7 +557,7 @@ export default {
               filiereFullName: "Genie Reseaux et Telecommunication"
             }
           ],
-          choiceAffecte:"",
+          choiceAffecte: ""
         },
         {
           firstName: "Handi",
@@ -473,7 +587,7 @@ export default {
               filiereFullName: "Genie Reseaux et Telecommunication"
             }
           ],
-          choiceAffecte:"",
+          choiceAffecte: ""
         }
       ];
     },
@@ -483,10 +597,10 @@ export default {
     },
     affectItem(item) {
       this.affected_item = item;
-      this.affectation_dialog=true;
+      this.affectation_dialog = true;
     },
-    affectationSubmit(){
-      this.affected_item.choiceAffecte=this.affectedChoice;
+    affectationSubmit() {
+      this.affected_item.choiceAffecte = this.affectedChoice;
       console.log(this.affected_item);
     },
     decrement() {
@@ -510,7 +624,7 @@ export default {
 .choice.not_valid {
   border-right: 4px solid tomato;
 }
-.affected{
+.affected {
   color: green;
   font-weight: bold;
   font-style: italic;
