@@ -130,7 +130,7 @@
             <!-- filieres list -->
             <div>
               <ul v-for="choice in item.choices" :key="choice.filiere">
-                <li>
+                <li :class="{'affected':(choice.filiere===item.choiceAffecte)}">
                   Choix n
                   <strong>{{ choice.ranking }}</strong>
                   :
@@ -352,7 +352,8 @@ export default {
 
               filiereFullName: "Genie Reseaux et Telecommunication"
             }
-          ]
+          ],
+          choiceAffecte:"",
         },
         {
           firstName: "Handi",
@@ -381,7 +382,8 @@ export default {
               filiere: "gtr",
               filiereFullName: "Genie Reseaux et Telecommunication"
             }
-          ]
+          ],
+          choiceAffecte:"",
         },
         {
           firstName: "Handi",
@@ -410,7 +412,8 @@ export default {
               filiere: "gtr",
               filiereFullName: "Genie Reseaux et Telecommunication"
             }
-          ]
+          ],
+          choiceAffecte:"",
         },
         {
           firstName: "Handi",
@@ -439,7 +442,8 @@ export default {
               filiere: "gtr",
               filiereFullName: "Genie Reseaux et Telecommunication"
             }
-          ]
+          ],
+          choiceAffecte:"",
         },
         {
           firstName: "Handi",
@@ -468,7 +472,8 @@ export default {
               filiere: "gtr",
               filiereFullName: "Genie Reseaux et Telecommunication"
             }
-          ]
+          ],
+          choiceAffecte:"",
         }
       ];
     },
@@ -478,10 +483,11 @@ export default {
     },
     affectItem(item) {
       this.affected_item = item;
-      this.affectation_dialog = true;
+      this.affectation_dialog=true;
     },
     affectationSubmit(){
-      console.log(this.affectedChoice);
+      this.affected_item.choiceAffecte=this.affectedChoice;
+      console.log(this.affected_item);
     },
     decrement() {
       this.slider.val--;
@@ -503,5 +509,10 @@ export default {
 
 .choice.not_valid {
   border-right: 4px solid tomato;
+}
+.affected{
+  color: green;
+  font-weight: bold;
+  font-style: italic;
 }
 </style>
