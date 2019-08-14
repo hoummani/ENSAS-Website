@@ -9,13 +9,7 @@
           <v-tab href="#tab-3">Membres des jurys</v-tab>
 
           <v-tab-item value="tab-1">
-            <v-container fluid>
-              <v-row>
-                <div class="ma-3">
-                  <p>Entreprise  Entreprise Entreprise Entreprise Entreprise Entreprise Entreprise Entreprise Entreprise</p>
-                </div>
-              </v-row>
-            </v-container>
+            <Entreprise/>
           </v-tab-item>
 
           <v-tab-item value="tab-2">
@@ -44,12 +38,17 @@
 </template>
 
 <script>
+
+import Entreprise from "../components/pfe/Entreprise";
 export default {
   data() {
     return {
       tabs: 3
     };
-  }
+  },
+  components:{
+    Entreprise
+  },
 };
 </script>
 
