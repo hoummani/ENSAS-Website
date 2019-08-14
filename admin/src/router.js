@@ -11,6 +11,7 @@ import Calendar from "./views/Calendar.vue";
 import Reinscription from "./views/Reinscription.vue";
 import Concours from "./views/Concours.vue";
 import ChoixFilieres from "./views/ChoixFilieres.vue";
+import PFE from "./views/PFE.vue";
 
 Vue.use(Router);
 
@@ -72,6 +73,11 @@ export default new Router({
       path: "/choix_filieres",
       name: "choixFilieres",
       component: ChoixFilieres
+    },
+    {
+      path: "/pfe",
+      name: "pfe",
+      component: PFE
     }
   ]
 });

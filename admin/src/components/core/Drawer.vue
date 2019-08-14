@@ -100,7 +100,7 @@ export default {
           icon: "mdi-help-box",
           url: "/choix_filieres"
         },
-        { title: "Espace PFE", icon: "school", url: null },
+        { title: "Espace PFE", icon: "school", url: "/pfe" },
         { title: "Parametres", icon: "settings", url: null }
       ],
       right: null,
