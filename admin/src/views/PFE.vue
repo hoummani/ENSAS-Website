@@ -3,7 +3,7 @@
     <h5 class="subheading text-uppercase grey--text">Espace PFE</h5>
     <div>
       <v-card>
-        <v-tabs background-color="white" color="indigo" left>
+        <v-tabs background-color="white" show-arrows color="indigo" left>
           <v-tab href="#tab-1">Gestion des rapports</v-tab>
           <v-tab href="#tab-2">Entreprises</v-tab>
           <v-tab href="#tab-3">Membres des jurys</v-tab>
@@ -18,13 +18,7 @@
           
 
           <v-tab-item value="tab-3">
-            <v-container fluid>
-              <v-row>
-                <div class="ma-3">
-                  <p>Jury Jury</p>
-                </div>
-              </v-row>
-            </v-container>
+            <Jurys/>
           </v-tab-item>
         </v-tabs>
       </v-card>
@@ -36,6 +30,8 @@
 import Entreprise from "../components/pfe/Entreprise";
 
 import Report from "../components/pfe/Report";
+
+import Jurys from "../components/pfe/Jurys";
 export default {
   data() {
     return {
@@ -44,7 +40,8 @@ export default {
   },
   components: {
     Entreprise,
-    Report
+    Report,
+    Jurys
   }
 };
 </script>

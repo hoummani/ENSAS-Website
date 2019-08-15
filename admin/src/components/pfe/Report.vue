@@ -3,8 +3,8 @@
     <v-layout class="pa-3">
       <v-select
               label="Selectioner la specification universitaire"
-              :items="filieres"
-              v-model="filiere_selected"
+              :items="deps"
+              v-model="dep_selected"
               
               item-text="name"
               item-value="value"
@@ -107,24 +107,16 @@
 export default {
   data() {
     return {
-      //select filiere
-      filiere_selected:"info",
-      filieres: [
+      //select departement
+      dep_selected:"infoGtr",
+      deps: [
         {
-          name: "Genie Informatique",
-          value: "info"
+          name: "Informatique & Reseaux",
+          value: "infoGtr"
         },
         {
-          name: "Genie Industriel",
-          value: "indus"
-        },
-        {
-          name: "Genie Resaux & Telecom",
-          value: "gtr"
-        },
-        {
-          name: "Genie Procedes & Ceramique",
-          value: "gpmc"
+          name: "Genie Industriel & Procedes",
+          value: "indusGpmc"
         }
       ],
       reports:[],
