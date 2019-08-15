@@ -6,7 +6,7 @@
         <v-layout row wrap justify-space-between>
           <v-flex xs12 sm5 md4 lg4 class="mr-2">
             <v-select
-              label="Selectioner la specification universitaire"
+              label="Selectioner la filiere"
               :items="filieres"
               v-model="filiere_selected"
               v-on:change="filiereSelected"

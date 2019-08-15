@@ -1,12 +1,105 @@
 <template>
-  <div class="pa-3">
-    <v-data-table
-    :headers="headers"
-    :items="desserts"
-    :items-per-page="5"
-    class="elevation-1"
-  ></v-data-table>
-      
+  <div class="pa-4">
+    <v-layout class="pa-3">
+      <v-select
+              label="Selectioner la specification universitaire"
+              :items="filieres"
+              v-model="filiere_selected"
+              
+              item-text="name"
+              item-value="value"
+            ></v-select>
+    </v-layout>
+    <v-spacer></v-spacer>
+    <v-card v-for="item in reports" :key="item.code" class="mb-2">
+      <v-card-title>
+        <div class="body-2 font-weight-bold">{{item.code}}</div>
+      </v-card-title>
+      <v-divider></v-divider>
+      <div :class="`${item.status}`">
+        <v-layout row wrap class="pa-2 pl-5">
+        <v-flex xs12 sm9 md9 lg9>
+          <div class="caption grey--text">Sujet de PFE</div>
+          <div class="body-2 font-weight-regular">conception and developement web app</div>
+        </v-flex>
+      </v-layout>
+      <v-layout row wrap class="pa-2 pl-5">
+        <!-- student  -->
+        <v-flex xs4 sm3 md3 lg3>
+          <div class="caption grey--text">Membres</div>
+          <ul class="body-2 font-weight-regular">
+            <li>Handi Fouad</li>
+          </ul>
+        </v-flex>
+        <!-- entreprise  -->
+        <v-flex xs4 sm3 md3 lg3>
+          <div class="caption grey--text">Nom d'entreprise</div>
+          <div class="body-2 font-weight-regular">Bc Skills</div>
+        </v-flex>
+
+        <!-- coach  -->
+        <v-flex xs4 sm3 md3 lg3>
+          <div class="caption grey--text">Encadrent</div>
+          <div class="body-2 font-weight-regular">Walid Bouarifi</div>
+        </v-flex>
+        <v-flex xs4 sm3 md3 lg3>
+          <div class="caption grey--text">Jurys</div>
+          <ul class="body-2 font-weight-regular">
+            <li>Ech-chadi Said</li>
+            <li>Atlas Abdelghafour</li>
+            <li>Bouarifi Walid</li>
+          </ul>
+        </v-flex>
+      </v-layout>
+      </div>
+      <v-divider></v-divider>
+      <v-card-actions>
+        <v-layout justify-end>
+          <div>
+            <v-chip
+              class="ma-2"
+              close
+              color="indigo"
+              outlined
+              v-if="item.status==='valide'"
+              close-icon="mdi-close"
+              
+            >
+              <v-avatar left>
+                <v-icon>check_circle</v-icon>
+              </v-avatar>Valide
+            </v-chip>
+
+            <!-- not valid  -->
+            <v-chip
+              class="ma-2"
+              close
+              color="red"
+              outlined
+              v-else
+              close-icon="mdi-close"
+              
+            >
+              <v-avatar left>
+                <v-icon>cancel</v-icon>
+              </v-avatar>N'est pas valide
+            </v-chip>
+            <v-btn v-if="item.status==='notvalide'" small icon>
+              <v-icon>check_circle</v-icon>
+            </v-btn>
+            <v-btn small icon>
+              <v-icon>description</v-icon>
+            </v-btn>
+            <v-btn small icon>
+              <v-icon>edit</v-icon>
+            </v-btn>
+            <v-btn small icon>
+              <v-icon>delete</v-icon>
+            </v-btn>
+          </div>
+        </v-layout>
+      </v-card-actions>
+    </v-card>
   </div>
 </template>
 
@@ -14,103 +107,228 @@
 export default {
   data() {
     return {
-      headers: [
-          {
-            text: 'Dessert (100g serving)',
-            align: 'left',
-            sortable: false,
-            value: 'name',
-          },
-          { text: 'Calories', value: 'calories' },
-          { text: 'Fat (g)', value: 'fat' },
-          { text: 'Carbs (g)', value: 'carbs' },
-          { text: 'Protein (g)', value: 'protein' },
-          { text: 'Iron (%)', value: 'iron' },
-        ],
-        desserts: [
-          {
-            name: 'Frozen Yogurt',
-            calories: 159,
-            fat: 6.0,
-            carbs: 24,
-            protein: 4.0,
-            iron: '1%',
-          },
-          {
-            name: 'Ice cream sandwich',
-            calories: 237,
-            fat: 9.0,
-            carbs: 37,
-            protein: 4.3,
-            iron: '1%',
-          },
-          {
-            name: 'Eclair',
-            calories: 262,
-            fat: 16.0,
-            carbs: 23,
-            protein: 6.0,
-            iron: '7%',
-          },
-          {
-            name: 'Cupcake',
-            calories: 305,
-            fat: 3.7,
-            carbs: 67,
-            protein: 4.3,
-            iron: '8%',
-          },
-          {
-            name: 'Gingerbread',
-            calories: 356,
-            fat: 16.0,
-            carbs: 49,
-            protein: 3.9,
-            iron: '16%',
-          },
-          {
-            name: 'Jelly bean',
-            calories: 375,
-            fat: 0.0,
-            carbs: 94,
-            protein: 0.0,
-            iron: '0%',
-          },
-          {
-            name: 'Lollipop',
-            calories: 392,
-            fat: 0.2,
-            carbs: 98,
-            protein: 0,
-            iron: '2%',
-          },
-          {
-            name: 'Honeycomb',
-            calories: 408,
-            fat: 3.2,
-            carbs: 87,
-            protein: 6.5,
-            iron: '45%',
-          },
-          {
-            name: 'Donut',
-            calories: 452,
-            fat: 25.0,
-            carbs: 51,
-            protein: 4.9,
-            iron: '22%',
-          },
-          {
-            name: 'KitKat',
-            calories: 518,
-            fat: 26.0,
-            carbs: 65,
-            protein: 7,
-            iron: '6%',
-          },
-        ],
-    }
+      //select filiere
+      filiere_selected:"info",
+      filieres: [
+        {
+          name: "Genie Informatique",
+          value: "info"
+        },
+        {
+          name: "Genie Industriel",
+          value: "indus"
+        },
+        {
+          name: "Genie Resaux & Telecom",
+          value: "gtr"
+        },
+        {
+          name: "Genie Procedes & Ceramique",
+          value: "gpmc"
+        }
+      ],
+      reports:[],
+    };
   },
-}
+  created() {
+    this.initialize();
+  },
+  methods: {
+    initialize() {
+      this.reports = [
+        {
+          code: "F-15",
+          title: "conception and developement web app",
+          entreprise: {
+            name: "Bc Skills"
+          },
+          student: {
+            firstName: "Handi",
+            lastName: "Fouad"
+          },
+          jury: [
+            {
+              name: "Bouarifi"
+            },
+            {
+              name: "Atlas"
+            },
+            {
+              name: "Ech-chadi"
+            }
+          ],
+          coach: "Atlas",
+          document: "url to document",
+          status:"notvalide",
+        },
+
+        {
+          code: "F-25",
+          title: "conception and developement mobile app",
+          entreprise: {
+            name: "Bc Skills"
+          },
+          student: {
+            firstName: "Handi",
+            lastName: "Fouad"
+          },
+          jury: [
+            {
+              name: "Bouarifi"
+            },
+            {
+              name: "Atlas"
+            },
+            {
+              name: "Ech-chadi"
+            }
+          ],
+          coach: "Atlas",
+          document: "url to document",
+          status:"valide",
+        },
+
+        {
+          code: "F-35",
+          title: "conception and developement web app",
+          entreprise: {
+            name: "Bc Skills"
+          },
+          student: {
+            firstName: "Handi",
+            lastName: "Fouad"
+          },
+          jury: [
+            {
+              name: "Bouarifi"
+            },
+            {
+              name: "Atlas"
+            },
+            {
+              name: "Ech-chadi"
+            }
+          ],
+          coach: "Atlas",
+          document: "url to document",
+          status:"notvalide",
+        },
+
+        {
+          code: "F-45",
+          title: "conception and developement web app",
+          entreprise: {
+            name: "Bc Skills"
+          },
+          student: {
+            firstName: "Handi",
+            lastName: "Fouad"
+          },
+          jury: [
+            {
+              name: "Bouarifi"
+            },
+            {
+              name: "Atlas"
+            },
+            {
+              name: "Ech-chadi"
+            }
+          ],
+          coach: "Atlas",
+          document: "url to document",
+          status:"valide",
+        },
+
+        {
+          code: "F-55",
+          title: "conception and developement web app",
+          entreprise: {
+            name: "Bc Skills"
+          },
+          student: {
+            firstName: "Handi",
+            lastName: "Fouad"
+          },
+          jury: [
+            {
+              name: "Bouarifi"
+            },
+            {
+              name: "Atlas"
+            },
+            {
+              name: "Ech-chadi"
+            }
+          ],
+          coach: "Atlas",
+          document: "url to document",
+          status:"notvalide",
+        },
+
+        {
+          code: "F-56",
+          title: "conception and developement web app",
+          entreprise: {
+            name: "Bc Skills"
+          },
+          student: {
+            firstName: "Handi",
+            lastName: "Fouad"
+          },
+          jury: [
+            {
+              name: "Bouarifi"
+            },
+            {
+              name: "Atlas"
+            },
+            {
+              name: "Ech-chadi"
+            }
+          ],
+          coach: "Atlas",
+          document: "url to document",
+          status:"valide",
+        },
+
+        {
+          code: "F-80",
+          title: "conception and developement web app",
+          entreprise: {
+            name: "Bc Skills"
+          },
+          student: {
+            firstName: "Handi",
+            lastName: "Fouad"
+          },
+          jury: [
+            {
+              name: "Bouarifi"
+            },
+            {
+              name: "Atlas"
+            },
+            {
+              name: "Ech-chadi"
+            }
+          ],
+          coach: "Atlas",
+          document: "url to document",
+          status:"notvalide",
+        }
+      ];
+    }
+  }
+};
 </script>
+<style lang="scss" scoped>
+.valide{
+  border-right: 4px solid #3cd1c2;
+}
+.notvalide{
+  border-right: 4px solid lightcoral;
+}
+</style>
+
 
