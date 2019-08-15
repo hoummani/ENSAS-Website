@@ -13,16 +13,7 @@
           </v-tab-item>
 
           <v-tab-item value="tab-2">
-            <v-container fluid>
-              <v-row>
-                <div class="ma-3">
-                  <p>
-                    Rapport Rapport Rapport Rapport Rapport Rapport Rapport
-                    Rapport
-                  </p>
-                </div>
-              </v-row>
-            </v-container>
+            <Report/>
           </v-tab-item>
 
           <v-tab-item value="tab-3">
@@ -42,6 +33,8 @@
 
 <script>
 import Entreprise from "../components/pfe/Entreprise";
+
+import Report from "../components/pfe/Report";
 export default {
   data() {
     return {
@@ -49,7 +42,8 @@ export default {
     };
   },
   components: {
-    Entreprise
+    Entreprise,
+    Report
   }
 };
 </script>
