@@ -46,7 +46,14 @@
 
               <v-tooltip top>
                 <template v-slot:activator="{ on }">
-                  <v-btn color="white" class="ml-1" @click="onAddItem()" fab icon v-on="on">
+                  <v-btn
+                    color="white"
+                    class="ml-1"
+                    @click="onAddItem()"
+                    fab
+                    icon
+                    v-on="on"
+                  >
                     <v-icon dark>add</v-icon>
                   </v-btn>
                 </template>
@@ -60,12 +67,17 @@
 
         <template v-slot:default="props">
           <v-row>
-            <v-col v-for="item in props.items" :key="item.email" cols="12" sm="6" md="4" lg="4">
+            <v-col
+              v-for="item in props.items"
+              :key="item.email"
+              cols="12"
+              sm="6"
+              md="4"
+              lg="4"
+            >
               <v-card>
                 <v-card-title class="subheading font-weight-thin">
-                  {{
-                  item.nom
-                  }}
+                  {{ item.nom }}
                 </v-card-title>
 
                 <v-divider></v-divider>
@@ -78,9 +90,7 @@
                   >
                     <v-list-item-content>{{ key }}:</v-list-item-content>
                     <v-list-item-content class="caption align-start">
-                      {{
-                      item[key.toLowerCase()]
-                      }}
+                      {{ item[key.toLowerCase()] }}
                     </v-list-item-content>
                   </v-list-item>
                 </v-list>
@@ -129,7 +139,9 @@
 
             <v-spacer></v-spacer>
 
-            <span class="mr-4 grey--text">Page {{ page }} de {{ numberOfPages }}</span>
+            <span class="mr-4 grey--text"
+              >Page {{ page }} de {{ numberOfPages }}</span
+            >
             <v-btn fab text class="mr-1" @click="formerPage">
               <v-icon>keyboard_arrow_left</v-icon>
             </v-btn>
@@ -145,7 +157,7 @@
     <v-layout justify-center>
       <v-dialog v-model="itemDialog" persistent max-width="590">
         <v-card>
-          <v-card-title class="headline">{{itemFormTitle}}</v-card-title>
+          <v-card-title class="headline">{{ itemFormTitle }}</v-card-title>
           <v-divider></v-divider>
           <v-card-text>
             <v-container grid-list-md>
@@ -170,7 +182,7 @@
 
                   <v-select
                     v-model="ItemObject.type"
-                    :items="['Privee','Public','Semi-Public']"
+                    :items="['Privee', 'Public', 'Semi-Public']"
                     :rules="ItemObjectRules.requiredField"
                     label="Type"
                     class="mr-1"
@@ -220,7 +232,9 @@
           <v-card-actions>
             <v-spacer></v-spacer>
             <v-btn color="indigo darken-1" text @click="reset">Annuler</v-btn>
-            <v-btn color="indigo darken-1" text @click="submit">Enregistrer</v-btn>
+            <v-btn color="indigo darken-1" text @click="submit"
+              >Enregistrer</v-btn
+            >
           </v-card-actions>
         </v-card>
       </v-dialog>
@@ -249,8 +263,8 @@ export default {
         "Adresse"
       ],
       //add item
-      itemFormTitle:"Ajouter Une Entreprise",
-      onEdit:false,
+      itemFormTitle: "Ajouter Une Entreprise",
+      onEdit: false,
       itemDialog: false,
       itemValidForm: false,
       ItemObject: {
@@ -351,7 +365,7 @@ export default {
 
     //add item form
     onAddItem() {
-      this.onEdit=false;
+      this.onEdit = false;
       this.itemDialog = true;
     },
     submit() {
@@ -371,31 +385,29 @@ export default {
       console.log(item);
     },
     editItem(item) {
-      this.itemDialog=true;
-      this.onEdit=true;
+      this.itemDialog = true;
+      this.onEdit = true;
       //assign object
-      this.ItemObject.nom=item.nom;
-      this.ItemObject.email=item.email;
-      this.ItemObject.telephone=item.telephone;
-      this.ItemObject.adresse=item.adresse;
-      this.ItemObject.zipcode=item.zipcode;
-      this.ItemObject.specialitee=item.specialitee;
-      this.ItemObject.type=item.type;
-      
-      
+      this.ItemObject.nom = item.nom;
+      this.ItemObject.email = item.email;
+      this.ItemObject.telephone = item.telephone;
+      this.ItemObject.adresse = item.adresse;
+      this.ItemObject.zipcode = item.zipcode;
+      this.ItemObject.specialitee = item.specialitee;
+      this.ItemObject.type = item.type;
     },
     deleteItem(item) {
       console.log(item);
     }
   },
   watch: {
-    onEdit:function(v){
-      if(v==true){
-        this.itemFormTitle="Editer des informations"
-      }else{
-        this.itemFormTitle="Ajouter Une Entreprise"
+    onEdit: function(v) {
+      if (v == true) {
+        this.itemFormTitle = "Editer des informations";
+      } else {
+        this.itemFormTitle = "Ajouter Une Entreprise";
       }
     }
-  },
+  }
 };
 </script>
