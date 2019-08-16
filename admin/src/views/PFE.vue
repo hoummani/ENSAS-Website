@@ -8,7 +8,7 @@
           <v-tab href="#tab-2">Entreprises</v-tab>
           <v-tab href="#tab-3">Groups des jurys</v-tab>
           <v-tab href="#tab-4">Planing de soutenances</v-tab>
-
+           <v-tab href="#tab-5">Calendrier de PFE</v-tab>
           <v-tab-item value="tab-1">
             <Report />
           </v-tab-item>
@@ -22,6 +22,10 @@
 
           <v-tab-item value="tab-4">
             <PlaningSoutenance/>
+          </v-tab-item>
+
+          <v-tab-item value="tab-5">
+            <CalendarPFE/>
           </v-tab-item>
         </v-tabs>
       </v-card>
@@ -37,6 +41,7 @@ import Report from "../components/pfe/Report";
 import Jurys from "../components/pfe/Jurys";
 
 import PlaningSoutenance from "../components/pfe/PlaningSoutenance";
+import CalendarPFE from "../components/pfe/CalendarPFE";
 export default {
   data() {
     return {
@@ -47,7 +52,8 @@ export default {
     Entreprise,
     Report,
     Jurys,
-    PlaningSoutenance
+    PlaningSoutenance,
+    CalendarPFE
   }
 };
 </script>
