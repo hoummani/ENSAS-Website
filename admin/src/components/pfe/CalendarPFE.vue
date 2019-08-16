@@ -20,7 +20,7 @@
         <v-flex xs6 sm5 md4 lg4>
           <div class="caption grey--text">Operations</div>
           <div>
-            <v-btn small icon>
+            <v-btn small icon @click="onEdit(item)">
               <v-icon small>edit</v-icon>
             </v-btn>
             <v-btn small icon>
@@ -43,7 +43,7 @@
     <v-layout justify-center>
       <v-dialog v-model="ItemDialog" persistent max-width="590">
         <v-card>
-          <v-card-title class="headline">Ajouter Une Date</v-card-title>
+          <v-card-title class="headline">{{fromTitle}}</v-card-title>
           <v-divider></v-divider>
           <v-card-text>
             <v-container grid-list-md>
@@ -74,10 +74,12 @@
           </v-card-text>
           <v-divider></v-divider>
           <v-card-actions>
-            <v-layout row justify-end>
+            <v-layout  justify-end>
               <div>
                 <v-btn text color="indigo darken-1" @click="ItemDialog=false">Annuler</v-btn>
-                <v-btn text color="indigo darken-1" @click="onAddSubmit">Ajouter</v-btn>
+                <v-btn dark color="primary" @click="onEditSubmit" v-if="edit">Modifier</v-btn>
+                <v-btn dark color="primary" @click="onAddSubmit" v-else>Ajouter</v-btn>
+                
               </div>
             </v-layout>
           </v-card-actions>
@@ -97,6 +99,8 @@ export default {
       calendars: [],
 
       ////modal
+      edit:false,
+      fromTitle:"Ajouter Une Date",
       ItemDialog: false,
       ItemValidForm: false,
       menu2: false,
@@ -122,12 +126,32 @@ export default {
         : "";
     }
   },
+  watch: {
+    edit:function(v){
+      if(v==true){
+        this.fromTitle="Editer Une Date de calendrier"
+      }
+    }
+  },
   methods: {
     onAddDate() {
+      this.edit=false;
+      this.$refs.ItemForm.reset();
       this.ItemDialog = true;
     },
     onAddSubmit() {
       if (this.$refs.ItemForm.validate()) {
+        this.calendars.push(this.calendar);
+        console.log(this.calendar);
+      }
+    },
+    onEdit(item){
+      this.ItemDialog=true;
+      this.edit=true;
+      this.calendar={...item};
+    },
+    onEditSubmit(){
+      if(this.$refs.ItemForm.validate()){
         console.log(this.calendar);
       }
     },

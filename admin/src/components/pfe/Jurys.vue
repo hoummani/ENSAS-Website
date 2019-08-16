@@ -131,7 +131,7 @@
             <v-card-actions>
               <v-spacer></v-spacer>
               <v-btn color="indigo darken-1" text @click="addGrpreset">Annuler</v-btn>
-              <v-btn color="indigo darken-1" text @click="addGrpsubmit">Enregistrer</v-btn>
+              <v-btn color="primary" dark  @click="addGrpsubmit">Enregistrer</v-btn>
             </v-card-actions>
           </v-card>
         </v-dialog>
@@ -194,7 +194,7 @@
             <v-card-actions>
               <v-spacer></v-spacer>
               <v-btn color="indigo darken-1" text @click="editGrpreset">Annuler</v-btn>
-              <v-btn color="indigo darken-1" text @click="editGrpsubmit">Enregistrer</v-btn>
+              <v-btn color="primary" dark @click="editGrpsubmit">Enregistrer</v-btn>
             </v-card-actions>
           </v-card>
         </v-dialog>
