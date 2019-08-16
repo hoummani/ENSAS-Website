@@ -28,6 +28,9 @@
           <div class="caption grey--text">Operations</div>
           <div>
             <v-btn small icon>
+              <v-icon small>email</v-icon>
+            </v-btn>
+            <v-btn small icon @click="onEditGroup(item)">
               <v-icon small>edit</v-icon>
             </v-btn>
             <v-btn small icon>
@@ -133,9 +136,27 @@
           </v-card>
         </v-dialog>
       </v-layout>
-    </div>
-    <!--  
-      <v-card class="pa-5 mb-2" v-for="index in  membersArray" :key="index">
+
+      <!--  edit group  -->
+      <v-layout justify-center>
+        <v-dialog v-model="editItemDialog" persistent max-width="590">
+          <v-card>
+            <v-card-title class="headline">Editer Un Groupe</v-card-title>
+            <v-divider></v-divider>
+            <v-card-text>
+              <v-container grid-list-md>
+                <v-form ref="editItemForm" v-model="editItemValidForm" lazy-validation v-if="GroupObjectEdit!=null">
+                  <v-select
+                    label="Selectioner le departement"
+                    :items="deps"
+                    v-model="GroupObjectEdit.departement"
+                    :rules="GroupObjectRules.requiredField"
+                    item-text="name"
+                    item-value="value"
+                  ></v-select>
+
+                  <!-- ########### -->
+                  <v-card class="pa-5 mb-2" v-for="(item,index) in GroupObjectEdit.members" :key="index">
                     <div class="caption grey--text">
                       Membre :
                       <span class="body-2 font-weight-bold">{{index+1}}</span>
@@ -145,14 +166,14 @@
                       type="text"
                       label="Nom"
                       :rules="GroupObjectRules.textInput"
-                      v-model="GroupObject.members.name"
+                      v-model="item.name"
                       required
                     ></v-text-field>
                     <v-text-field
                       type="email"
                       label="Email"
                       :rules="GroupObjectRules.emailInput"
-                      v-model="GroupObject.members.email"
+                      v-model="item.email"
                       required
                     ></v-text-field>
 
@@ -160,12 +181,26 @@
                       type="phone"
                       label="Telephone"
                       :rules="GroupObjectRules.phoneInput"
-                      v-model="GroupObject.members.phone"
+                      v-model="item.phone"
                       required
                     ></v-text-field>
+                    
                   </v-card>
                   
-     -->
+                </v-form>
+              </v-container>
+            </v-card-text>
+            <v-divider></v-divider>
+            <v-card-actions>
+              <v-spacer></v-spacer>
+              <v-btn color="indigo darken-1" text @click="editGrpreset">Annuler</v-btn>
+              <v-btn color="indigo darken-1" text @click="editGrpsubmit">Enregistrer</v-btn>
+            </v-card-actions>
+          </v-card>
+        </v-dialog>
+      </v-layout>
+    </div>
+    
     
   </div>
 </template>
@@ -186,7 +221,90 @@ export default {
           value: "indusGpmc"
         }
       ],
-      jurys: [
+      jurys: [],
+      //add group
+      addItemValidForm: false,
+      addItemDialog: false,
+      membresNumber: 1,
+
+      GroupObject: {
+        departement: "",
+        members: [
+          {
+            name: "",
+            email: "",
+            phone: ""
+          }
+        ]
+      },
+      GroupObjectRules: {
+        textInput: [
+          v =>
+            (v && v.length >= 3) ||
+            "Text field value must be great than 3 characters"
+        ],
+        emailInput: [v => /.+@.+\..+/.test(v) || "E-mail must be valid"],
+        phoneInput: [
+          v => (v && v.length >= 9) || "Phone number is not valid !"
+        ],
+        requiredField: [v => !!v || "Text field is required !"]
+      },
+      //edit group
+
+      editItemDialog:false,
+      editItemValidForm:false,
+      GroupObjectEdit:{},
+    };
+  },
+  created() {
+    this.initialize();
+  },
+  methods: {
+    
+    onAddGrp() {
+      this.addItemDialog = true;
+    },
+    onAddMember(){
+      
+      this.GroupObject.members.push({
+        name:"",
+        email:"",
+        phone:""
+      });
+    },
+    onRemoveMember(index){
+      if(index>0){
+        
+        this.GroupObject.members.splice(index, 1);
+      }
+    },
+    addGrpreset() {
+      this.$refs.addItemForm.reset();
+      this.addItemDialog = false;
+    },
+    addGrpsubmit() {
+      if (this.$refs.addItemForm.validate()) {
+        console.log(this.GroupObject);
+      }
+    },
+
+    onEditGroup(item){
+      this.editItemDialog=true;
+      this.GroupObjectEdit={...item};
+    },
+    editGrpreset(){
+      
+      this.editItemDialog=false;
+      
+    },
+    editGrpsubmit(){
+      if(this.$refs.editItemForm.validate()){
+        console.log("Valid !");
+      }
+    },
+
+    initialize() {
+      this.jurys=[
         {
           members: [
             {
@@ -227,65 +345,8 @@ export default {
           ],
           departement: "indusGpmc"
         }
-      ],
-      //add group
-      addItemValidForm: false,
-      addItemDialog: false,
-      membresNumber: 1,
-
-      GroupObject: {
-        departement: "",
-        members: [
-          {
-            name: "",
-            email: "",
-            phone: ""
-          }
-        ]
-      },
-      GroupObjectRules: {
-        textInput: [
-          v =>
-            (v && v.length >= 3) ||
-            "Text field value must be great than 3 characters"
-        ],
-        emailInput: [v => /.+@.+\..+/.test(v) || "E-mail must be valid"],
-        phoneInput: [
-          v => (v && v.length >= 9) || "Phone number is not valid !"
-        ],
-        requiredField: [v => !!v || "Text field is required !"]
-      }
-    };
-  },
-  created() {},
-  methods: {
-    initialize() {},
-    onAddGrp() {
-      this.addItemDialog = true;
+      ]
     },
-    onAddMember(){
-      
-      this.GroupObject.members.push({
-        name:"",
-        email:"",
-        phone:""
-      });
-    },
-    onRemoveMember(index){
-      if(index>0){
-        
-        this.GroupObject.members.splice(index, 1);
-      }
-    },
-    addGrpreset() {
-      this.$refs.addItemForm.reset();
-      this.addItemDialog = false;
-    },
-    addGrpsubmit() {
-      if (this.$refs.addItemForm.validate()) {
-        console.log(this.GroupObject);
-      }
-    }
   },
   computed: {
     membersArray: function() {
