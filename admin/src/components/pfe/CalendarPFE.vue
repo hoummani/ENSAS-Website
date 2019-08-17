@@ -47,7 +47,7 @@
 
     <!-- add & edit form  -->
     <v-layout justify-center>
-      <v-dialog v-model="ItemDialog" persistent max-width="590">
+      <v-dialog v-model="ItemDialog" persistent max-width="690">
         <v-card>
           <v-card-title class="headline">{{ fromTitle }}</v-card-title>
           <v-divider></v-divider>
@@ -153,7 +153,10 @@ export default {
   methods: {
     onAddDate() {
       this.edit = false;
-      this.$refs.ItemForm.reset();
+      if (this.$refs.ItemForm) {
+        this.$refs.ItemForm.reset();
+      }
+
       this.ItemDialog = true;
     },
     onAddSubmit() {
