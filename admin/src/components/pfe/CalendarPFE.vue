@@ -1,20 +1,26 @@
 <template>
   <div class="pa-4">
     <v-layout class="pa-3 pl-5 pr-5" wrap row>
-      <v-text-field type="text" append-icon="search" label="Recherche..." single-line hide-details></v-text-field>
+      <v-text-field
+        type="text"
+        append-icon="search"
+        label="Recherche..."
+        single-line
+        hide-details
+      ></v-text-field>
       <v-spacer></v-spacer>
       <v-btn color="secondary" @click="onAddDate">Ajouter Une date</v-btn>
     </v-layout>
     <v-card
       class="ma-2 pl-4"
-      v-for="(item,index) in calendars"
+      v-for="(item, index) in calendars"
       :key="index"
       v-ripple="{ class: `indigo--text lighten-2` }"
     >
       <v-layout row wrap class="pa-3 pl-4">
         <v-flex xs6 sm7 md8 lg8>
           <div class="caption grey--text">La date</div>
-          <div class="body-2 font-weight-bold">{{item.date}}</div>
+          <div class="body-2 font-weight-bold">{{ item.date }}</div>
         </v-flex>
         <!-- operations -->
         <v-flex xs6 sm5 md4 lg4>
@@ -33,7 +39,7 @@
       <v-layout row wrap class="pa-3 pl-4">
         <v-flex>
           <div class="caption grey--text">Descriptions</div>
-          <div>{{item.description}}</div>
+          <div>{{ item.description }}</div>
         </v-flex>
       </v-layout>
       <v-divider></v-divider>
@@ -43,25 +49,34 @@
     <v-layout justify-center>
       <v-dialog v-model="ItemDialog" persistent max-width="590">
         <v-card>
-          <v-card-title class="headline">{{fromTitle}}</v-card-title>
+          <v-card-title class="headline">{{ fromTitle }}</v-card-title>
           <v-divider></v-divider>
           <v-card-text>
             <v-container grid-list-md>
               <v-form ref="ItemForm" v-model="ItemValidForm" lazy-validation>
                 <!--  date -->
-                <v-menu v-model="menu2" :close-on-content-click="false" full-width max-width="290">
+                <v-menu
+                  v-model="menu2"
+                  :close-on-content-click="false"
+                  full-width
+                  max-width="290"
+                >
                   <template v-slot:activator="{ on }">
                     <v-text-field
                       :value="formatedDate"
                       clearable
-                      :rules="calendarRules.requiredField" label="La date"
+                      :rules="calendarRules.requiredField"
+                      label="La date"
                       readonly
                       v-on="on"
                     ></v-text-field>
                   </template>
-                  <v-date-picker v-model="calendar.date" locale="fr" @change="menu2 = false"></v-date-picker>
+                  <v-date-picker
+                    v-model="calendar.date"
+                    locale="fr"
+                    @change="menu2 = false"
+                  ></v-date-picker>
                 </v-menu>
-                
 
                 <v-textarea
                   v-model="calendar.description"
@@ -74,12 +89,17 @@
           </v-card-text>
           <v-divider></v-divider>
           <v-card-actions>
-            <v-layout  justify-end>
+            <v-layout justify-end>
               <div>
-                <v-btn text color="indigo darken-1" @click="ItemDialog=false">Annuler</v-btn>
-                <v-btn dark color="primary" @click="onEditSubmit" v-if="edit">Modifier</v-btn>
-                <v-btn dark color="primary" @click="onAddSubmit" v-else>Ajouter</v-btn>
-                
+                <v-btn text color="indigo darken-1" @click="ItemDialog = false"
+                  >Annuler</v-btn
+                >
+                <v-btn dark color="primary" @click="onEditSubmit" v-if="edit"
+                  >Modifier</v-btn
+                >
+                <v-btn dark color="primary" @click="onAddSubmit" v-else
+                  >Ajouter</v-btn
+                >
               </div>
             </v-layout>
           </v-card-actions>
@@ -90,7 +110,6 @@
 </template>
 
 <script>
-
 import format from "date-fns/format";
 export default {
   data() {
@@ -99,8 +118,8 @@ export default {
       calendars: [],
 
       ////modal
-      edit:false,
-      fromTitle:"Ajouter Une Date",
+      edit: false,
+      fromTitle: "Ajouter Une Date",
       ItemDialog: false,
       ItemValidForm: false,
       menu2: false,
@@ -121,21 +140,19 @@ export default {
   },
   computed: {
     formatedDate() {
-      return this.calendar.date
-        ? format(this.calendar.date, "Do MM YYYY")
-        : "";
+      return this.calendar.date ? format(this.calendar.date, "Do MM YYYY") : "";
     }
   },
   watch: {
-    edit:function(v){
-      if(v==true){
-        this.fromTitle="Editer Une Date de calendrier"
+    edit: function(v) {
+      if (v == true) {
+        this.fromTitle = "Editer Une Date de calendrier";
       }
     }
   },
   methods: {
     onAddDate() {
-      this.edit=false;
+      this.edit = false;
       this.$refs.ItemForm.reset();
       this.ItemDialog = true;
     },
@@ -145,13 +162,13 @@ export default {
         console.log(this.calendar);
       }
     },
-    onEdit(item){
-      this.ItemDialog=true;
-      this.edit=true;
-      this.calendar={...item};
+    onEdit(item) {
+      this.ItemDialog = true;
+      this.edit = true;
+      this.calendar = { ...item };
     },
-    onEditSubmit(){
-      if(this.$refs.ItemForm.validate()){
+    onEditSubmit() {
+      if (this.$refs.ItemForm.validate()) {
         console.log(this.calendar);
       }
     },
@@ -202,4 +219,3 @@ export default {
   }
 };
 </script>
-
