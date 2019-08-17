@@ -101,7 +101,7 @@ export default {
           url: "/choix_filieres"
         },
         { title: "Espace PFE", icon: "school", url: "/pfe" },
-        { title: "Parametres", icon: "settings", url: null }
+        { title: "Parametres", icon: "settings", url: "/settings" }
       ],
       right: null,
       notifications: [

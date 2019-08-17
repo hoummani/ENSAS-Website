@@ -13,6 +13,8 @@ import Concours from "./views/Concours.vue";
 import ChoixFilieres from "./views/ChoixFilieres.vue";
 import PFE from "./views/PFE.vue";
 
+import Settings from "./views/Settings.vue";
+
 Vue.use(Router);
 
 export default new Router({
@@ -78,6 +80,11 @@ export default new Router({
       path: "/pfe",
       name: "pfe",
       component: PFE
+    },
+    {
+      path: "/settings",
+      name: "settings",
+      component: Settings
     }
   ]
 });
