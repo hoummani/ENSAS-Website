@@ -4,7 +4,7 @@
       <v-toolbar-side-icon @click="drawer = !drawer"></v-toolbar-side-icon>
 
       <div class="pt-3">
-        <img src="/img/logo.png" width="" height="50px" />
+        <img src="/img/logo.png" width height="50px" />
       </div>
       <v-spacer></v-spacer>
       <v-toolbar-items class="hidden-md-and-down" v-if="toolbar_items_show">
@@ -34,7 +34,7 @@
             <span>Comptes</span>
           </v-btn>
           <v-list>
-            <v-list-tile router>
+            <v-list-tile to="/login" router>
               <v-list-tile-title>SE CONNECTER</v-list-tile-title>
             </v-list-tile>
             <v-list-tile router>
@@ -49,22 +49,36 @@
       floating
       app
       v-model="drawer"
+      class="indigo lighten-2"
+      dark
       offset-x
       @transitionend="toolbar_items_show = !toolbar_items_show"
     >
-      <v-toolbar flat height="80">
-        <v-list>
+    
+      <v-toolbar flat>
+        
+        <v-list class="indigo lighten-2" dark>
           <v-list-tile>
             <v-list-tile-title class="title text-xs-center"
               >e-ENSAS</v-list-tile-title
             >
+            
           </v-list-tile>
         </v-list>
+        
       </v-toolbar>
-
+      
+      <!--
+      <v-list-item>
+        <v-list-item-content>
+          <v-list-item-title class="title">e-ENSAS</v-list-item-title>
+          <v-list-item-subtitle>Nouvelle plateforme</v-list-item-subtitle>
+        </v-list-item-content>
+      </v-list-item>
+      -->
       <v-divider></v-divider>
       <!-- list -->
-      <v-list>
+      <v-list dense nav>
         <v-list-tile router to="/">
           <v-list-tile-action>
             <v-icon>home</v-icon>

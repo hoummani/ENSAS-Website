@@ -13,4 +13,13 @@ export default {
   },
 }
 </script>
+<style lang="scss" scoped>
+.back{
+  background-attachment: fixed;
+  background-image: url('/img/bg_oc_things_grey.jpeg');
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+</style>
+
 
