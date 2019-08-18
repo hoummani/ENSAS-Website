@@ -39,13 +39,14 @@
           </v-list>
         </v-menu>
       </v-btn>
-
+      <!--
       <v-btn icon class="hidden-xs-only">
         <v-icon>person</v-icon>
       </v-btn>
       <v-btn icon class="hidden-xs-only">
         <v-icon>mdi-settings</v-icon>
       </v-btn>
+      -->
 
       <v-btn icon class="hidden-xs-only">
         <v-icon>more_vert</v-icon>
