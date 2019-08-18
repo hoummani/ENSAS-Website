@@ -139,7 +139,7 @@
           </template>
           <v-list-group no-action sub-group>
             <template v-slot:activator>
-              <v-list-tile>
+              <v-list-tile to="/login" router>
                 <v-list-tile-title>SE CONNECTER</v-list-tile-title>
               </v-list-tile>
             </template>
@@ -147,7 +147,7 @@
 
           <v-list-group sub-group no-action>
             <template v-slot:activator>
-              <v-list-tile>
+              <v-list-tile to="/register" router>
                 <v-list-tile-title>S'ENREGISTRER</v-list-tile-title>
               </v-list-tile>
             </template>
