@@ -24,7 +24,7 @@
             </v-list-tile>
           </v-list>
         </v-menu>
-        <v-btn color="grey" flat>Reinscription</v-btn>
+        <v-btn color="grey" flat router to="/register">Reinscription</v-btn>
         <v-btn color="grey" flat>Choix de filiere</v-btn>
         <v-btn color="grey" flat>Espace PFE</v-btn>
         <v-btn flat color="grey" to="/about">About</v-btn>
@@ -54,31 +54,20 @@
       offset-x
       @transitionend="toolbar_items_show = !toolbar_items_show"
     >
-    
       <v-toolbar flat>
-        
         <v-list class="indigo lighten-2" dark>
           <v-list-tile>
             <v-list-tile-title class="title text-xs-center"
               >e-ENSAS</v-list-tile-title
             >
-            
           </v-list-tile>
         </v-list>
-        
       </v-toolbar>
+
       
-      <!--
-      <v-list-item>
-        <v-list-item-content>
-          <v-list-item-title class="title">e-ENSAS</v-list-item-title>
-          <v-list-item-subtitle>Nouvelle plateforme</v-list-item-subtitle>
-        </v-list-item-content>
-      </v-list-item>
-      -->
       <v-divider></v-divider>
       <!-- list -->
-      <v-list dense nav>
+      <v-list  nav>
         <v-list-tile router to="/">
           <v-list-tile-action>
             <v-icon>home</v-icon>
