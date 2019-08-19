@@ -6,22 +6,16 @@
     <v-container>
       <v-stepper v-model="e1">
         <v-stepper-header>
-          
           <template v-for="n in steps">
-            <v-stepper-step :key="`${n}-step`"
-              :complete="e1 > n"
-              editable
-              :step="n">Etape {{ n }}</v-stepper-step>
+            <v-stepper-step :key="`${n}-step`" :editable="editable[n]" :complete="e1 > n" :step="n">Etape {{ n }}</v-stepper-step>
 
             <v-divider v-if="n !== steps" :key="n"></v-divider>
           </template>
-
         </v-stepper-header>
         <v-stepper-items>
           <!-- basic info  -->
-          <v-stepper-content  v-for="n in steps"
-            :key="`${n}-content`" :step="n">
-            <v-card v-if="n===1">
+          <v-stepper-content v-for="n in steps" :key="`${n}-content`" :step="n">
+            <v-card v-if="n===1" class="mb-3" flat>
               <v-card-title>
                 <h5 class="subheading text-uppercase grey--text">Information de base</h5>
               </v-card-title>
@@ -111,10 +105,14 @@
                   </v-layout>
                 </v-form>
               </v-card-text>
+              
             </v-card>
-
+            <v-divider></v-divider>
             <v-layout row wrap justify-end class="mt-2">
-              <v-btn color="primary">Continue</v-btn>
+              <v-btn color="secondary" v-if="n===5">Initialiser</v-btn>
+              <v-btn color="primary" v-if="n===5">Enregistrer</v-btn>
+              
+              <v-btn color="primary" v-else @click="nextStep(n)">Continue</v-btn>
             </v-layout>
           </v-stepper-content>
           <!--  basic info  end  -->
@@ -133,33 +131,7 @@ export default {
       e1: 1,
       step: 1,
       steps: 5,
-      stepsObject:[
-        {
-          number:1,
-          editable:true,
-          complete:false
-        },
-        {
-          number:2,
-          editable:false,
-          complete:false
-        },
-        {
-          number:3,
-          editable:false,
-          complete:false
-        },
-        {
-          number:4,
-          editable:false,
-          complete:false
-        },
-        {
-          number:5,
-          editable:false,
-          complete:false
-        }
-      ],
+      editable:[false,true,false,false,false,false],
       //register form
       registerValid: false,
       submitted: false,
@@ -244,17 +216,33 @@ export default {
       if (this.e1 > val) {
         this.e1 = val;
       }
-    },
-    
+    }
   },
 
   methods: {
     nextStep(n) {
-      if (n === this.steps) {
-        this.e1 = 1;
-      } else {
+      if(this.ckechFormSide(n)){
         this.e1 = n + 1;
+        this.editable[n+1]=true;
       }
+      
+    },
+    ckechFormSide(n){
+      let checked=false;
+      if(n==1){
+        checked=true;
+      }
+      else if(n==2){
+        //phase 2
+        
+      }else if(n==3){
+        //phase 3
+      }else if(n==4){
+        //phase 4
+      }else{
+        //phase 5
+      }
+      return checked;
     },
     //submit the form
     handleSubmit() {
