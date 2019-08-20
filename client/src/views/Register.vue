@@ -20,18 +20,16 @@
         <v-stepper-items>
           <!-- basic info  -->
           <v-stepper-content v-for="n in steps" :key="`${n}-content`" :step="n">
-            <v-form
-              v-model="registerValid"
-              
-              lazy-validation
-              @submit.prevent="handleSubmit"
-            >
+            <v-form v-model="registerValid" lazy-validation @submit.prevent="handleSubmit">
               <v-card v-if="n === 1" class="mb-3" flat>
                 <v-card-title>
                   <h5 class="subheading text-uppercase grey--text">Information de base</h5>
                 </v-card-title>
                 <v-divider></v-divider>
                 <v-card-text>
+                  <p>
+                    <v-alert :value="false" type="error">Lorem ipsum dolor sit</v-alert>
+                  </p>
                   <v-layout row wrap justify-space-around>
                     <v-flex xs12 sm5 md4 lg4>
                       <v-text-field
@@ -168,7 +166,6 @@ export default {
         parentAddress: "",
         parentPhone: ""
       }
-      
     };
   },
   validations: {
@@ -224,7 +221,7 @@ export default {
       this.e1 = n + 1;
       this.editable[n + 1] = true;
     },
-    
+
     sayErrors() {
       if (this.cinErrors == []) {
         console.log("True");
@@ -242,34 +239,58 @@ export default {
 
       console.log(this.studentObject);
     },
-    reset(){
+    reset() {
       this.$v.$reset();
-      
-      this.e1=1;
-      this.editable= [false, true, false, false, false, false];
-      
-    }
+
+      this.e1 = 1;
+      this.editable = [false, true, false, false, false, false];
+    },
+
+    //comons validations
+    /*
+    textInputErrors(fieldName) {
+      const errors = [];
+      switch (fieldName) {
+        case "cin":
+          if (this.$v.studentObject.cin.$dirty) return errors;
+          !this.$v.studentObject.cin.minLength &&
+            errors.push("Must be valid CIN");
+          !this.$v.studentObject.cin.required && errors.push("CIN is required");
+          break;
+        case "cne":
+          if (this.$v.studentObject.cne.$dirty) return errors;
+          !this.$v.studentObject.cne.minLength &&
+            errors.push("Must be valid Field CNE");
+          !this.$v.studentObject.cne.required && errors.push("CNE is required");
+          break;
+      }
+      return errors;
+    }*/
   },
-  created() {
-    
-  },
+  created() {},
   computed: {
     //validations computed
 
     cinErrors() {
+      
       const errors = [];
       if (!this.$v.studentObject.cin.$dirty) return errors;
-      !this.$v.studentObject.cin.minLength && errors.push("Must be valid CIN");
-      !this.$v.studentObject.cin.required && errors.push("CIN is required");
+      !this.$v.studentObject.cin.minLength &&
+        errors.push("Must be valid Field CIN");
+      !this.$v.studentObject.cne.required && errors.push("CIN is required");
       return errors;
+      
     },
     cneErrors() {
+      
       const errors = [];
       if (!this.$v.studentObject.cne.$dirty) return errors;
       !this.$v.studentObject.cne.minLength &&
         errors.push("Must be valid Field CNE");
       !this.$v.studentObject.cne.required && errors.push("CNE is required");
       return errors;
+      
+      
     },
     emailErrors() {
       const errors = [];
@@ -310,7 +331,8 @@ export default {
         errors.push("Confirm Password is required");
 
       return errors;
-    }
+    },
+    
   }
 };
 </script>
