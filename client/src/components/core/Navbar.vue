@@ -64,10 +64,9 @@
         </v-list>
       </v-toolbar>
 
-      
       <v-divider></v-divider>
       <!-- list -->
-      <v-list  nav>
+      <v-list nav>
         <v-list-tile router to="/">
           <v-list-tile-action>
             <v-icon>home</v-icon>

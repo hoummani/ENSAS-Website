@@ -1,13 +1,18 @@
 <template>
   <div class="back pa-2">
     <h3
-      class="display-1 text-sm-center font-weight-light"
+      class="display-1 text-sm-center grey--text font-weight-light"
     >Inscription et Reinscription en ligne ENSA Safi</h3>
     <v-container>
       <v-stepper v-model="e1">
         <v-stepper-header>
           <template v-for="n in steps">
-            <v-stepper-step :key="`${n}-step`" :editable="editable[n]" :complete="e1 > n" :step="n">Etape {{ n }}</v-stepper-step>
+            <v-stepper-step
+              :key="`${n}-step`"
+              :editable="editable[n]"
+              :complete="e1 > n"
+              :step="n"
+            >Etape {{ n }}</v-stepper-step>
 
             <v-divider v-if="n !== steps" :key="n"></v-divider>
           </template>
@@ -15,18 +20,18 @@
         <v-stepper-items>
           <!-- basic info  -->
           <v-stepper-content v-for="n in steps" :key="`${n}-content`" :step="n">
-            <v-card v-if="n===1" class="mb-3" flat>
-              <v-card-title>
-                <h5 class="subheading text-uppercase grey--text">Information de base</h5>
-              </v-card-title>
-              <v-divider></v-divider>
-              <v-card-text>
-                <v-form
-                  v-model="registerValid"
-                  ref="registerForm"
-                  lazy-validation
-                  @submit.prevent="handleSubmit"
-                >
+            <v-form
+              v-model="registerValid"
+              
+              lazy-validation
+              @submit.prevent="handleSubmit"
+            >
+              <v-card v-if="n === 1" class="mb-3" flat>
+                <v-card-title>
+                  <h5 class="subheading text-uppercase grey--text">Information de base</h5>
+                </v-card-title>
+                <v-divider></v-divider>
+                <v-card-text>
                   <v-layout row wrap justify-space-around>
                     <v-flex xs12 sm5 md4 lg4>
                       <v-text-field
@@ -103,17 +108,16 @@
                       ></v-text-field>
                     </v-flex>
                   </v-layout>
-                </v-form>
-              </v-card-text>
-              
-            </v-card>
-            <v-divider></v-divider>
-            <v-layout row wrap justify-end class="mt-2">
-              <v-btn color="secondary" v-if="n===5">Initialiser</v-btn>
-              <v-btn color="primary" v-if="n===5">Enregistrer</v-btn>
-              
-              <v-btn color="primary" v-else @click="nextStep(n)">Continue</v-btn>
-            </v-layout>
+                </v-card-text>
+              </v-card>
+              <v-divider></v-divider>
+              <v-layout row wrap justify-end class="mt-2">
+                <v-btn color="secondary" v-if="n === 5" @click="reset">Initialiser</v-btn>
+                <v-btn type="submit" color="primary" v-if="n === 5">Enregistrer</v-btn>
+
+                <v-btn color="primary" v-else @click="nextStep(n)">Suivant</v-btn>
+              </v-layout>
+            </v-form>
           </v-stepper-content>
           <!--  basic info  end  -->
         </v-stepper-items>
@@ -131,7 +135,7 @@ export default {
       e1: 1,
       step: 1,
       steps: 5,
-      editable:[false,true,false,false,false,false],
+      editable: [false, true, false, false, false, false],
       //register form
       registerValid: false,
       submitted: false,
@@ -164,14 +168,7 @@ export default {
         parentAddress: "",
         parentPhone: ""
       }
-      /*
-      studentObjectBasicRules:{
-        //cne /cin/addresses/
-        textInput:[
-          v => !!v || "This Field is required !",
-          v => (v && v.length>=6) || "This Field not valid !"
-        ], 
-      }*/
+      
     };
   },
   validations: {
@@ -221,28 +218,17 @@ export default {
 
   methods: {
     nextStep(n) {
-      if(this.ckechFormSide(n)){
-        this.e1 = n + 1;
-        this.editable[n+1]=true;
+      if (n == 5) {
+        this.e1 = 1;
       }
-      
+      this.e1 = n + 1;
+      this.editable[n + 1] = true;
     },
-    ckechFormSide(n){
-      let checked=false;
-      if(n==1){
-        checked=true;
+    
+    sayErrors() {
+      if (this.cinErrors == []) {
+        console.log("True");
       }
-      else if(n==2){
-        //phase 2
-        
-      }else if(n==3){
-        //phase 3
-      }else if(n==4){
-        //phase 4
-      }else{
-        //phase 5
-      }
-      return checked;
     },
     //submit the form
     handleSubmit() {
@@ -255,10 +241,21 @@ export default {
       }
 
       console.log(this.studentObject);
+    },
+    reset(){
+      this.$v.$reset();
+      
+      this.e1=1;
+      this.editable= [false, true, false, false, false, false];
+      
     }
+  },
+  created() {
+    
   },
   computed: {
     //validations computed
+
     cinErrors() {
       const errors = [];
       if (!this.$v.studentObject.cin.$dirty) return errors;

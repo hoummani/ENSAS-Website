@@ -1,11 +1,11 @@
 import Vue from "vue";
 import "./plugins/vuetify";
 import App from "./App.vue";
-import Vuelidate from 'vuelidate';
+import Vuelidate from "vuelidate";
 import router from "./router";
+
 import store from "./store";
 import * as VueGoogleMaps from "vue2-google-maps";
-
 
 Vue.use(Vuelidate);
 Vue.config.productionTip = false;
