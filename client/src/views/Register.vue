@@ -152,12 +152,13 @@
                         label="الاسم الشخصي"
                         dir="rtl"
                         lang="ar"
-                        id="lastNameInput"
+                        
                         class="keyboardInput"
-                        v-model="studentObject.firstNameAr"
-                        @input="$v.studentObject.firstNameAr.$touch()"
-                        @blur="$v.studentObject.firstNameAr.$touch()"
-                        :error-messages="firstNameArErrors"
+                        v-model="studentObject.lastNameAr"
+                        pattern=".{3,}" 
+                        @focus="lastNameArFocus"
+                        
+                        required
                         style="unicode-bidi:bidi-override;
                             direction: RTL; text-align:right;"
                       ></v-text-field>
@@ -168,23 +169,21 @@
                         <v-card>
                           <v-layout row wrap>
                             <v-flex>
-                              
-                              
                               <span  class="caption text-uppercase text-md-start">لوحة المفاتيح العربية</span>
                             </v-flex>
                           </v-layout>
                           <v-divider></v-divider>
                           <v-layout row wrap>
                             <v-flex v-for="(item,index) in keyboardKeys" :key="index">
-                              <v-btn v-if="item.name==='delete'" style="width:24px; height:24px;" fab icon small>
+                              <v-btn v-if="item.name==='delete'" style="width:24px; height:24px;" fab icon small @click="lastNameClick(item.name,item.character)">
                                 <v-icon small>keyboard_backspace</v-icon>
                               </v-btn>
-                              <v-btn v-else-if="item.name==='space'" style="width:95%" small></v-btn>
+                              <v-btn v-else-if="item.name==='space'" style="width:55%; margin-left:20%" @click="lastNameClick(item.name,item.character)" small></v-btn>
                               <v-btn
                                 small
                                 v-else
                                 fab
-                                @click="lastNameClick(item.character)"
+                                @click="lastNameClick(item.name,item.character)"
                                 style="width:24px; height:24px;"
                               >{{item.character}}</v-btn>
                               
@@ -201,23 +200,186 @@
                         dir="rtl"
                         lang="ar"
                         class="keyboardInput"
-                        v-model="studentObject.lastNameAr"
-                        @input="$v.studentObject.lastNameAr.$touch()"
-                        @blur="$v.studentObject.lastNameAr.$touch()"
-                        :error-messages="lastNameArErrors"
+                        v-model="studentObject.firstNameAr"
+                        pattern=".{3,}" 
+                        @focus="firstNameArFocus"
+                        
+                        required
                         style="unicode-bidi:bidi-override;
                             direction: RTL; text-align:right;"
                       ></v-text-field>
                       <v-btn right small icon @click="firstKeyboard=!firstKeyboard">
                         <v-icon>keyboard</v-icon>
                       </v-btn>
-                      <v-card id="firstNameKeyboard" v-if="firstKeyboard"></v-card>
+                      <div v-if="firstKeyboard">
+                        <v-card>
+                          <v-layout row wrap>
+                            <v-flex>
+                              <span  class="caption text-uppercase text-md-start">لوحة المفاتيح العربية</span>
+                            </v-flex>
+                          </v-layout>
+                          <v-divider></v-divider>
+                          <v-layout row wrap>
+                            <v-flex v-for="(item,index) in keyboardKeys" :key="index">
+                              <v-btn v-if="item.name==='delete'" style="width:24px; height:24px;" fab icon small @click="firstNameClick(item.name,item.character)">
+                                <v-icon small>keyboard_backspace</v-icon>
+                              </v-btn>
+                              <v-btn v-else-if="item.name==='space'" style="width:55%; margin-left:20%" @click="firstNameClick(item.name,item.character)" small></v-btn>
+                              <v-btn
+                                small
+                                v-else
+                                fab
+                                @click="firstNameClick(item.name,item.character)"
+                                style="width:24px; height:24px;"
+                              >{{item.character}}</v-btn>
+                              
+                            </v-flex>
+                          </v-layout>
+                        </v-card>
+                      </div>
+                    </v-flex>
+                  </v-layout>
+
+                  <!-- date naissance + lieu de maissance  -->
+                  <v-layout row wrap justify-space-around class="mt-2">
+                    <v-flex xs12 sm5 md4 lg4>
+                      <!-- firstName  -->
+                      <v-text-field
+                        type="date"
+                        label="Date de naissance"
+                        v-model="studentObject.birthDay"
+                        @input="$v.studentObject.birthDay.$touch()"
+                        @blur="$v.studentObject.birthDay.$touch()"
+                        :error-messages="birthDayErrors"
+                      ></v-text-field>
+                    </v-flex>
+                    <!-- last name  -->
+                    <v-flex xs12 sm5 md4 lg4>
+                      <v-text-field
+                        type="text"
+                        label="Lieu de naissance"
+                        v-model="studentObject.birthPlace"
+                        @input="$v.studentObject.birthPlace.$touch()"
+                        @blur="$v.studentObject.birthPlace.$touch()"
+                        :error-messages="birthPlaceErrors"
+                      ></v-text-field>
+                    </v-flex>
+                  </v-layout>
+                  <!-- nationality +phone  -->
+                  <v-layout row wrap justify-space-around class="mt-2">
+                    <v-flex xs12 sm5 md4 lg4>
+                      <v-select 
+                      v-model="studentObject.nationality"
+                      :items="nationalities"
+                      label="Nationalitee"
+                      @input="$v.studentObject.nationality.$touch()"
+                      @blur="$v.studentObject.nationality.$touch()" 
+                      :error-messages="nationalityErrors" required></v-select>
+                    </v-flex>
+                    <v-flex xs12 sm5 md4 lg4>
+                      <v-text-field label="Telephone"
+                      v-model="studentObject.phone" @input="$v.studentObject.phone.$touch()"
+                      @blur="$v.studentObject.phone.$touch()" 
+                      :error-messages="phoneErrors"
+                      required></v-text-field>
+                    </v-flex>
+                  </v-layout>
+                  <v-layout row wrap justify-space-around>
+                    <v-flex xs12 sm10 md8 lg8>
+                      <v-textarea v-model="studentObject.address" @input="$v.studentObject.address.$touch()"
+                      @blur="$v.studentObject.address.$touch()"
+                      label="Adresse" 
+                      clearable
+                      hint="Exemple: 00, Residence XX Quartier YY ville-pays"
+                      persistent-hint
+                      :error-messages="addressErrors"
+                      required></v-textarea>
                     </v-flex>
                   </v-layout>
                 </v-card-text>
                 <v-divider></v-divider>
               </v-card>
               <!-- 3  -->
+              <!-- parents  -->
+              <v-card v-if="n === 3" class="mb-3" flat>
+                <v-card-title>
+                  <h5 class="subheading text-uppercase grey--text">Information parentales</h5>
+                </v-card-title>
+                <v-divider></v-divider>
+                <v-card-text>
+                  <p>
+                    <v-alert :value="false" type="error">Lorem ipsum dolor sit</v-alert>
+                  </p>
+                  <v-layout row wrap justify-space-around>
+                    <v-flex xs12 sm5 md4 lg4>
+                      <v-text-field
+                        type="text"
+                        label="Nom et Prenom du pere"
+                        v-model="studentObject.fatherFullName"
+                        @input="$v.studentObject.fatherFullName.$touch()"
+                        @blur="$v.studentObject.fatherFullName.$touch()"
+                        :error-messages="fatherFullNameErrors"
+                      ></v-text-field>
+                    </v-flex>
+                    <v-flex xs12 sm5 md4 lg4>
+                      <v-select 
+                      v-model="studentObject.fatherJob"
+                      :items="jobs"
+                      label="Profession du pere"
+                      @input="$v.studentObject.fatherJob.$touch()"
+                      @blur="$v.studentObject.fatherJob.$touch()" 
+                      :error-messages="fatherJobErrors" required></v-select>
+                    </v-flex>
+                  </v-layout>
+
+                  <!-- mere  -->
+                  <v-layout row wrap justify-space-around>
+                    <v-flex xs12 sm5 md4 lg4>
+                      <v-text-field
+                        type="text"
+                        label="Nom et Prenom du mere"
+                        v-model="studentObject.motherFullName"
+                        @input="$v.studentObject.motherFullName.$touch()"
+                        @blur="$v.studentObject.motherFullName.$touch()"
+                        :error-messages="motherFullNameErrors"
+                      ></v-text-field>
+                    </v-flex>
+                    <v-flex xs12 sm5 md4 lg4>
+                      <v-select 
+                      v-model="studentObject.motherJob"
+                      :items="jobs"
+                      label="Profession du mere"
+                      @input="$v.studentObject.motherJob.$touch()"
+                      @blur="$v.studentObject.motherJob.$touch()" 
+                      :error-messages="motherJobErrors" required></v-select>
+                    </v-flex>
+                  </v-layout>
+                  <!-- address du parent  -->
+                  <v-layout row wrap justify-space-around>
+                    <v-flex xs12 sm5 md4 lg4>
+                      <v-text-field
+                        type="text"
+                        label="Adresse du parents"
+                        v-model="studentObject.parentAddress"
+                        @input="$v.studentObject.parentAddress.$touch()"
+                        @blur="$v.studentObject.parentAddress.$touch()"
+                        :error-messages="parentAddressErrors"
+                      ></v-text-field>
+                    </v-flex>
+                    <v-flex xs12 sm5 md4 lg4>
+                      <v-text-field 
+                      v-model="studentObject.parentPhone"
+                      type="phone"
+                      label="Telephone des parents"
+                      @input="$v.studentObject.parentPhone.$touch()"
+                      @blur="$v.studentObject.parentPhone.$touch()" 
+                      :error-messages="parentPhoneErrors" required></v-text-field >
+                    </v-flex>
+                  </v-layout>
+                </v-card-text>
+              </v-card>
+              
+              <!-- actions buttons  -->
               <v-divider></v-divider>
               <v-layout row wrap justify-end class="mt-2">
                 <v-btn color="secondary" v-if="n === 5" @click="reset">Initialiser</v-btn>
@@ -260,7 +422,7 @@ export default {
         lastName: "",
         firstNameAr: "",
         lastNameAr: "",
-        birthDay: new Date(),
+        birthDay: "",
         birthPlace: "",
         address: "",
         phone: "",
@@ -277,11 +439,179 @@ export default {
         parentAddress: "",
         parentPhone: ""
       },
+      //some select fields data
+      jobs:[],
+      nationalities:["Marocaine","Etragere"],
 
       //arabic keyboard
       lastKeyboard: false,
       firstKeyboard: false,
-      keyboardKeys: [
+      keyboardKeys: [],
+    };
+  },
+  validations: {
+    studentObject: {
+      cin: {
+        required,
+        minLength: minLength(6)
+      },
+      cne: {
+        required,
+        minLength: minLength(6)
+      },
+
+      email: {
+        required,
+        email
+      },
+      confirmEnail: {
+        required,
+        email,
+        sameAsEmail: sameAs("email")
+      },
+      password: {
+        required,
+        minLength: minLength(6),
+        strongPassword(password) {
+          return (
+            /[a-z]/.test(password) && // checks for a-z
+            /[0-9]/.test(password) && // checks for 0-9
+            /\W|_/.test(password) && // checks for special char
+            password.length >= 6
+          );
+        }
+      },
+      confirmPassword: {
+        required,
+        sameAsPassword: sameAs("password")
+      },
+      firstName: {
+        required,
+        minLength: minLength(3)
+      },
+      lastName: {
+        required,
+        minLength: minLength(3)
+      },
+      firstNameAr: {
+        required,
+        minLength: minLength(3)
+      },
+      lastNameAr: {
+        required,
+        minLength: minLength(3)
+      },
+      birthDay:{
+        required
+      },
+      birthPlace:{
+        required,
+        minLength:minLength(3)
+      },
+      nationality:{
+        required
+      },
+      phone:{
+        required,
+        minLength:minLength(9)
+      },
+      address:{
+        required,
+        minLength:minLength(6)
+      },
+      fatherFullName:{
+        required,
+        minLength:minLength(6)
+      },
+      fatherJob:{
+        required
+      },
+      motherFullName:{
+        required,
+        minLength:minLength(6)
+      },
+      motherJob:{
+        required
+      },
+      parentAddress:{
+        required,
+        minLength:minLength(6)
+      },
+      parentPhone:{
+        required,
+        
+        minLength:minLength(9)
+      }
+    }
+  },
+  watch: {
+    steps(val) {
+      if (this.e1 > val) {
+        this.e1 = val;
+      }
+    }
+  },
+
+  methods: {
+    nextStep(n) {
+      if (n == 5) {
+        this.e1 = 1;
+      }
+      this.e1 = n + 1;
+      this.editable[n + 1] = true;
+    },
+
+    lastNameClick(name,character) {
+      if(name=="space"){
+        this.studentObject.lastNameAr += " ";
+      }else if(name=="delete"){
+        
+        this.studentObject.lastNameAr=this.studentObject.lastNameAr.substr(0,this.studentObject.lastNameAr.length-1);
+      }
+      this.studentObject.lastNameAr += character;
+    },
+
+    firstNameClick(name,character) {
+      if(name=="space"){
+        this.studentObject.firstNameAr += " ";
+      }else if(name=="delete"){
+        
+        this.studentObject.firstNameAr=this.studentObject.firstNameAr.substr(0,this.studentObject.firstNameAr.length-1);
+      }
+      this.studentObject.firstNameAr += character;
+    },
+    lastNameArFocus(){
+      this.lastKeyboard=true;
+      this.firstKeyboard=false;
+    },
+    
+
+    firstNameArFocus(){
+      this.lastKeyboard=false;
+      this.firstKeyboard=true;
+    },
+    
+    //submit the form
+    handleSubmit() {
+      this.submitted = true;
+
+      // stop here if form is invalid
+      this.$v.$touch();
+      if (this.$v.$invalid) {
+        return;
+      }
+
+      console.log(this.studentObject);
+    },
+    reset() {
+      this.$v.$reset();
+
+      this.e1 = 1;
+      this.editable = [false, true, false, false, false, false];
+    },
+
+    initializeKeyboard(){
+      this.keyboardKeys=[
         {
           name: "ذ",
           character: "ذ"
@@ -428,141 +758,56 @@ export default {
           name:"space",
           character:" "
         }
-      ]
-    };
-  },
-  validations: {
-    studentObject: {
-      cin: {
-        required,
-        minLength: minLength(6)
-      },
-      cne: {
-        required,
-        minLength: minLength(6)
-      },
-
-      email: {
-        required,
-        email
-      },
-      confirmEnail: {
-        required,
-        email,
-        sameAsEmail: sameAs("email")
-      },
-      password: {
-        required,
-        minLength: minLength(6),
-        strongPassword(password) {
-          return (
-            /[a-z]/.test(password) && // checks for a-z
-            /[0-9]/.test(password) && // checks for 0-9
-            /\W|_/.test(password) && // checks for special char
-            password.length >= 6
-          );
-        }
-      },
-      confirmPassword: {
-        required,
-        sameAsPassword: sameAs("password")
-      },
-      firstName: {
-        required,
-        minLength: minLength(3)
-      },
-      lastName: {
-        required,
-        minLength: minLength(3)
-      },
-      firstNameAr: {
-        required,
-        minLength: minLength(3)
-      },
-      lastNameAr: {
-        required,
-        minLength: minLength(3)
-      }
-    }
-  },
-  watch: {
-    steps(val) {
-      if (this.e1 > val) {
-        this.e1 = val;
-      }
-    }
-  },
-
-  methods: {
-    nextStep(n) {
-      if (n == 5) {
-        this.e1 = 1;
-      }
-      this.e1 = n + 1;
-      this.editable[n + 1] = true;
+      ];
     },
-
-    lastNameClick(character) {
-      this.studentObject.lastNameAr += character;
-    },
-    //submit the form
-    handleSubmit() {
-      this.submitted = true;
-
-      // stop here if form is invalid
-      this.$v.$touch();
-      if (this.$v.$invalid) {
-        return;
-      }
-
-      console.log(this.studentObject);
-    },
-    reset() {
-      this.$v.$reset();
-
-      this.e1 = 1;
-      this.editable = [false, true, false, false, false, false];
+    initializeJobs(){
+      this.jobs=[
+        "Agriculteur exploitant",
+        "rtisan, Décorateur, Peintre",
+        "Autre métier non Renseigné",
+        "Cadre d'Entreprise, Société (Gérant....)",
+        "Cadre Fonction Publique",
+        "Chef entreprise, Patron de socité",
+        "Commerçant et assimilé",
+        "Contremaître, Agent de maîtrise BTP",
+        "Décédé",
+        "Eleve,Etudiant",
+        "Employé d'Entreprise, Société, Associat.",
+        "Employé Fonction Public, Agent Civil",
+        "Employé Métier de Commerce",
+        "Ingénieur, Cadre Technique d'Entreprise",
+        "Ouvrier Non Qualifié type artisanat",
+        "Ouvrier  Non Qualifié type  Industrie",
+        "Ouvrier Qualifié Industrie",
+        "Ouvrier Qualifié Transport, Manutention",
+        "Personne sans activité professionnelle",
+        "Policier et militaire",
+        "Professeur, Chercheur, Expert",
+        "Profession Education (Instituteur, Prof.)",
+        "Profession Information, Arts, Spectacles",
+        "Profession interm adm et commerc. entreprise",
+        "Profession Juridique (Juge, Avocat, ..)",
+        "Profession libérale",
+        "Profession lié à l'agriculture (Fellah,.)",
+        "Profession lié à la religion Imam, Fquih",
+        "Profession Lié à l'Artisanat",
+        "Profession lié au Transport (Chauffeur...)",
+        "Profession Militaires, Policiers ...",
+        "Profession Publicité, Cinéma, Théatre...",
+        "Profession Santé (Docteur, Infermier, AS",
+        "Retraité de la Fonction Public",
+        "Retraité metier de Commerce",
+        "Retraité secteur Agricole",
+        "Sans activité professionnelle",
+        "Technicien, Electricien, Mécanique",
+        "Sans",
+        "Autre"
+      ];
     }
-
-    //comons validations
-    /*
-    textInputErrors(fieldName) {
-      const errors = [];
-      switch (fieldName) {
-        case "cin":
-          if (this.$v.studentObject.cin.$dirty) return errors;
-          !this.$v.studentObject.cin.minLength &&
-            errors.push("Must be valid CIN");
-          !this.$v.studentObject.cin.required && errors.push("CIN is required");
-          break;
-        case "cne":
-          if (this.$v.studentObject.cne.$dirty) return errors;
-          !this.$v.studentObject.cne.minLength &&
-            errors.push("Must be valid Field CNE");
-          !this.$v.studentObject.cne.required && errors.push("CNE is required");
-          break;
-      }
-      return errors;
-    }*/
   },
   created() {
-    /*
-    google
-      .load("elements", "1", {
-        packages: "keyboard"
-      })
-      .then(() => {
-        let firstKeyboard = new google.elements.keyboard.Keyboard(
-          [google.elements.keyboard.LayoutCode.RUSSIAN],
-          ["firstNameKeyboard"]
-        );
-
-        let lastKeyboard = new google.elements.keyboard.Keyboard(
-          [google.elements.keyboard.LayoutCode.RUSSIAN],
-          ["lastNameKeyboard"]
-        );
-      });
-      */
+    this.initializeKeyboard();
+    this.initializeJobs();
   },
   computed: {
     //validations computed
@@ -660,7 +905,102 @@ export default {
       !this.$v.studentObject.firstNameAr.required &&
         errors.push("الاسم الشخصي ضروريا");
       return errors;
-    }
+    },
+    birthDayErrors(){
+      const errors=[];
+      if (!this.$v.studentObject.birthDay.$dirty) return errors;
+      !this.$v.studentObject.birthDay.required &&
+        errors.push("Champ obligatoire !");
+      return errors;
+    },
+    birthPlaceErrors(){
+      const errors=[];
+      if (!this.$v.studentObject.birthPlace.$dirty) return errors;
+      !this.$v.studentObject.birthPlace.minLength &&
+        errors.push("M'a pas de sense !");
+      !this.$v.studentObject.birthPlace.required &&
+        errors.push("Champ obligatoire !");
+      return errors;
+    },
+    nationalityErrors(){
+      const errors=[];
+      if (!this.$v.studentObject.nationality.$dirty) return errors;
+      !this.$v.studentObject.nationality.required &&
+        errors.push("Champ obligatoire !");
+      return errors;
+    },
+    phoneErrors(){
+      const errors=[];
+      if (!this.$v.studentObject.phone.$dirty) return errors;
+      !this.$v.studentObject.phone.minLength &&
+        errors.push("Telephone non valide !");
+      !this.$v.studentObject.phone.required &&
+        errors.push("Champ obligatoire !");
+      return errors;
+    },
+    addressErrors(){
+      const errors=[];
+      if (!this.$v.studentObject.address.$dirty) return errors;
+      !this.$v.studentObject.address.minLength &&
+        errors.push("Adresse non valide !");
+      !this.$v.studentObject.address.required &&
+        errors.push("Champ obligatoire !");
+      return errors;
+    },
+    fatherFullNameErrors(){
+      const errors=[];
+      if (!this.$v.studentObject.fatherFullName.$dirty) return errors;
+      !this.$v.studentObject.fatherFullName.minLength &&
+        errors.push("Les informations ne sont pas completes !");
+      !this.$v.studentObject.fatherFullName.required &&
+        errors.push("Champ obligatoire !");
+      return errors;
+    },
+    fatherJobErrors(){
+      const errors=[];
+      if (!this.$v.studentObject.fatherJob.$dirty) return errors;
+      
+      !this.$v.studentObject.fatherJob.required &&
+        errors.push("Champ obligatoire !");
+      return errors;
+    },
+    motherFullNameErrors(){
+      const errors=[];
+      if (!this.$v.studentObject.motherFullName.$dirty) return errors;
+      !this.$v.studentObject.motherFullName.minLength &&
+        errors.push("Les informations ne sont pas completes !");
+      !this.$v.studentObject.motherFullName.required &&
+        errors.push("Champ obligatoire !");
+      return errors;
+    },
+    motherJobErrors(){
+      const errors=[];
+      if (!this.$v.studentObject.motherJob.$dirty) return errors;
+      
+      !this.$v.studentObject.motherJob.required &&
+        errors.push("Champ obligatoire !");
+      return errors;
+    },
+    parentAddressErrors(){
+      const errors=[];
+      if (!this.$v.studentObject.parentAddress.$dirty) return errors;
+      !this.$v.studentObject.parentAddress.minLength &&
+        errors.push("Adresse non valide !");
+      !this.$v.studentObject.parentAddress.required &&
+        errors.push("Champ obligatoire !");
+      return errors;
+    },
+    parentPhoneErrors(){
+      const errors=[];
+      if (!this.$v.studentObject.parentPhone.$dirty) return errors;
+      !this.$v.studentObject.parentPhone.minLength &&
+        errors.push("Telephone non valide !");
+      
+      !this.$v.studentObject.parentPhone.required &&
+        errors.push("Champ obligatoire !");
+      return errors;
+    },
+    
   },
   components: {}
 };
