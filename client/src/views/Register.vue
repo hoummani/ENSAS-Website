@@ -146,12 +146,13 @@
                   <v-layout row wrap justify-space-around>
                     <v-flex xs12 sm5 md4 lg4>
                       <!-- firstName  -->
-                      
+
                       <v-text-field
                         type="text"
                         label="الاسم الشخصي"
                         dir="rtl"
                         lang="ar"
+                        id="lastNameInput"
                         class="keyboardInput"
                         v-model="studentObject.firstNameAr"
                         @input="$v.studentObject.firstNameAr.$touch()"
@@ -160,9 +161,37 @@
                         style="unicode-bidi:bidi-override;
                             direction: RTL; text-align:right;"
                       ></v-text-field>
-                      <v-btn small right icon>
+                      <v-btn small right icon @click="lastKeyboard=!lastKeyboard">
                         <v-icon>keyboard</v-icon>
                       </v-btn>
+                      <div v-if="lastKeyboard">
+                        <v-card>
+                          <v-layout row wrap>
+                            <v-flex>
+                              
+                              
+                              <span  class="caption text-uppercase text-md-start">لوحة المفاتيح العربية</span>
+                            </v-flex>
+                          </v-layout>
+                          <v-divider></v-divider>
+                          <v-layout row wrap>
+                            <v-flex v-for="(item,index) in keyboardKeys" :key="index">
+                              <v-btn v-if="item.name==='delete'" style="width:24px; height:24px;" fab icon small>
+                                <v-icon small>keyboard_backspace</v-icon>
+                              </v-btn>
+                              <v-btn v-else-if="item.name==='space'" style="width:95%" small></v-btn>
+                              <v-btn
+                                small
+                                v-else
+                                fab
+                                @click="lastNameClick(item.character)"
+                                style="width:24px; height:24px;"
+                              >{{item.character}}</v-btn>
+                              
+                            </v-flex>
+                          </v-layout>
+                        </v-card>
+                      </div>
                     </v-flex>
                     <!-- last name  -->
                     <v-flex xs12 sm5 md4 lg4>
@@ -179,9 +208,10 @@
                         style="unicode-bidi:bidi-override;
                             direction: RTL; text-align:right;"
                       ></v-text-field>
-                      <v-btn right small icon>
+                      <v-btn right small icon @click="firstKeyboard=!firstKeyboard">
                         <v-icon>keyboard</v-icon>
                       </v-btn>
+                      <v-card id="firstNameKeyboard" v-if="firstKeyboard"></v-card>
                     </v-flex>
                   </v-layout>
                 </v-card-text>
@@ -205,8 +235,8 @@
 </template>
 
 <script>
-
 import { required, email, minLength, sameAs } from "vuelidate/lib/validators";
+
 export default {
   data() {
     return {
@@ -249,46 +279,156 @@ export default {
       },
 
       //arabic keyboard
-      /*
-      kyboardKeys:[
+      lastKeyboard: false,
+      firstKeyboard: false,
+      keyboardKeys: [
         {
-          name:"ذ",
-          character:"ذ"
+          name: "ذ",
+          character: "ذ"
         },
         {
-          name:"ض",
-          character:"ض"
+          name: "ض",
+          character: "ض"
         },
         {
-          name:"ص",
-          character:"ص"
-          
+          name: "ص",
+          character: "ص"
         },
         {
-          name:"ث",
-          character:"ث"
+          name: "ث",
+          character: "ث"
         },
         {
-          name:"ق",
+          name: "ق",
           character:"ق"
         },
         {
-          name:"ف",
+          name:"delete",
+          character:""
+        },
+        {
+          name: "ف",
           character:"ف"
         },
+        
         {
-          name:"غ",
+          name: "غ",
           character:"غ"
         },
         {
-          name:"غ",
-          character:"غ"
+          name: "ع",
+          character:"ع"
         },
         {
-          name:"غ",
-          character:"غ"
+          name: "ه",
+          character:"ه"
+        },
+        {
+          name: "خ",
+          character:"خ"
+        },
+        {
+          name: "ح",
+          character:"ح"
+        },
+        {
+          name: "ج",
+          character:"ج"
+        },
+        {
+          name: "د",
+          character:"د"
+        },
+        {
+          name: "ش",
+          character:"ش"
+        },
+        {
+          name: "س",
+          character:"س"
+        },
+        {
+          name: "ي",
+          character:"ي"
+        },
+        {
+          name: "ب",
+          character:"ب"
+        },
+        {
+          name: "ل",
+          character:"ل"
+        },
+        {
+          name: "ا",
+          character:"ا"
+        },
+        {
+          name: "ت",
+          character:"ت"
+        },
+        {
+          name: "ن",
+          character:"ن"
+        },
+        {
+          name:"م",
+          character:"م"
+        },
+        {
+          name:"ك",
+          character:"ك"
+        },
+        {
+          name:"ط",
+          character:"ط"
+        },
+        {
+          name:"ئ",
+          character:"ئ"
+        },
+        {
+          name:"ء",
+          character:"ء"
+        },
+        {
+          name:"ؤ",
+          character:"ؤ"
+        },
+        {
+          name:"ر",
+          character:"ر"
+        },
+        {
+          name:"لا",
+          character:"لا"
+        },
+        {
+          name:"ى",
+          character:"ى"
+        },
+        {
+          name:"ة",
+          character:"ة"
+        },
+        {
+          name:"و",
+          character:"و"
+        },
+        {
+          name:"ز",
+          character:"ز"
+        },
+        {
+          name:"ظ",
+          character:"ظ"
+        },
+        
+        {
+          name:"space",
+          character:" "
         }
-      ],*/
+      ]
     };
   },
   validations: {
@@ -362,10 +502,8 @@ export default {
       this.editable[n + 1] = true;
     },
 
-    sayErrors() {
-      if (this.cinErrors == []) {
-        console.log("True");
-      }
+    lastNameClick(character) {
+      this.studentObject.lastNameAr += character;
     },
     //submit the form
     handleSubmit() {
@@ -407,7 +545,25 @@ export default {
       return errors;
     }*/
   },
-  created() {},
+  created() {
+    /*
+    google
+      .load("elements", "1", {
+        packages: "keyboard"
+      })
+      .then(() => {
+        let firstKeyboard = new google.elements.keyboard.Keyboard(
+          [google.elements.keyboard.LayoutCode.RUSSIAN],
+          ["firstNameKeyboard"]
+        );
+
+        let lastKeyboard = new google.elements.keyboard.Keyboard(
+          [google.elements.keyboard.LayoutCode.RUSSIAN],
+          ["lastNameKeyboard"]
+        );
+      });
+      */
+  },
   computed: {
     //validations computed
 
@@ -506,9 +662,7 @@ export default {
       return errors;
     }
   },
-  components:{
-    
-  }
+  components: {}
 };
 </script>
 <style lang="scss" scoped>
@@ -518,5 +672,4 @@ export default {
   background-repeat: no-repeat;
   background-size: cover;
 }
-
 </style>
