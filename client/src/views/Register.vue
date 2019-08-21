@@ -108,6 +108,86 @@
                   </v-layout>
                 </v-card-text>
               </v-card>
+              <!-- 2  -->
+              <v-card v-if="n === 2" class="mb-3" flat>
+                <v-card-title>
+                  <h5 class="subheading text-uppercase grey--text">Information personnelles</h5>
+                </v-card-title>
+                <v-divider></v-divider>
+                <v-card-text>
+                  <p>
+                    <v-alert :value="false" type="error">Lorem ipsum dolor sit</v-alert>
+                  </p>
+                  <v-layout row wrap justify-space-around>
+                    <v-flex xs12 sm5 md4 lg4>
+                      <!-- firstName  -->
+                      <v-text-field
+                        type="text"
+                        label="Nom"
+                        v-model="studentObject.firstName"
+                        @input="$v.studentObject.firstName.$touch()"
+                        @blur="$v.studentObject.firstName.$touch()"
+                        :error-messages="firstNameErrors"
+                      ></v-text-field>
+                    </v-flex>
+                    <!-- last name  -->
+                    <v-flex xs12 sm5 md4 lg4>
+                      <v-text-field
+                        type="text"
+                        label="Prenom"
+                        v-model="studentObject.lastName"
+                        @input="$v.studentObject.lastName.$touch()"
+                        @blur="$v.studentObject.lastName.$touch()"
+                        :error-messages="lastNameErrors"
+                      ></v-text-field>
+                    </v-flex>
+                  </v-layout>
+
+                  <v-layout row wrap justify-space-around>
+                    <v-flex xs12 sm5 md4 lg4>
+                      <!-- firstName  -->
+                      
+                      <v-text-field
+                        type="text"
+                        label="الاسم الشخصي"
+                        dir="rtl"
+                        lang="ar"
+                        class="keyboardInput"
+                        v-model="studentObject.firstNameAr"
+                        @input="$v.studentObject.firstNameAr.$touch()"
+                        @blur="$v.studentObject.firstNameAr.$touch()"
+                        :error-messages="firstNameArErrors"
+                        style="unicode-bidi:bidi-override;
+                            direction: RTL; text-align:right;"
+                      ></v-text-field>
+                      <v-btn small right icon>
+                        <v-icon>keyboard</v-icon>
+                      </v-btn>
+                    </v-flex>
+                    <!-- last name  -->
+                    <v-flex xs12 sm5 md4 lg4>
+                      <v-text-field
+                        type="text"
+                        label="الاسم العائلي"
+                        dir="rtl"
+                        lang="ar"
+                        class="keyboardInput"
+                        v-model="studentObject.lastNameAr"
+                        @input="$v.studentObject.lastNameAr.$touch()"
+                        @blur="$v.studentObject.lastNameAr.$touch()"
+                        :error-messages="lastNameArErrors"
+                        style="unicode-bidi:bidi-override;
+                            direction: RTL; text-align:right;"
+                      ></v-text-field>
+                      <v-btn right small icon>
+                        <v-icon>keyboard</v-icon>
+                      </v-btn>
+                    </v-flex>
+                  </v-layout>
+                </v-card-text>
+                <v-divider></v-divider>
+              </v-card>
+              <!-- 3  -->
               <v-divider></v-divider>
               <v-layout row wrap justify-end class="mt-2">
                 <v-btn color="secondary" v-if="n === 5" @click="reset">Initialiser</v-btn>
@@ -125,6 +205,7 @@
 </template>
 
 <script>
+
 import { required, email, minLength, sameAs } from "vuelidate/lib/validators";
 export default {
   data() {
@@ -165,7 +246,49 @@ export default {
         motherJob: "",
         parentAddress: "",
         parentPhone: ""
-      }
+      },
+
+      //arabic keyboard
+      /*
+      kyboardKeys:[
+        {
+          name:"ذ",
+          character:"ذ"
+        },
+        {
+          name:"ض",
+          character:"ض"
+        },
+        {
+          name:"ص",
+          character:"ص"
+          
+        },
+        {
+          name:"ث",
+          character:"ث"
+        },
+        {
+          name:"ق",
+          character:"ق"
+        },
+        {
+          name:"ف",
+          character:"ف"
+        },
+        {
+          name:"غ",
+          character:"غ"
+        },
+        {
+          name:"غ",
+          character:"غ"
+        },
+        {
+          name:"غ",
+          character:"غ"
+        }
+      ],*/
     };
   },
   validations: {
@@ -178,6 +301,7 @@ export default {
         required,
         minLength: minLength(6)
       },
+
       email: {
         required,
         email
@@ -202,6 +326,22 @@ export default {
       confirmPassword: {
         required,
         sameAsPassword: sameAs("password")
+      },
+      firstName: {
+        required,
+        minLength: minLength(3)
+      },
+      lastName: {
+        required,
+        minLength: minLength(3)
+      },
+      firstNameAr: {
+        required,
+        minLength: minLength(3)
+      },
+      lastNameAr: {
+        required,
+        minLength: minLength(3)
       }
     }
   },
@@ -244,7 +384,7 @@ export default {
 
       this.e1 = 1;
       this.editable = [false, true, false, false, false, false];
-    },
+    }
 
     //comons validations
     /*
@@ -272,26 +412,22 @@ export default {
     //validations computed
 
     cinErrors() {
-      
       const errors = [];
       if (!this.$v.studentObject.cin.$dirty) return errors;
       !this.$v.studentObject.cin.minLength &&
         errors.push("Must be valid Field CIN");
       !this.$v.studentObject.cne.required && errors.push("CIN is required");
       return errors;
-      
     },
     cneErrors() {
-      
       const errors = [];
       if (!this.$v.studentObject.cne.$dirty) return errors;
       !this.$v.studentObject.cne.minLength &&
         errors.push("Must be valid Field CNE");
       !this.$v.studentObject.cne.required && errors.push("CNE is required");
       return errors;
-      
-      
     },
+
     emailErrors() {
       const errors = [];
       if (!this.$v.studentObject.email.$dirty) return errors;
@@ -332,6 +468,45 @@ export default {
 
       return errors;
     },
+    firstNameErrors() {
+      const errors = [];
+      if (!this.$v.studentObject.firstName.$dirty) return errors;
+      !this.$v.studentObject.firstName.minLength &&
+        errors.push("Must be valid Field Nom");
+      !this.$v.studentObject.firstName.required &&
+        errors.push("Nom is required");
+      return errors;
+    },
+    lastNameErrors() {
+      const errors = [];
+      if (!this.$v.studentObject.lastName.$dirty) return errors;
+      !this.$v.studentObject.lastName.minLength &&
+        errors.push("Must be valid Field Prenom");
+      !this.$v.studentObject.lastName.required &&
+        errors.push("Prenom is required");
+      return errors;
+    },
+
+    firstNameArErrors() {
+      const errors = [];
+      if (!this.$v.studentObject.firstNameAr.$dirty) return errors;
+      !this.$v.studentObject.firstNameAr.minLength &&
+        errors.push("الاسم العائلي يجب ان يكون مستوفيا");
+      !this.$v.studentObject.firstNameAr.required &&
+        errors.push("الاسم العائلي ضروريا");
+      return errors;
+    },
+    lastNameArErrors() {
+      const errors = [];
+      if (!this.$v.studentObject.lastNameAr.$dirty) return errors;
+      !this.$v.studentObject.lastNameAr.minLength &&
+        errors.push("الاسم الشخصي يجب ان يكون مستوفيا");
+      !this.$v.studentObject.firstNameAr.required &&
+        errors.push("الاسم الشخصي ضروريا");
+      return errors;
+    }
+  },
+  components:{
     
   }
 };
@@ -343,4 +518,5 @@ export default {
   background-repeat: no-repeat;
   background-size: cover;
 }
+
 </style>
