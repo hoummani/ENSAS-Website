@@ -554,34 +554,93 @@
                   <!-- if new  -->
                   <div>
                     <div v-if="newStudent">
-                      <h5
-                        class="subheading text-uppercase grey--text"
-                      >Cursus avant ENSA <span class="text--primary">!! Attention remplis seulement par les nouveaux !!</span></h5>
-                      <br>
+                      <h5 class="subheading text-uppercase grey--text">
+                        Cursus avant ENSA
+                        <span
+                          class="text--primary"
+                        >!! Attention remplis seulement par les nouveaux !!</span>
+                      </h5>
+                      <br />
                       <v-divider></v-divider>
                       <v-layout row wrap justify-space-around>
                         <v-flex xs12 sm3 md2 lg2>
-                          <v-select 
-                          v-model="studentObject.degre"
-                          :items="degres"
-                          label="Diplome precedent"
-                          required></v-select>
+                          <v-select
+                            v-model="studentObject.degre"
+                            :items="degres"
+                            label="Diplome precedent"
+                            required
+                          ></v-select>
                         </v-flex>
                         <v-flex xs12 sm3 md2 lg2>
-                          <v-text-field type="text" 
-                          v-model="studentObject.etablissement"
-                          label="Etablissement"
-                          required></v-text-field>
+                          <v-text-field
+                            type="text"
+                            v-model="studentObject.etablissement"
+                            label="Etablissement"
+                            required
+                          ></v-text-field>
                         </v-flex>
                         <v-flex xs12 sm3 md2 lg2>
-                          <v-text-field type="text" 
-                          v-model="studentObject.city"
-                          label="Ville"
-                          required></v-text-field>
+                          <v-text-field
+                            type="text"
+                            v-model="studentObject.city"
+                            label="Ville"
+                            required
+                          ></v-text-field>
                         </v-flex>
                       </v-layout>
                     </div>
                   </div>
+                </v-card-text>
+              </v-card>
+              <!-- 5  -->
+              <!-- avatar  -->
+              <v-card v-if="n === 5" class="mb-3" flat>
+                <v-card-title>
+                  <h5 class="subheading text-uppercase grey--text">Photo d'identite</h5>
+                </v-card-title>
+                <v-divider></v-divider>
+                <v-card-text>
+                  <p>
+                    <v-alert :value="true" type="warning">
+                      <ul>
+                        <li>La taille maximale de photo est 4 Mo.</li>
+                        <li>Votre photo doit etre bien claire.</li>
+                        <li>Les extension autorises: JPG, JPEG et PNG.</li>
+                      </ul>
+                    </v-alert>
+                  </p>
+                  <v-layout row wrap>
+                    <v-flex xs12 sm12 md12 lg12>
+                      <!--
+                      <v-text-field
+                        type="file"
+                        v-model="studentObject.photo"
+                        @change="onFileChange"
+                        accept="image/png, image/jpeg, image/bmp"
+                        placeholder="Choisissez votre image"
+                        prepend-icon="mdi-camera"
+                        label="Photo d'identite"
+                        required
+                      ></v-text-field>
+                      -->
+                      <v-btn color="secondary" @click="toggleShow">Ajouter votre photo</v-btn>
+                      <my-upload
+                        field="img"
+                        @crop-success="cropSuccess"
+                        @crop-upload-success="cropUploadSuccess"
+                        @crop-upload-fail="cropUploadFail"
+                        v-model="show"
+                        :width="300"
+                        :height="300"
+                        langType="fr"
+                      ></my-upload>
+                    </v-flex>
+                    <v-flex xs12 sm6 md4 lg4 offset-lg4 offset-md4 offset-sm3>
+                      <div v-if="studentObject.photo!=''">
+                        <img :src="studentObject.photo" max-width="500" max-height="500" alt="John" />
+                      </div>
+                    </v-flex>
+                  </v-layout>
                 </v-card-text>
               </v-card>
               <!-- actions buttons  -->
@@ -603,6 +662,7 @@
 
 <script>
 import { required, email, minLength, sameAs } from "vuelidate/lib/validators";
+import myUpload from "vue-image-crop-upload";
 
 export default {
   data() {
@@ -647,6 +707,7 @@ export default {
         parentAddress: "",
         parentPhone: ""
       },
+      
       //some select fields data
       jobs: [],
       nationalities: ["Marocaine", "Etragere"],
@@ -694,7 +755,7 @@ export default {
       bacsYears: ["2018", "2019", "2020"],
       mentions: ["Assez Bien", "Bien", "Tres Bien"],
       newStudent: false,
-      degres:[
+      degres: [
         "Concour National Commun (CNC)",
         "Diplome Universitaire de technologie (DUT)",
         "Diplome d'Etudes Universitaire General (DEUG)",
@@ -703,6 +764,10 @@ export default {
         "Master (Bac +5)",
         "Cycle Preparatoire Integre"
       ],
+      //user image
+      show: false,
+
+      
       //arabic keyboard
       lastKeyboard: false,
       firstKeyboard: false,
@@ -835,15 +900,19 @@ export default {
         this.e1 = val;
       }
     },
-    newStudent(val){
-      if(val==true){
-        this.studentObject.degre="";
-        this.studentObject.etablissement="";
-        this.studentObject.city="";
-      }else{
-        delete studentObject.degre;
-        delete studentObject.etablissement;
-        delete studentObject.city;
+    newStudent(val) {
+      if (val == true) {
+        if (this.studentObject != undefined) {
+          this.studentObject.degre = "";
+          this.studentObject.etablissement = "";
+          this.studentObject.city = "";
+        }
+      } else {
+        if (this.studentObject != undefined) {
+          delete this.studentObject.degre;
+          delete this.studentObject.etablissement;
+          delete this.studentObject.city;
+        }
       }
     }
   },
@@ -888,6 +957,57 @@ export default {
     firstNameArFocus() {
       this.lastKeyboard = false;
       this.firstKeyboard = true;
+    },
+
+    onFileChange() {
+      let reader = new FileReader();
+      reader.onload = () => {
+        this.imageUrl = reader.result;
+      };
+      reader.readAsDataURL(this.studentObject.photo);
+    },
+
+    onUpload() {
+      console.log(this.studentObject.photo);
+      console.log(this.imageUrl);
+    },
+
+    toggleShow() {
+      this.show = !this.show;
+    },
+    /**
+     * crop success
+     *
+     * [param] imgDataUrl
+     * [param] field
+     */
+    cropSuccess(imgDataUrl, field) {
+      console.log("-------- crop success --------");
+      this.studentObject.photo = imgDataUrl;
+      console.log(this.studentObject.photo);
+    },
+    /**
+     * upload success
+     *
+     * [param] jsonData  server api return data, already json encode
+     * [param] field
+     */
+    cropUploadSuccess(jsonData, field) {
+      console.log("-------- upload success --------");
+      console.log(jsonData);
+      
+      console.log("field: " + field);
+    },
+    /**
+     * upload fail
+     *
+     * [param] status    server api return error status, like 500
+     * [param] field
+     */
+    cropUploadFail(status, field) {
+      console.log("-------- upload fail --------");
+      console.log(status);
+      console.log("field: " + field);
     },
 
     //submit the form
@@ -1380,7 +1500,9 @@ export default {
       return errors;
     }
   },
-  components: {}
+  components: {
+    "my-upload": myUpload
+  }
 };
 </script>
 <style lang="scss" scoped>
