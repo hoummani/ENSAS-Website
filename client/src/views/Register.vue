@@ -1,8 +1,8 @@
 <template>
   <div class="back pa-2">
-    <h3
-      class="display-1 text-sm-center grey--text font-weight-light"
-    >Inscription et Reinscription en ligne ENSA Safi</h3>
+    <h3 class="display-1 text-sm-center grey--text font-weight-light">
+      Inscription et Reinscription en ligne ENSA Safi
+    </h3>
     <v-container>
       <v-stepper v-model="e1">
         <v-stepper-header>
@@ -12,7 +12,8 @@
               :editable="editable[n]"
               :complete="e1 > n"
               :step="n"
-            >Etape {{ n }}</v-stepper-step>
+              >Etape {{ n }}</v-stepper-step
+            >
 
             <v-divider v-if="n !== steps" :key="n"></v-divider>
           </template>
@@ -20,15 +21,23 @@
         <v-stepper-items>
           <!-- basic info  -->
           <v-stepper-content v-for="n in steps" :key="`${n}-content`" :step="n">
-            <v-form v-model="registerValid" lazy-validation @submit.prevent="handleSubmit">
+            <v-form
+              v-model="registerValid"
+              lazy-validation
+              @submit.prevent="handleSubmit"
+            >
               <v-card v-if="n === 1" class="mb-3" flat>
                 <v-card-title>
-                  <h5 class="subheading text-uppercase grey--text">Information de base</h5>
+                  <h5 class="subheading text-uppercase grey--text">
+                    Information de base
+                  </h5>
                 </v-card-title>
                 <v-divider></v-divider>
                 <v-card-text>
                   <p>
-                    <v-alert :value="false" type="error">Lorem ipsum dolor sit</v-alert>
+                    <v-alert :value="false" type="error"
+                      >Lorem ipsum dolor sit</v-alert
+                    >
                   </p>
                   <v-layout row wrap justify-space-around>
                     <v-flex xs12 sm5 md4 lg4>
@@ -111,12 +120,16 @@
               <!-- 2  -->
               <v-card v-if="n === 2" class="mb-3" flat>
                 <v-card-title>
-                  <h5 class="subheading text-uppercase grey--text">Information personnelles</h5>
+                  <h5 class="subheading text-uppercase grey--text">
+                    Information personnelles
+                  </h5>
                 </v-card-title>
                 <v-divider></v-divider>
                 <v-card-text>
                   <p>
-                    <v-alert :value="false" type="error">Lorem ipsum dolor sit</v-alert>
+                    <v-alert :value="false" type="error"
+                      >Lorem ipsum dolor sit</v-alert
+                    >
                   </p>
                   <v-layout row wrap justify-space-around>
                     <v-flex xs12 sm5 md4 lg4>
@@ -152,41 +165,67 @@
                         label="الاسم الشخصي"
                         dir="rtl"
                         lang="ar"
-                        
                         class="keyboardInput"
                         v-model="studentObject.lastNameAr"
-                        pattern=".{3,}" 
+                        pattern=".{3,}"
                         @focus="lastNameArFocus"
-                        
                         required
                         style="unicode-bidi:bidi-override;
                             direction: RTL; text-align:right;"
                       ></v-text-field>
-                      <v-btn small right icon @click="lastKeyboard=!lastKeyboard">
+                      <v-btn
+                        small
+                        right
+                        icon
+                        @click="lastKeyboard = !lastKeyboard"
+                      >
                         <v-icon>keyboard</v-icon>
                       </v-btn>
                       <div v-if="lastKeyboard">
                         <v-card>
                           <v-layout row wrap>
                             <v-flex>
-                              <span  class="caption text-uppercase text-md-start">لوحة المفاتيح العربية</span>
+                              <span class="caption text-uppercase text-md-start"
+                                >لوحة المفاتيح العربية</span
+                              >
                             </v-flex>
                           </v-layout>
                           <v-divider></v-divider>
                           <v-layout row wrap>
-                            <v-flex v-for="(item,index) in keyboardKeys" :key="index">
-                              <v-btn v-if="item.name==='delete'" style="width:24px; height:24px;" fab icon small @click="lastNameClick(item.name,item.character)">
+                            <v-flex
+                              v-for="(item, index) in keyboardKeys"
+                              :key="index"
+                            >
+                              <v-btn
+                                v-if="item.name === 'delete'"
+                                style="width:24px; height:24px;"
+                                fab
+                                icon
+                                small
+                                @click="
+                                  lastNameClick(item.name, item.character)
+                                "
+                              >
                                 <v-icon small>keyboard_backspace</v-icon>
                               </v-btn>
-                              <v-btn v-else-if="item.name==='space'" style="width:55%; margin-left:20%" @click="lastNameClick(item.name,item.character)" small></v-btn>
+                              <v-btn
+                                v-else-if="item.name === 'space'"
+                                style="width:55%; margin-left:20%"
+                                @click="
+                                  lastNameClick(item.name, item.character)
+                                "
+                                small
+                              ></v-btn>
                               <v-btn
                                 small
                                 v-else
                                 fab
-                                @click="lastNameClick(item.name,item.character)"
+                                @click="
+                                  lastNameClick(item.name, item.character)
+                                "
                                 style="width:24px; height:24px;"
-                              >{{item.character}}</v-btn>
-                              
+                                >{{ item.character }}</v-btn
+                              >
                             </v-flex>
                           </v-layout>
                         </v-card>
@@ -201,38 +240,65 @@
                         lang="ar"
                         class="keyboardInput"
                         v-model="studentObject.firstNameAr"
-                        pattern=".{3,}" 
+                        pattern=".{3,}"
                         @focus="firstNameArFocus"
-                        
                         required
                         style="unicode-bidi:bidi-override;
                             direction: RTL; text-align:right;"
                       ></v-text-field>
-                      <v-btn right small icon @click="firstKeyboard=!firstKeyboard">
+                      <v-btn
+                        right
+                        small
+                        icon
+                        @click="firstKeyboard = !firstKeyboard"
+                      >
                         <v-icon>keyboard</v-icon>
                       </v-btn>
                       <div v-if="firstKeyboard">
                         <v-card>
                           <v-layout row wrap>
                             <v-flex>
-                              <span  class="caption text-uppercase text-md-start">لوحة المفاتيح العربية</span>
+                              <span class="caption text-uppercase text-md-start"
+                                >لوحة المفاتيح العربية</span
+                              >
                             </v-flex>
                           </v-layout>
                           <v-divider></v-divider>
                           <v-layout row wrap>
-                            <v-flex v-for="(item,index) in keyboardKeys" :key="index">
-                              <v-btn v-if="item.name==='delete'" style="width:24px; height:24px;" fab icon small @click="firstNameClick(item.name,item.character)">
+                            <v-flex
+                              v-for="(item, index) in keyboardKeys"
+                              :key="index"
+                            >
+                              <v-btn
+                                v-if="item.name === 'delete'"
+                                style="width:24px; height:24px;"
+                                fab
+                                icon
+                                small
+                                @click="
+                                  firstNameClick(item.name, item.character)
+                                "
+                              >
                                 <v-icon small>keyboard_backspace</v-icon>
                               </v-btn>
-                              <v-btn v-else-if="item.name==='space'" style="width:55%; margin-left:20%" @click="firstNameClick(item.name,item.character)" small></v-btn>
+                              <v-btn
+                                v-else-if="item.name === 'space'"
+                                style="width:55%; margin-left:20%"
+                                @click="
+                                  firstNameClick(item.name, item.character)
+                                "
+                                small
+                              ></v-btn>
                               <v-btn
                                 small
                                 v-else
                                 fab
-                                @click="firstNameClick(item.name,item.character)"
+                                @click="
+                                  firstNameClick(item.name, item.character)
+                                "
                                 style="width:24px; height:24px;"
-                              >{{item.character}}</v-btn>
-                              
+                                >{{ item.character }}</v-btn
+                              >
                             </v-flex>
                           </v-layout>
                         </v-card>
@@ -268,32 +334,40 @@
                   <!-- nationality +phone  -->
                   <v-layout row wrap justify-space-around class="mt-2">
                     <v-flex xs12 sm5 md4 lg4>
-                      <v-select 
-                      v-model="studentObject.nationality"
-                      :items="nationalities"
-                      label="Nationalitee"
-                      @input="$v.studentObject.nationality.$touch()"
-                      @blur="$v.studentObject.nationality.$touch()" 
-                      :error-messages="nationalityErrors" required></v-select>
+                      <v-select
+                        v-model="studentObject.nationality"
+                        :items="nationalities"
+                        label="Nationalitee"
+                        @input="$v.studentObject.nationality.$touch()"
+                        @blur="$v.studentObject.nationality.$touch()"
+                        :error-messages="nationalityErrors"
+                        required
+                      ></v-select>
                     </v-flex>
                     <v-flex xs12 sm5 md4 lg4>
-                      <v-text-field label="Telephone"
-                      v-model="studentObject.phone" @input="$v.studentObject.phone.$touch()"
-                      @blur="$v.studentObject.phone.$touch()" 
-                      :error-messages="phoneErrors"
-                      required></v-text-field>
+                      <v-text-field
+                        label="Telephone"
+                        v-model="studentObject.phone"
+                        @input="$v.studentObject.phone.$touch()"
+                        @blur="$v.studentObject.phone.$touch()"
+                        :error-messages="phoneErrors"
+                        required
+                      ></v-text-field>
                     </v-flex>
                   </v-layout>
                   <v-layout row wrap justify-space-around>
                     <v-flex xs12 sm10 md8 lg8>
-                      <v-textarea v-model="studentObject.address" @input="$v.studentObject.address.$touch()"
-                      @blur="$v.studentObject.address.$touch()"
-                      label="Adresse" 
-                      clearable
-                      hint="Exemple: 00, Residence XX Quartier YY ville-pays"
-                      persistent-hint
-                      :error-messages="addressErrors"
-                      required></v-textarea>
+                      <v-textarea
+                        v-model="studentObject.address"
+                        @input="$v.studentObject.address.$touch()"
+                        @blur="$v.studentObject.address.$touch()"
+                        label="Adresse"
+                        clearable
+                        hint="Exemple: 00, Residence XX Quartier YY ville-pays"
+                        persistent-hint
+                        :error-messages="addressErrors"
+                        required
+                      ></v-textarea>
                     </v-flex>
                   </v-layout>
                 </v-card-text>
@@ -303,12 +377,16 @@
               <!-- parents  -->
               <v-card v-if="n === 3" class="mb-3" flat>
                 <v-card-title>
-                  <h5 class="subheading text-uppercase grey--text">Information parentales</h5>
+                  <h5 class="subheading text-uppercase grey--text">
+                    Information parentales
+                  </h5>
                 </v-card-title>
                 <v-divider></v-divider>
                 <v-card-text>
                   <p>
-                    <v-alert :value="false" type="error">Lorem ipsum dolor sit</v-alert>
+                    <v-alert :value="false" type="error"
+                      >Lorem ipsum dolor sit</v-alert
+                    >
                   </p>
                   <v-layout row wrap justify-space-around>
                     <v-flex xs12 sm5 md4 lg4>
@@ -322,13 +400,15 @@
                       ></v-text-field>
                     </v-flex>
                     <v-flex xs12 sm5 md4 lg4>
-                      <v-select 
-                      v-model="studentObject.fatherJob"
-                      :items="jobs"
-                      label="Profession du pere"
-                      @input="$v.studentObject.fatherJob.$touch()"
-                      @blur="$v.studentObject.fatherJob.$touch()" 
-                      :error-messages="fatherJobErrors" required></v-select>
+                      <v-select
+                        v-model="studentObject.fatherJob"
+                        :items="jobs"
+                        label="Profession du pere"
+                        @input="$v.studentObject.fatherJob.$touch()"
+                        @blur="$v.studentObject.fatherJob.$touch()"
+                        :error-messages="fatherJobErrors"
+                        required
+                      ></v-select>
                     </v-flex>
                   </v-layout>
 
@@ -345,13 +425,15 @@
                       ></v-text-field>
                     </v-flex>
                     <v-flex xs12 sm5 md4 lg4>
-                      <v-select 
-                      v-model="studentObject.motherJob"
-                      :items="jobs"
-                      label="Profession du mere"
-                      @input="$v.studentObject.motherJob.$touch()"
-                      @blur="$v.studentObject.motherJob.$touch()" 
-                      :error-messages="motherJobErrors" required></v-select>
+                      <v-select
+                        v-model="studentObject.motherJob"
+                        :items="jobs"
+                        label="Profession du mere"
+                        @input="$v.studentObject.motherJob.$touch()"
+                        @blur="$v.studentObject.motherJob.$touch()"
+                        :error-messages="motherJobErrors"
+                        required
+                      ></v-select>
                     </v-flex>
                   </v-layout>
                   <!-- address du parent  -->
@@ -367,25 +449,33 @@
                       ></v-text-field>
                     </v-flex>
                     <v-flex xs12 sm5 md4 lg4>
-                      <v-text-field 
-                      v-model="studentObject.parentPhone"
-                      type="phone"
-                      label="Telephone des parents"
-                      @input="$v.studentObject.parentPhone.$touch()"
-                      @blur="$v.studentObject.parentPhone.$touch()" 
-                      :error-messages="parentPhoneErrors" required></v-text-field >
+                      <v-text-field
+                        v-model="studentObject.parentPhone"
+                        type="phone"
+                        label="Telephone des parents"
+                        @input="$v.studentObject.parentPhone.$touch()"
+                        @blur="$v.studentObject.parentPhone.$touch()"
+                        :error-messages="parentPhoneErrors"
+                        required
+                      ></v-text-field>
                     </v-flex>
                   </v-layout>
                 </v-card-text>
               </v-card>
-              
+
               <!-- actions buttons  -->
               <v-divider></v-divider>
               <v-layout row wrap justify-end class="mt-2">
-                <v-btn color="secondary" v-if="n === 5" @click="reset">Initialiser</v-btn>
-                <v-btn type="submit" color="primary" v-if="n === 5">Enregistrer</v-btn>
+                <v-btn color="secondary" v-if="n === 5" @click="reset"
+                  >Initialiser</v-btn
+                >
+                <v-btn type="submit" color="primary" v-if="n === 5"
+                  >Enregistrer</v-btn
+                >
 
-                <v-btn color="primary" v-else @click="nextStep(n)">Suivant</v-btn>
+                <v-btn color="primary" v-else @click="nextStep(n)"
+                  >Suivant</v-btn
+                >
               </v-layout>
             </v-form>
           </v-stepper-content>
@@ -440,13 +530,13 @@ export default {
         parentPhone: ""
       },
       //some select fields data
-      jobs:[],
-      nationalities:["Marocaine","Etragere"],
+      jobs: [],
+      nationalities: ["Marocaine", "Etragere"],
 
       //arabic keyboard
       lastKeyboard: false,
       firstKeyboard: false,
-      keyboardKeys: [],
+      keyboardKeys: []
     };
   },
   validations: {
@@ -501,46 +591,46 @@ export default {
         required,
         minLength: minLength(3)
       },
-      birthDay:{
+      birthDay: {
         required
       },
-      birthPlace:{
+      birthPlace: {
         required,
-        minLength:minLength(3)
+        minLength: minLength(3)
       },
-      nationality:{
+      nationality: {
         required
       },
-      phone:{
+      phone: {
         required,
-        minLength:minLength(9)
+        minLength: minLength(9)
       },
-      address:{
+      address: {
         required,
-        minLength:minLength(6)
+        minLength: minLength(6)
       },
-      fatherFullName:{
+      fatherFullName: {
         required,
-        minLength:minLength(6)
+        minLength: minLength(6)
       },
-      fatherJob:{
+      fatherJob: {
         required
       },
-      motherFullName:{
+      motherFullName: {
         required,
-        minLength:minLength(6)
+        minLength: minLength(6)
       },
-      motherJob:{
+      motherJob: {
         required
       },
-      parentAddress:{
+      parentAddress: {
         required,
-        minLength:minLength(6)
+        minLength: minLength(6)
       },
-      parentPhone:{
+      parentPhone: {
         required,
-        
-        minLength:minLength(9)
+
+        minLength: minLength(9)
       }
     }
   },
@@ -561,36 +651,39 @@ export default {
       this.editable[n + 1] = true;
     },
 
-    lastNameClick(name,character) {
-      if(name=="space"){
+    lastNameClick(name, character) {
+      if (name == "space") {
         this.studentObject.lastNameAr += " ";
-      }else if(name=="delete"){
-        
-        this.studentObject.lastNameAr=this.studentObject.lastNameAr.substr(0,this.studentObject.lastNameAr.length-1);
+      } else if (name == "delete") {
+        this.studentObject.lastNameAr = this.studentObject.lastNameAr.substr(
+          0,
+          this.studentObject.lastNameAr.length - 1
+        );
       }
       this.studentObject.lastNameAr += character;
     },
 
-    firstNameClick(name,character) {
-      if(name=="space"){
+    firstNameClick(name, character) {
+      if (name == "space") {
         this.studentObject.firstNameAr += " ";
-      }else if(name=="delete"){
-        
-        this.studentObject.firstNameAr=this.studentObject.firstNameAr.substr(0,this.studentObject.firstNameAr.length-1);
+      } else if (name == "delete") {
+        this.studentObject.firstNameAr = this.studentObject.firstNameAr.substr(
+          0,
+          this.studentObject.firstNameAr.length - 1
+        );
       }
       this.studentObject.firstNameAr += character;
     },
-    lastNameArFocus(){
-      this.lastKeyboard=true;
-      this.firstKeyboard=false;
+    lastNameArFocus() {
+      this.lastKeyboard = true;
+      this.firstKeyboard = false;
     },
-    
 
-    firstNameArFocus(){
-      this.lastKeyboard=false;
-      this.firstKeyboard=true;
+    firstNameArFocus() {
+      this.lastKeyboard = false;
+      this.firstKeyboard = true;
     },
-    
+
     //submit the form
     handleSubmit() {
       this.submitted = true;
@@ -610,8 +703,8 @@ export default {
       this.editable = [false, true, false, false, false, false];
     },
 
-    initializeKeyboard(){
-      this.keyboardKeys=[
+    initializeKeyboard() {
+      this.keyboardKeys = [
         {
           name: "ذ",
           character: "ذ"
@@ -630,138 +723,138 @@ export default {
         },
         {
           name: "ق",
-          character:"ق"
+          character: "ق"
         },
         {
-          name:"delete",
-          character:""
+          name: "delete",
+          character: ""
         },
         {
           name: "ف",
-          character:"ف"
+          character: "ف"
         },
-        
+
         {
           name: "غ",
-          character:"غ"
+          character: "غ"
         },
         {
           name: "ع",
-          character:"ع"
+          character: "ع"
         },
         {
           name: "ه",
-          character:"ه"
+          character: "ه"
         },
         {
           name: "خ",
-          character:"خ"
+          character: "خ"
         },
         {
           name: "ح",
-          character:"ح"
+          character: "ح"
         },
         {
           name: "ج",
-          character:"ج"
+          character: "ج"
         },
         {
           name: "د",
-          character:"د"
+          character: "د"
         },
         {
           name: "ش",
-          character:"ش"
+          character: "ش"
         },
         {
           name: "س",
-          character:"س"
+          character: "س"
         },
         {
           name: "ي",
-          character:"ي"
+          character: "ي"
         },
         {
           name: "ب",
-          character:"ب"
+          character: "ب"
         },
         {
           name: "ل",
-          character:"ل"
+          character: "ل"
         },
         {
           name: "ا",
-          character:"ا"
+          character: "ا"
         },
         {
           name: "ت",
-          character:"ت"
+          character: "ت"
         },
         {
           name: "ن",
-          character:"ن"
+          character: "ن"
         },
         {
-          name:"م",
-          character:"م"
+          name: "م",
+          character: "م"
         },
         {
-          name:"ك",
-          character:"ك"
+          name: "ك",
+          character: "ك"
         },
         {
-          name:"ط",
-          character:"ط"
+          name: "ط",
+          character: "ط"
         },
         {
-          name:"ئ",
-          character:"ئ"
+          name: "ئ",
+          character: "ئ"
         },
         {
-          name:"ء",
-          character:"ء"
+          name: "ء",
+          character: "ء"
         },
         {
-          name:"ؤ",
-          character:"ؤ"
+          name: "ؤ",
+          character: "ؤ"
         },
         {
-          name:"ر",
-          character:"ر"
+          name: "ر",
+          character: "ر"
         },
         {
-          name:"لا",
-          character:"لا"
+          name: "لا",
+          character: "لا"
         },
         {
-          name:"ى",
-          character:"ى"
+          name: "ى",
+          character: "ى"
         },
         {
-          name:"ة",
-          character:"ة"
+          name: "ة",
+          character: "ة"
         },
         {
-          name:"و",
-          character:"و"
+          name: "و",
+          character: "و"
         },
         {
-          name:"ز",
-          character:"ز"
+          name: "ز",
+          character: "ز"
         },
         {
-          name:"ظ",
-          character:"ظ"
+          name: "ظ",
+          character: "ظ"
         },
-        
+
         {
-          name:"space",
-          character:" "
+          name: "space",
+          character: " "
         }
       ];
     },
-    initializeJobs(){
-      this.jobs=[
+    initializeJobs() {
+      this.jobs = [
         "Agriculteur exploitant",
         "rtisan, Décorateur, Peintre",
         "Autre métier non Renseigné",
@@ -906,15 +999,15 @@ export default {
         errors.push("الاسم الشخصي ضروريا");
       return errors;
     },
-    birthDayErrors(){
-      const errors=[];
+    birthDayErrors() {
+      const errors = [];
       if (!this.$v.studentObject.birthDay.$dirty) return errors;
       !this.$v.studentObject.birthDay.required &&
         errors.push("Champ obligatoire !");
       return errors;
     },
-    birthPlaceErrors(){
-      const errors=[];
+    birthPlaceErrors() {
+      const errors = [];
       if (!this.$v.studentObject.birthPlace.$dirty) return errors;
       !this.$v.studentObject.birthPlace.minLength &&
         errors.push("M'a pas de sense !");
@@ -922,15 +1015,15 @@ export default {
         errors.push("Champ obligatoire !");
       return errors;
     },
-    nationalityErrors(){
-      const errors=[];
+    nationalityErrors() {
+      const errors = [];
       if (!this.$v.studentObject.nationality.$dirty) return errors;
       !this.$v.studentObject.nationality.required &&
         errors.push("Champ obligatoire !");
       return errors;
     },
-    phoneErrors(){
-      const errors=[];
+    phoneErrors() {
+      const errors = [];
       if (!this.$v.studentObject.phone.$dirty) return errors;
       !this.$v.studentObject.phone.minLength &&
         errors.push("Telephone non valide !");
@@ -938,8 +1031,8 @@ export default {
         errors.push("Champ obligatoire !");
       return errors;
     },
-    addressErrors(){
-      const errors=[];
+    addressErrors() {
+      const errors = [];
       if (!this.$v.studentObject.address.$dirty) return errors;
       !this.$v.studentObject.address.minLength &&
         errors.push("Adresse non valide !");
@@ -947,8 +1040,8 @@ export default {
         errors.push("Champ obligatoire !");
       return errors;
     },
-    fatherFullNameErrors(){
-      const errors=[];
+    fatherFullNameErrors() {
+      const errors = [];
       if (!this.$v.studentObject.fatherFullName.$dirty) return errors;
       !this.$v.studentObject.fatherFullName.minLength &&
         errors.push("Les informations ne sont pas completes !");
@@ -956,16 +1049,16 @@ export default {
         errors.push("Champ obligatoire !");
       return errors;
     },
-    fatherJobErrors(){
-      const errors=[];
+    fatherJobErrors() {
+      const errors = [];
       if (!this.$v.studentObject.fatherJob.$dirty) return errors;
-      
+
       !this.$v.studentObject.fatherJob.required &&
         errors.push("Champ obligatoire !");
       return errors;
     },
-    motherFullNameErrors(){
-      const errors=[];
+    motherFullNameErrors() {
+      const errors = [];
       if (!this.$v.studentObject.motherFullName.$dirty) return errors;
       !this.$v.studentObject.motherFullName.minLength &&
         errors.push("Les informations ne sont pas completes !");
@@ -973,16 +1066,16 @@ export default {
         errors.push("Champ obligatoire !");
       return errors;
     },
-    motherJobErrors(){
-      const errors=[];
+    motherJobErrors() {
+      const errors = [];
       if (!this.$v.studentObject.motherJob.$dirty) return errors;
-      
+
       !this.$v.studentObject.motherJob.required &&
         errors.push("Champ obligatoire !");
       return errors;
     },
-    parentAddressErrors(){
-      const errors=[];
+    parentAddressErrors() {
+      const errors = [];
       if (!this.$v.studentObject.parentAddress.$dirty) return errors;
       !this.$v.studentObject.parentAddress.minLength &&
         errors.push("Adresse non valide !");
@@ -990,17 +1083,16 @@ export default {
         errors.push("Champ obligatoire !");
       return errors;
     },
-    parentPhoneErrors(){
-      const errors=[];
+    parentPhoneErrors() {
+      const errors = [];
       if (!this.$v.studentObject.parentPhone.$dirty) return errors;
       !this.$v.studentObject.parentPhone.minLength &&
         errors.push("Telephone non valide !");
-      
+
       !this.$v.studentObject.parentPhone.required &&
         errors.push("Champ obligatoire !");
       return errors;
-    },
-    
+    }
   },
   components: {}
 };
