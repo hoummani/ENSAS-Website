@@ -1,8 +1,8 @@
 <template>
   <div class="back pa-2">
-    <h3 class="display-1 text-sm-center grey--text font-weight-light">
-      Inscription et Reinscription en ligne ENSA Safi
-    </h3>
+    <h3
+      class="display-1 text-sm-center grey--text font-weight-light"
+    >Inscription et Reinscription en ligne ENSA Safi</h3>
     <v-container>
       <v-stepper v-model="e1">
         <v-stepper-header>
@@ -12,8 +12,7 @@
               :editable="editable[n]"
               :complete="e1 > n"
               :step="n"
-              >Etape {{ n }}</v-stepper-step
-            >
+            >Etape {{ n }}</v-stepper-step>
 
             <v-divider v-if="n !== steps" :key="n"></v-divider>
           </template>
@@ -21,23 +20,15 @@
         <v-stepper-items>
           <!-- basic info  -->
           <v-stepper-content v-for="n in steps" :key="`${n}-content`" :step="n">
-            <v-form
-              v-model="registerValid"
-              lazy-validation
-              @submit.prevent="handleSubmit"
-            >
+            <v-form v-model="registerValid" lazy-validation @submit.prevent="handleSubmit">
               <v-card v-if="n === 1" class="mb-3" flat>
                 <v-card-title>
-                  <h5 class="subheading text-uppercase grey--text">
-                    Information de base
-                  </h5>
+                  <h5 class="subheading text-uppercase grey--text">Information de base</h5>
                 </v-card-title>
                 <v-divider></v-divider>
                 <v-card-text>
                   <p>
-                    <v-alert :value="false" type="error"
-                      >Lorem ipsum dolor sit</v-alert
-                    >
+                    <v-alert :value="false" type="error">Lorem ipsum dolor sit</v-alert>
                   </p>
                   <v-layout row wrap justify-space-around>
                     <v-flex xs12 sm5 md4 lg4>
@@ -120,16 +111,12 @@
               <!-- 2  -->
               <v-card v-if="n === 2" class="mb-3" flat>
                 <v-card-title>
-                  <h5 class="subheading text-uppercase grey--text">
-                    Information personnelles
-                  </h5>
+                  <h5 class="subheading text-uppercase grey--text">Information personnelles</h5>
                 </v-card-title>
                 <v-divider></v-divider>
                 <v-card-text>
                   <p>
-                    <v-alert :value="false" type="error"
-                      >Lorem ipsum dolor sit</v-alert
-                    >
+                    <v-alert :value="false" type="error">Lorem ipsum dolor sit</v-alert>
                   </p>
                   <v-layout row wrap justify-space-around>
                     <v-flex xs12 sm5 md4 lg4>
@@ -173,29 +160,21 @@
                         style="unicode-bidi:bidi-override;
                             direction: RTL; text-align:right;"
                       ></v-text-field>
-                      <v-btn
-                        small
-                        right
-                        icon
-                        @click="lastKeyboard = !lastKeyboard"
-                      >
+                      <v-btn small right icon @click="lastKeyboard = !lastKeyboard">
                         <v-icon>keyboard</v-icon>
                       </v-btn>
                       <div v-if="lastKeyboard">
                         <v-card>
                           <v-layout row wrap>
                             <v-flex>
-                              <span class="caption text-uppercase text-md-start"
-                                >لوحة المفاتيح العربية</span
-                              >
+                              <span
+                                class="caption text-uppercase text-md-start"
+                              >لوحة المفاتيح العربية</span>
                             </v-flex>
                           </v-layout>
                           <v-divider></v-divider>
                           <v-layout row wrap>
-                            <v-flex
-                              v-for="(item, index) in keyboardKeys"
-                              :key="index"
-                            >
+                            <v-flex v-for="(item, index) in keyboardKeys" :key="index">
                               <v-btn
                                 v-if="item.name === 'delete'"
                                 style="width:24px; height:24px;"
@@ -224,8 +203,7 @@
                                   lastNameClick(item.name, item.character)
                                 "
                                 style="width:24px; height:24px;"
-                                >{{ item.character }}</v-btn
-                              >
+                              >{{ item.character }}</v-btn>
                             </v-flex>
                           </v-layout>
                         </v-card>
@@ -246,29 +224,21 @@
                         style="unicode-bidi:bidi-override;
                             direction: RTL; text-align:right;"
                       ></v-text-field>
-                      <v-btn
-                        right
-                        small
-                        icon
-                        @click="firstKeyboard = !firstKeyboard"
-                      >
+                      <v-btn right small icon @click="firstKeyboard = !firstKeyboard">
                         <v-icon>keyboard</v-icon>
                       </v-btn>
                       <div v-if="firstKeyboard">
                         <v-card>
                           <v-layout row wrap>
                             <v-flex>
-                              <span class="caption text-uppercase text-md-start"
-                                >لوحة المفاتيح العربية</span
-                              >
+                              <span
+                                class="caption text-uppercase text-md-start"
+                              >لوحة المفاتيح العربية</span>
                             </v-flex>
                           </v-layout>
                           <v-divider></v-divider>
                           <v-layout row wrap>
-                            <v-flex
-                              v-for="(item, index) in keyboardKeys"
-                              :key="index"
-                            >
+                            <v-flex v-for="(item, index) in keyboardKeys" :key="index">
                               <v-btn
                                 v-if="item.name === 'delete'"
                                 style="width:24px; height:24px;"
@@ -297,8 +267,7 @@
                                   firstNameClick(item.name, item.character)
                                 "
                                 style="width:24px; height:24px;"
-                                >{{ item.character }}</v-btn
-                              >
+                              >{{ item.character }}</v-btn>
                             </v-flex>
                           </v-layout>
                         </v-card>
@@ -377,16 +346,12 @@
               <!-- parents  -->
               <v-card v-if="n === 3" class="mb-3" flat>
                 <v-card-title>
-                  <h5 class="subheading text-uppercase grey--text">
-                    Information parentales
-                  </h5>
+                  <h5 class="subheading text-uppercase grey--text">Information parentales</h5>
                 </v-card-title>
                 <v-divider></v-divider>
                 <v-card-text>
                   <p>
-                    <v-alert :value="false" type="error"
-                      >Lorem ipsum dolor sit</v-alert
-                    >
+                    <v-alert :value="false" type="error">Lorem ipsum dolor sit</v-alert>
                   </p>
                   <v-layout row wrap justify-space-around>
                     <v-flex xs12 sm5 md4 lg4>
@@ -462,20 +427,170 @@
                   </v-layout>
                 </v-card-text>
               </v-card>
-
+              <!-- 4  -->
+              <!-- scolaire/universitaire  -->
+              <v-card v-if="n === 4" class="mb-3" flat>
+                <v-card-title>
+                  <h5
+                    class="subheading text-uppercase grey--text"
+                  >Information scolaires/universitaires</h5>
+                </v-card-title>
+                <v-divider></v-divider>
+                <v-card-text>
+                  <p>
+                    <v-alert :value="false" type="error">Lorem ipsum dolor sit</v-alert>
+                  </p>
+                  <!-- filiere  -->
+                  <v-layout row wrap justify-space-around>
+                    <v-flex xs12 sm5 md4 lg4>
+                      <v-select
+                        v-model="studentObject.filiere"
+                        :items="filieres"
+                        label="Filiere"
+                        hint="Les etudiants de cycle prepa doivent choisir STI comme filiere"
+                        persistent-hint
+                        @input="$v.studentObject.filiere.$touch()"
+                        item-text="name"
+                        item-value="value"
+                        clearable
+                        @blur="$v.studentObject.filiere.$touch()"
+                        :error-messages="filiereErrors"
+                        required
+                      ></v-select>
+                    </v-flex>
+                    <v-flex xs12 sm5 md4 lg4>
+                      <v-select
+                        label="Selectioner le niveau universitaire"
+                        :items="levels"
+                        v-model="studentObject.level"
+                        item-text="name"
+                        item-value="value"
+                        clearable
+                        @blur="$v.studentObject.level.$touch()"
+                        :error-messages="levelErrors"
+                        required
+                      ></v-select>
+                    </v-flex>
+                  </v-layout>
+                  <!-- bac  -->
+                  <v-layout row wrap justify-space-around>
+                    <v-flex xs12 sm3 md2 lg2>
+                      <v-select
+                        :items="bacs"
+                        v-model="studentObject.bacType"
+                        clearable
+                        @input="$v.studentObject.bacType.$touch()"
+                        @blur="$v.studentObject.bacType.$touch()"
+                        :error-messages="bacTypeErrors"
+                        label="Type de Bac"
+                        required
+                      ></v-select>
+                    </v-flex>
+                    <v-flex xs12 sm3 md2 lg2>
+                      <v-select
+                        :items="bacGetYearArea"
+                        v-model="studentObject.bacGetYear"
+                        @input="$v.studentObject.bacGetYear.$touch()"
+                        @blur="$v.studentObject.bacGetYear.$touch()"
+                        :error-messages="bacGetYearErrors"
+                        clearable
+                        label="Annee d'obtention"
+                        required
+                      ></v-select>
+                    </v-flex>
+                    <v-flex xs12 sm3 md2 lg2>
+                      <v-select
+                        :items="mentions"
+                        v-model="studentObject.mention"
+                        @input="$v.studentObject.mention.$touch()"
+                        @blur="$v.studentObject.mention.$touch()"
+                        :error-messages="mentionErrors"
+                        clearable
+                        label="Mention"
+                        required
+                      ></v-select>
+                    </v-flex>
+                  </v-layout>
+                  <v-layout row wrap justify-space-around>
+                    <v-flex xs12 sm3 md2 lg2>
+                      <v-text-field
+                        type="text"
+                        v-model="studentObject.bacLycee"
+                        label="Lycee"
+                        @input="$v.studentObject.bacLycee.$touch()"
+                        @blur="$v.studentObject.bacLycee.$touch()"
+                        :error-messages="bacLyceeErrors"
+                        required
+                      ></v-text-field>
+                    </v-flex>
+                    <v-flex xs12 sm3 md2 lg2>
+                      <v-text-field
+                        type="text"
+                        v-model="studentObject.bacDirection"
+                        label="La Direction"
+                        @input="$v.studentObject.bacDirection.$touch()"
+                        @blur="$v.studentObject.bacDirection.$touch()"
+                        :error-messages="bacDirectionErrors"
+                        required
+                      ></v-text-field>
+                    </v-flex>
+                    <v-flex xs12 sm3 md2 lg2>
+                      <v-text-field
+                        type="text"
+                        v-model="studentObject.bacAccademie"
+                        label="Accademie"
+                        @input="$v.studentObject.bacAccademie.$touch()"
+                        @blur="$v.studentObject.bacAccademie.$touch()"
+                        :error-messages="bacAccademieErrors"
+                        required
+                      ></v-text-field>
+                    </v-flex>
+                  </v-layout>
+                  <v-layout row wrap justify-space-around class="pl-5 ml-3">
+                    <v-flex>
+                      <v-checkbox v-model="newStudent" label="Vous etes nouveau ?"></v-checkbox>
+                    </v-flex>
+                  </v-layout>
+                  <!-- if new  -->
+                  <div>
+                    <div v-if="newStudent">
+                      <h5
+                        class="subheading text-uppercase grey--text"
+                      >Cursus avant ENSA <span class="text--primary">!! Attention remplis seulement par les nouveaux !!</span></h5>
+                      <br>
+                      <v-divider></v-divider>
+                      <v-layout row wrap justify-space-around>
+                        <v-flex xs12 sm3 md2 lg2>
+                          <v-select 
+                          v-model="studentObject.degre"
+                          :items="degres"
+                          label="Diplome precedent"
+                          required></v-select>
+                        </v-flex>
+                        <v-flex xs12 sm3 md2 lg2>
+                          <v-text-field type="text" 
+                          v-model="studentObject.etablissement"
+                          label="Etablissement"
+                          required></v-text-field>
+                        </v-flex>
+                        <v-flex xs12 sm3 md2 lg2>
+                          <v-text-field type="text" 
+                          v-model="studentObject.city"
+                          label="Ville"
+                          required></v-text-field>
+                        </v-flex>
+                      </v-layout>
+                    </div>
+                  </div>
+                </v-card-text>
+              </v-card>
               <!-- actions buttons  -->
               <v-divider></v-divider>
               <v-layout row wrap justify-end class="mt-2">
-                <v-btn color="secondary" v-if="n === 5" @click="reset"
-                  >Initialiser</v-btn
-                >
-                <v-btn type="submit" color="primary" v-if="n === 5"
-                  >Enregistrer</v-btn
-                >
+                <v-btn color="secondary" v-if="n === 5" @click="reset">Initialiser</v-btn>
+                <v-btn type="submit" color="primary" v-if="n === 5">Enregistrer</v-btn>
 
-                <v-btn color="primary" v-else @click="nextStep(n)"
-                  >Suivant</v-btn
-                >
+                <v-btn color="primary" v-else @click="nextStep(n)">Suivant</v-btn>
               </v-layout>
             </v-form>
           </v-stepper-content>
@@ -522,6 +637,9 @@ export default {
         bacType: "",
         bacGetYear: "",
         mention: "",
+        bacLycee: "",
+        bacDirection: "",
+        bacAccademie: "",
         fatherFullName: "",
         fatherJob: "",
         motherFullName: "",
@@ -532,7 +650,59 @@ export default {
       //some select fields data
       jobs: [],
       nationalities: ["Marocaine", "Etragere"],
+      filieres: [
+        {
+          name: "Sciences et Technologies pour l'Ingenieur - STI",
+          value: "sti"
+        },
+        {
+          name: "Genie Informtique - GINF",
+          value: "info"
+        },
+        {
+          name: "Genie Industriel - GIND",
+          value: "indus"
+        },
+        {
+          name: "Genie Telecom et Reseaux - GTR",
+          value: "gtr"
+        },
+        {
+          name: "Genie Procedes et Materiaux Ceramiques - GPMC",
+          value: "gpmc"
+        }
+      ],
+      levels: [
+        { name: "Premiere Annee", value: "1" },
 
+        { name: "Deuxieme Annee", value: "2" },
+
+        { name: "3eme Annee", value: "3" },
+
+        { name: "4eme Annee", value: "4" },
+
+        { name: "5eme Annee", value: "5" }
+      ],
+      bacs: [
+        "Sciences maths A",
+        "Sciences maths B",
+        "Sciences Physiques Chimie",
+        "Sciences de la Vie et Terre",
+        "Sciences et Technologies electriques",
+        "Sciences et Technologies mecaniques"
+      ],
+      bacsYears: ["2018", "2019", "2020"],
+      mentions: ["Assez Bien", "Bien", "Tres Bien"],
+      newStudent: false,
+      degres:[
+        "Concour National Commun (CNC)",
+        "Diplome Universitaire de technologie (DUT)",
+        "Diplome d'Etudes Universitaire General (DEUG)",
+        "Diplome d'Etudes Universitaire Scientifiques et Technologiques (DEUST)",
+        "Licence (Bac+3)",
+        "Master (Bac +5)",
+        "Cycle Preparatoire Integre"
+      ],
       //arabic keyboard
       lastKeyboard: false,
       firstKeyboard: false,
@@ -631,6 +801,31 @@ export default {
         required,
 
         minLength: minLength(9)
+      },
+      filiere: {
+        required
+      },
+      level: {
+        required
+      },
+      bacType: {
+        required
+      },
+      bacGetYear: { required },
+      mention: {
+        required
+      },
+      bacLycee: {
+        required,
+        minLength: minLength(3)
+      },
+      bacDirection: {
+        required,
+        minLength: minLength(3)
+      },
+      bacAccademie: {
+        required,
+        minLength: minLength(3)
       }
     }
   },
@@ -638,6 +833,17 @@ export default {
     steps(val) {
       if (this.e1 > val) {
         this.e1 = val;
+      }
+    },
+    newStudent(val){
+      if(val==true){
+        this.studentObject.degre="";
+        this.studentObject.etablissement="";
+        this.studentObject.city="";
+      }else{
+        delete studentObject.degre;
+        delete studentObject.etablissement;
+        delete studentObject.city;
       }
     }
   },
@@ -903,6 +1109,24 @@ export default {
     this.initializeJobs();
   },
   computed: {
+    //date select area
+    //new Date().getFullYear().toString()
+    bacGetYearArea() {
+      const years = [];
+
+      const rangeDate = [
+        new Date().getFullYear() - 5,
+        new Date().getFullYear() - 4,
+        new Date().getFullYear() - 3,
+        new Date().getFullYear() - 2,
+        new Date().getFullYear() - 1,
+        new Date().getFullYear()
+      ];
+      for (let i of rangeDate) {
+        years.push(i.toString());
+      }
+      return years;
+    },
     //validations computed
 
     cinErrors() {
@@ -1090,6 +1314,68 @@ export default {
         errors.push("Telephone non valide !");
 
       !this.$v.studentObject.parentPhone.required &&
+        errors.push("Champ obligatoire !");
+      return errors;
+    },
+    filiereErrors() {
+      const errors = [];
+      if (!this.$v.studentObject.filiere.$dirty) return errors;
+      !this.$v.studentObject.filiere.required &&
+        errors.push("Champ obligatoire !");
+      return errors;
+    },
+    levelErrors() {
+      const errors = [];
+      if (!this.$v.studentObject.level.$dirty) return errors;
+      !this.$v.studentObject.level.required &&
+        errors.push("Champ obligatoire !");
+      return errors;
+    },
+    bacTypeErrors() {
+      const errors = [];
+      if (!this.$v.studentObject.bacType.$dirty) return errors;
+      !this.$v.studentObject.bacType.required &&
+        errors.push("Champ obligatoire !");
+      return errors;
+    },
+    bacGetYearErrors() {
+      const errors = [];
+      if (!this.$v.studentObject.bacGetYear.$dirty) return errors;
+      !this.$v.studentObject.bacGetYear.required &&
+        errors.push("Champ obligatoire !");
+      return errors;
+    },
+    mentionErrors() {
+      const errors = [];
+      if (!this.$v.studentObject.mention.$dirty) return errors;
+      !this.$v.studentObject.mention.required &&
+        errors.push("Champ obligatoire !");
+      return errors;
+    },
+    bacLyceeErrors() {
+      const errors = [];
+      if (!this.$v.studentObject.bacLycee.$dirty) return errors;
+      !this.$v.studentObject.bacLycee.minLength &&
+        errors.push("N'a pas de sense !");
+      !this.$v.studentObject.bacLycee.required &&
+        errors.push("Champ obligatoire !");
+      return errors;
+    },
+    bacDirectionErrors() {
+      const errors = [];
+      if (!this.$v.studentObject.bacDirection.$dirty) return errors;
+      !this.$v.studentObject.bacDirection.minLength &&
+        errors.push("N'a pas de sense !");
+      !this.$v.studentObject.bacDirection.required &&
+        errors.push("Champ obligatoire !");
+      return errors;
+    },
+    bacAccademieErrors() {
+      const errors = [];
+      if (!this.$v.studentObject.bacAccademie.$dirty) return errors;
+      !this.$v.studentObject.bacAccademie.minLength &&
+        errors.push("N'a pas de sense !");
+      !this.$v.studentObject.bacAccademie.required &&
         errors.push("Champ obligatoire !");
       return errors;
     }
