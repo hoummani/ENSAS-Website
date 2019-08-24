@@ -2,7 +2,9 @@
   <div class="back pa-2">
     <h3
       class="display-1 text-sm-center grey--text text--darken-2 font-weight-light"
-    >Inscription et Reinscription en ligne ENSA Safi</h3>
+    >
+      Inscription et Reinscription en ligne ENSA Safi
+    </h3>
     <v-container>
       <v-stepper v-model="e1">
         <v-stepper-header>
@@ -12,7 +14,8 @@
               :editable="editable[n]"
               :complete="e1 > n"
               :step="n"
-            >Etape {{ n }}</v-stepper-step>
+              >Etape {{ n }}</v-stepper-step
+            >
 
             <v-divider v-if="n !== steps" :key="n"></v-divider>
           </template>
@@ -20,15 +23,23 @@
         <v-stepper-items>
           <!-- basic info  -->
           <v-stepper-content v-for="n in steps" :key="`${n}-content`" :step="n">
-            <v-form v-model="registerValid" lazy-validation @submit.prevent="handleSubmit">
+            <v-form
+              v-model="registerValid"
+              lazy-validation
+              @submit.prevent="handleSubmit"
+            >
               <v-card v-if="n === 1" class="mb-3" flat>
                 <v-card-title>
-                  <h5 class="subheading text-uppercase grey--text">Information de base</h5>
+                  <h5 class="subheading text-uppercase grey--text">
+                    Information de base
+                  </h5>
                 </v-card-title>
                 <v-divider></v-divider>
                 <v-card-text>
                   <p>
-                    <v-alert :value="false" type="error">Lorem ipsum dolor sit</v-alert>
+                    <v-alert :value="false" type="error"
+                      >Lorem ipsum dolor sit</v-alert
+                    >
                   </p>
                   <v-layout row wrap justify-space-around>
                     <v-flex xs12 sm5 md4 lg4>
@@ -111,12 +122,16 @@
               <!-- 2  -->
               <v-card v-if="n === 2" class="mb-3" flat>
                 <v-card-title>
-                  <h5 class="subheading text-uppercase grey--text">Information personnelles</h5>
+                  <h5 class="subheading text-uppercase grey--text">
+                    Information personnelles
+                  </h5>
                 </v-card-title>
                 <v-divider></v-divider>
                 <v-card-text>
                   <p>
-                    <v-alert :value="false" type="error">Lorem ipsum dolor sit</v-alert>
+                    <v-alert :value="false" type="error"
+                      >Lorem ipsum dolor sit</v-alert
+                    >
                   </p>
                   <v-layout row wrap justify-space-around>
                     <v-flex xs12 sm5 md4 lg4>
@@ -160,21 +175,29 @@
                         style="unicode-bidi:bidi-override;
                             direction: RTL; text-align:right;"
                       ></v-text-field>
-                      <v-btn small right icon @click="lastKeyboard = !lastKeyboard">
+                      <v-btn
+                        small
+                        right
+                        icon
+                        @click="lastKeyboard = !lastKeyboard"
+                      >
                         <v-icon>keyboard</v-icon>
                       </v-btn>
                       <div v-if="lastKeyboard">
                         <v-card>
                           <v-layout row wrap>
                             <v-flex>
-                              <span
-                                class="caption text-uppercase text-md-start"
-                              >لوحة المفاتيح العربية</span>
+                              <span class="caption text-uppercase text-md-start"
+                                >لوحة المفاتيح العربية</span
+                              >
                             </v-flex>
                           </v-layout>
                           <v-divider></v-divider>
                           <v-layout row wrap>
-                            <v-flex v-for="(item, index) in keyboardKeys" :key="index">
+                            <v-flex
+                              v-for="(item, index) in keyboardKeys"
+                              :key="index"
+                            >
                               <v-btn
                                 v-if="item.name === 'delete'"
                                 style="width:24px; height:24px;"
@@ -203,7 +226,8 @@
                                   lastNameClick(item.name, item.character)
                                 "
                                 style="width:24px; height:24px;"
-                              >{{ item.character }}</v-btn>
+                                >{{ item.character }}</v-btn
+                              >
                             </v-flex>
                           </v-layout>
                         </v-card>
@@ -224,21 +248,29 @@
                         style="unicode-bidi:bidi-override;
                             direction: RTL; text-align:right;"
                       ></v-text-field>
-                      <v-btn right small icon @click="firstKeyboard = !firstKeyboard">
+                      <v-btn
+                        right
+                        small
+                        icon
+                        @click="firstKeyboard = !firstKeyboard"
+                      >
                         <v-icon>keyboard</v-icon>
                       </v-btn>
                       <div v-if="firstKeyboard">
                         <v-card>
                           <v-layout row wrap>
                             <v-flex>
-                              <span
-                                class="caption text-uppercase text-md-start"
-                              >لوحة المفاتيح العربية</span>
+                              <span class="caption text-uppercase text-md-start"
+                                >لوحة المفاتيح العربية</span
+                              >
                             </v-flex>
                           </v-layout>
                           <v-divider></v-divider>
                           <v-layout row wrap>
-                            <v-flex v-for="(item, index) in keyboardKeys" :key="index">
+                            <v-flex
+                              v-for="(item, index) in keyboardKeys"
+                              :key="index"
+                            >
                               <v-btn
                                 v-if="item.name === 'delete'"
                                 style="width:24px; height:24px;"
@@ -267,7 +299,8 @@
                                   firstNameClick(item.name, item.character)
                                 "
                                 style="width:24px; height:24px;"
-                              >{{ item.character }}</v-btn>
+                                >{{ item.character }}</v-btn
+                              >
                             </v-flex>
                           </v-layout>
                         </v-card>
@@ -346,12 +379,16 @@
               <!-- parents  -->
               <v-card v-if="n === 3" class="mb-3" flat>
                 <v-card-title>
-                  <h5 class="subheading text-uppercase grey--text">Information parentales</h5>
+                  <h5 class="subheading text-uppercase grey--text">
+                    Information parentales
+                  </h5>
                 </v-card-title>
                 <v-divider></v-divider>
                 <v-card-text>
                   <p>
-                    <v-alert :value="false" type="error">Lorem ipsum dolor sit</v-alert>
+                    <v-alert :value="false" type="error"
+                      >Lorem ipsum dolor sit</v-alert
+                    >
                   </p>
                   <v-layout row wrap justify-space-around>
                     <v-flex xs12 sm5 md4 lg4>
@@ -431,14 +468,16 @@
               <!-- scolaire/universitaire  -->
               <v-card v-if="n === 4" class="mb-3" flat>
                 <v-card-title>
-                  <h5
-                    class="subheading text-uppercase grey--text"
-                  >Information scolaires/universitaires</h5>
+                  <h5 class="subheading text-uppercase grey--text">
+                    Information scolaires/universitaires
+                  </h5>
                 </v-card-title>
                 <v-divider></v-divider>
                 <v-card-text>
                   <p>
-                    <v-alert :value="false" type="error">Lorem ipsum dolor sit</v-alert>
+                    <v-alert :value="false" type="error"
+                      >Lorem ipsum dolor sit</v-alert
+                    >
                   </p>
                   <!-- filiere  -->
                   <v-layout row wrap justify-space-around>
@@ -548,7 +587,10 @@
                   </v-layout>
                   <v-layout row wrap justify-space-around class="pl-5 ml-3">
                     <v-flex>
-                      <v-checkbox v-model="newStudent" label="Vous etes nouveau ?"></v-checkbox>
+                      <v-checkbox
+                        v-model="newStudent"
+                        label="Vous etes nouveau ?"
+                      ></v-checkbox>
                     </v-flex>
                   </v-layout>
                   <!-- if new  -->
@@ -557,8 +599,7 @@
                       <h5 class="subheading text-uppercase grey--text">
                         Cursus avant ENSA
                         <span class="text--primary">
-                          !! Attention remplis seulement par les nouveaux
-                          !!
+                          !! Attention remplis seulement par les nouveaux !!
                         </span>
                       </h5>
                       <br />
@@ -597,7 +638,9 @@
               <!-- avatar  -->
               <v-card v-if="n === 5" class="mb-3" flat>
                 <v-card-title>
-                  <h5 class="subheading text-uppercase grey--text">Photo d'identite</h5>
+                  <h5 class="subheading text-uppercase grey--text">
+                    Photo d'identite
+                  </h5>
                 </v-card-title>
                 <v-divider></v-divider>
                 <v-card-text>
@@ -612,7 +655,9 @@
                   </p>
                   <v-layout row wrap>
                     <v-flex xs12 sm12 md12 lg12>
-                      <v-btn color="secondary" @click="toggleShow">Ajouter votre photo</v-btn>
+                      <v-btn color="secondary" @click="toggleShow"
+                        >Ajouter votre photo</v-btn
+                      >
                       <my-upload
                         field="img"
                         @crop-success="cropSuccess"
@@ -626,7 +671,12 @@
                     </v-flex>
                     <v-flex xs12 sm6 md4 lg4 offset-lg4 offset-md4 offset-sm3>
                       <div v-if="studentObject.photo != ''">
-                        <img :src="studentObject.photo" max-width="500" max-height="500" alt="John" />
+                        <img
+                          :src="studentObject.photo"
+                          max-width="500"
+                          max-height="500"
+                          alt="John"
+                        />
                       </div>
                     </v-flex>
                   </v-layout>
@@ -635,10 +685,16 @@
               <!-- actions buttons  -->
               <v-divider></v-divider>
               <v-layout row wrap justify-end class="mt-2">
-                <v-btn color="secondary" v-if="n === 5" @click="reset">Initialiser</v-btn>
-                <v-btn type="submit" color="primary" v-if="n === 5">Enregistrer</v-btn>
+                <v-btn color="secondary" v-if="n === 5" @click="reset"
+                  >Initialiser</v-btn
+                >
+                <v-btn type="submit" color="primary" v-if="n === 5"
+                  >Enregistrer</v-btn
+                >
 
-                <v-btn color="primary" v-else @click="nextStep(n)">Suivant</v-btn>
+                <v-btn color="primary" v-else @click="nextStep(n)"
+                  >Suivant</v-btn
+                >
               </v-layout>
             </v-form>
           </v-stepper-content>
@@ -652,10 +708,10 @@
     <div>
       <v-layout row justify-center>
         <v-dialog v-model="dialog" max-width="600px">
-          <StudentConfirm :studentObjectExemple="studentObjectExemple"/>
+          <StudentConfirm :studentObjectExemple="studentObjectExemple" />
           <v-divider class="grey--text grey"></v-divider>
           <v-layout class="white pr-2" row justify-end>
-            <v-btn color="secondary" @click="dialog=!dialog">Annuler</v-btn>
+            <v-btn color="secondary" @click="dialog = !dialog">Modifier</v-btn>
             <v-btn color="primary">Valider</v-btn>
           </v-layout>
         </v-dialog>
@@ -1033,7 +1089,7 @@ export default {
     //submit the form
     handleSubmit() {
       this.submitted = true;
-      this.dialog=true;
+      this.dialog = true;
       // stop here if form is invalid
       this.$v.$touch();
       if (this.$v.$invalid) {
