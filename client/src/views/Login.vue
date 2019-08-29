@@ -28,15 +28,11 @@
           ></v-text-field>
 
           <v-checkbox v-model="checkbox" label="Remember me ?"></v-checkbox>
-          <div class="font-weight-bold mb-4">
-            <router-link to="/register" tag="a">Nouveau Compte ?</router-link>
-          </div>
-
           <v-btn color="primary" class="mr-4" @click="validate"
             >Connexion</v-btn
           >
           <!-- epic-spinners-3-k.gif -->
-          <v-btn class="mr-4 indigo lighten-1" @click="reset" dark
+          <v-btn class="mr-4 " color="secondary" @click="reset" dark
             >Réinitialiser</v-btn
           >
         </v-form>

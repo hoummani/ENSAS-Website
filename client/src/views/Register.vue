@@ -711,7 +711,7 @@
           <StudentConfirm :studentObjectExemple="studentObjectExemple" />
           <v-divider class="grey--text grey"></v-divider>
           <v-layout class="white pr-2" row justify-end>
-            <v-btn color="secondary" @click="dialog = !dialog">Modifier</v-btn>
+            <v-btn color="secondary" @click="onUpdate()">Modifier</v-btn>
             <v-btn color="primary">Valider</v-btn>
           </v-layout>
         </v-dialog>
@@ -1086,6 +1086,12 @@ export default {
       console.log("field: " + field);
     },
 
+    //update profile
+    onUpdate(){
+      this.dialog=!this.dialog;
+      this.e1=1;
+    },
+
     //submit the form
     handleSubmit() {
       this.submitted = true;
@@ -1094,9 +1100,9 @@ export default {
       this.$v.$touch();
       if (this.$v.$invalid) {
         return;
+      }else{
+        console.log(this.studentObject);
       }
-
-      console.log(this.studentObject);
     },
     reset() {
       this.$v.$reset();
