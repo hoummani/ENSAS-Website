@@ -8,8 +8,9 @@ import Calendar from "./views/Calendar.vue";
 
 import About from "./views/About.vue";
 import Login from "./views/Login.vue";
-import Register from "./views/Register.vue";
+//import Register from "./views/Register.vue";
 
+import QuickRegister from "./views/QuickRegister.vue";
 Vue.use(Router);
 
 export default new Router({
@@ -39,7 +40,7 @@ export default new Router({
     {
       path: "/register",
       name: "register",
-      component: Register
+      component: QuickRegister
     }
   ]
 });

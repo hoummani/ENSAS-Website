@@ -717,6 +717,13 @@
         </v-dialog>
       </v-layout>
     </div>
+    <!--  snackbar  -->
+    <v-snackbar v-model="snackbar" left>
+      {{ snackbarContent }}
+      <v-btn color="primary" flat @click="snackbar = false">
+        Fermer
+      </v-btn>
+    </v-snackbar>
   </div>
 </template>
 
@@ -769,7 +776,10 @@ export default {
       },
       //student validations
       dialog: false,
-      studentObjectExemple: {
+      studentObjectExemple: {},
+      //student object exemple
+      //@@@@@@@@@@@@@@@@@
+      /*
         photo: "https://cdn.vuetifyjs.com/images/lists/4.jpg",
         cin: "HH234567",
         cne: "1224567898",
@@ -797,7 +807,8 @@ export default {
         bacLycee: "Alkhawarismy",
         bacDirection: "safi",
         bacAccademie: "Safi-Marrakech"
-      },
+        */
+      //@@@@@@@@@@@@@@@
       //some select fields data
       jobs: [],
       nationalities: ["Marocaine", "Etragere"],
@@ -856,6 +867,10 @@ export default {
       ],
       //user image
       show: false,
+
+      //snackbar informations
+      snackbar: false,
+      snackbarContent: "",
 
       //arabic keyboard
       lastKeyboard: false,
@@ -1057,7 +1072,7 @@ export default {
      * [param] imgDataUrl
      * [param] field
      */
-    cropSuccess(imgDataUrl, field) {
+    cropSuccess(imgDataUrl) {
       console.log("-------- crop success --------");
       this.studentObject.photo = imgDataUrl;
       //console.log(this.studentObject.photo);
@@ -1068,11 +1083,9 @@ export default {
      * [param] jsonData  server api return data, already json encode
      * [param] field
      */
-    cropUploadSuccess(jsonData, field) {
+    cropUploadSuccess(jsonData) {
       console.log("-------- upload success --------");
       console.log(jsonData);
-
-      console.log("field: " + field);
     },
     /**
      * upload fail
@@ -1080,28 +1093,29 @@ export default {
      * [param] status    server api return error status, like 500
      * [param] field
      */
-    cropUploadFail(status, field) {
+    cropUploadFail(status) {
       console.log("-------- upload fail --------");
       console.log(status);
-      console.log("field: " + field);
     },
 
     //update profile
-    onUpdate(){
-      this.dialog=!this.dialog;
-      this.e1=1;
+    onUpdate() {
+      this.dialog = !this.dialog;
+      this.e1 = 1;
     },
 
     //submit the form
     handleSubmit() {
-      this.submitted = true;
-      this.dialog = true;
       // stop here if form is invalid
       this.$v.$touch();
       if (this.$v.$invalid) {
-        return;
-      }else{
-        console.log(this.studentObject);
+        this.snackbar = true;
+        this.snackbarContent = "Veuillez verifiez toutes les champs !";
+      } else {
+        this.submitted = true;
+        this.dialog = true;
+        this.studentObjectExemple = this.studentObject;
+        //console.log(this.studentObject);
       }
     },
     reset() {
