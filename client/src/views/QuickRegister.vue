@@ -99,6 +99,7 @@
           </v-form>
         </v-container>
       </v-card>
+      
     </v-container>
 
     <!--  snackbar  -->
@@ -106,6 +107,7 @@
       {{ snackbarContent }}
       <v-btn color="primary" flat @click="snackbar = false">Fermer</v-btn>
     </v-snackbar>
+    
   </div>
 </template>
 
@@ -118,7 +120,7 @@ export default {
       valid: false,
       show1: false,
       show2: false,
-      //newUser:{},
+      
       newUser: {
         firstName: "",
         lastName: "",
@@ -179,6 +181,7 @@ export default {
       } else {
         //console.log(this.newUser);
         this.onRegister();
+        
       }
     },
     //store jobs
@@ -190,7 +193,7 @@ export default {
   computed: {
     //store jobs
     currentUser(){
-      return this.$store.state.currentUser;
+      return this.$store.getters.getCurrentUser;
     },
     firstNameErrors() {
       const errors = [];

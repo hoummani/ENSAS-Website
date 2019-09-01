@@ -20,7 +20,6 @@ const register = {
   actions: {
     onRegister(context, data) {
       context.commit("RGISTER", data);
-      console.log(data);
     }
   },
   getters: {
