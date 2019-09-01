@@ -118,7 +118,7 @@ export default {
       valid: false,
       show1: false,
       show2: false,
-
+      //newUser:{},
       newUser: {
         firstName: "",
         lastName: "",
@@ -126,7 +126,7 @@ export default {
         password: "",
         confirmPassword: ""
       },
-
+      
       //snackbar
       snackbar: false,
       snackbarContent: ""
@@ -177,15 +177,21 @@ export default {
         this.snackbar = true;
         this.snackbarContent = "Veuillez verifiez toutes les champs !";
       } else {
-        console.log(this.newUser);
+        //console.log(this.newUser);
+        this.onRegister();
       }
-    }
+    },
     //store jobs
+    onRegister(){
+      this.$store.dispatch("register/onRegister",this.newUser);
+    },
   },
   created() {},
   computed: {
     //store jobs
-
+    currentUser(){
+      return this.$store.state.currentUser;
+    },
     firstNameErrors() {
       const errors = [];
       if (!this.$v.newUser.firstName.$dirty) return errors;
