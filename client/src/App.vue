@@ -11,6 +11,7 @@
 <script>
 import Navbar from "@/components/core/Navbar";
 import Footer from "@/components/core/Footer";
+import store from './store'
 export default {
   name: "App",
   components: {
@@ -22,7 +23,8 @@ export default {
     return {
       //
     };
-  }
+  },
+  store
 };
 </script>
 
