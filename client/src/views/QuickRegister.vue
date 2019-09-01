@@ -177,7 +177,7 @@ export default {
         this.snackbar = true;
         this.snackbarContent = "Veuillez verifiez toutes les champs !";
       } else {
-        this.onRegister();
+        console.log(this.newUser);
       }
     }
     //store jobs
