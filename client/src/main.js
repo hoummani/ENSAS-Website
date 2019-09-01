@@ -8,6 +8,7 @@ import store from "./store";
 import * as VueGoogleMaps from "vue2-google-maps";
 
 Vue.use(Vuelidate);
+
 Vue.config.productionTip = false;
 
 Vue.use(VueGoogleMaps, {

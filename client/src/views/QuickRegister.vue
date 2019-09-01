@@ -8,7 +8,7 @@
           Inscription en ligne ENSA Safi
         </h3>
         <v-divider></v-divider>
-        <v-container>
+        <v-container v-if="newUser">
           <v-form
             v-model="valid"
             class="form"
@@ -111,12 +111,14 @@
 
 <script>
 import { required, email, minLength, sameAs } from "vuelidate/lib/validators";
+
 export default {
   data() {
     return {
       valid: false,
       show1: false,
       show2: false,
+
       newUser: {
         firstName: "",
         lastName: "",
@@ -130,6 +132,7 @@ export default {
       snackbarContent: ""
     };
   },
+
   validations: {
     newUser: {
       firstName: {
@@ -174,11 +177,15 @@ export default {
         this.snackbar = true;
         this.snackbarContent = "Veuillez verifiez toutes les champs !";
       } else {
-        console.log(this.newUser);
+        this.onRegister();
       }
     }
+    //store jobs
   },
+  created() {},
   computed: {
+    //store jobs
+
     firstNameErrors() {
       const errors = [];
       if (!this.$v.newUser.firstName.$dirty) return errors;
