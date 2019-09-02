@@ -61,7 +61,7 @@
             type="submit"
             >Enregistrer</v-btn
           >
-          <v-btn class="indigo lighten-1" dark type="reset">Reset</v-btn>
+          <v-btn class="indigo lighten-1" dark type="reset">Reinitialiser</v-btn>
         </div>
       </form>
     </v-container>

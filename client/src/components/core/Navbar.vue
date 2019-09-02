@@ -28,6 +28,8 @@
         <v-btn color="grey" flat>Choix de filiere</v-btn>
         <v-btn color="grey" flat>Espace PFE</v-btn>
         <v-btn flat color="grey" to="/about">About</v-btn>
+        <v-btn flat color="grey" to="/login">Se connecter</v-btn>
+        <!--
         <v-menu offset-y>
           <v-btn flat slot="activator" color="grey">
             <v-icon right>expand_more</v-icon>
@@ -41,7 +43,7 @@
               <v-list-tile-title>S'ENREGISTRER</v-list-tile-title>
             </v-list-tile>
           </v-list>
-        </v-menu>
+        </v-menu>-->
       </v-toolbar-items>
     </v-toolbar>
     <!-- Navigation drawer -->

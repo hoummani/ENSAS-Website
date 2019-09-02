@@ -1,43 +1,40 @@
 <template>
   <div class="back pa-5">
     <v-container>
-      <v-container>
-        <v-form ref="form" v-model="valid" class="form" lazy-validation>
-          <h4
-            class="display-2 font-weight-thin grey--text text-xs-center text-sm-center"
-          >
-            Connexion
-          </h4>
-          <!-- email  -->
-          <v-text-field
-            v-model="email"
-            type="email"
-            :rules="emailRules"
-            label="E-mail"
-            required
-          ></v-text-field>
+      <v-card style="opacity:0.8">
+        <h3
+          class="display-1 text-sm-center grey--text text--darken-2 font-weight-light pt-3 pb-3"
+        >Connexion</h3>
+        <v-divider></v-divider>
+        <v-container>
+          <v-form ref="form" v-model="valid" class="form" lazy-validation>
+            
+            <!-- email  -->
+            <v-text-field v-model="email" type="email" :rules="emailRules" label="E-mail" required></v-text-field>
 
-          <!-- password -->
-          <v-text-field
-            v-model="password"
-            type="password"
-            :counter="6"
-            :rules="passwordRules"
-            label="Password"
-            required
-          ></v-text-field>
+            <!-- password -->
+            <v-text-field
+              v-model="password"
+              type="password"
+              :counter="6"
+              :rules="passwordRules"
+              label="Password"
+              required
+            ></v-text-field>
 
-          <v-checkbox v-model="checkbox" label="Remember me ?"></v-checkbox>
-          <v-btn color="primary" class="mr-4" @click="validate"
-            >Connexion</v-btn
-          >
-          <!-- epic-spinners-3-k.gif -->
-          <v-btn class="mr-4 " color="secondary" @click="reset" dark
-            >Réinitialiser</v-btn
-          >
-        </v-form>
-      </v-container>
+            <v-checkbox v-model="checkbox" label="Remember me ?"></v-checkbox>
+            <v-divider></v-divider>
+            <v-layout row wrap justify-end class="mt-3">
+              
+            <!-- epic-spinners-3-k.gif -->
+            <v-btn  color="secondary" @click="reset" dark>Réinitialiser</v-btn>
+            <v-btn color="primary"  @click="validate">Connexion</v-btn>
+            </v-layout>
+          </v-form>
+        </v-container>
+      </v-card>
     </v-container>
+    
   </div>
 </template>
 
