@@ -1,0 +1,8 @@
+{
+  "env":{
+    "PORT":4000,
+    "MONGO_USER":"ensasMongo",
+    "MONGO_PASSWORD":"Gfp06QXiE3L7gIDB",
+    "MONGO_CONNECTION":"mongodb://localhost/movie_rating_app"
+  }
+}

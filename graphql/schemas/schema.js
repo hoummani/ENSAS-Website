@@ -1,14 +1,17 @@
 const {buildSchema}=require('graphql');
 
+
 module.exports= buildSchema(
   `
-  type User{
+  type NewUser{
     id:ID!
     firstName:String
     lastName:String
     email:String
     password:String
   }
+
+  
   type RootQuery{
 
   }
