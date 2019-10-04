@@ -113,6 +113,7 @@
 
 <script>
 import { required, email, minLength, sameAs } from "vuelidate/lib/validators";
+import axios from 'axios';
 
 export default {
   data() {
@@ -186,7 +187,28 @@ export default {
     },
     //store jobs
     onRegister(){
-      this.$store.dispatch("register/onRegister",this.newUser);
+      //this.$store.dispatch("register/onRegister",this.newUser);
+      return axios({
+        method:'post',
+        data:{
+          firstName:this.newUser.firstName,
+          lastName:this.newUser.lastName,
+          email:this.newUser.email,
+          password:this.newUser.password
+        },
+        url:'http://localhost:4000/users/register',
+        headers:{
+          'Content-Type': 'application/json',
+        }
+      }).then((user)=>{
+        console.log(user);
+      })
+      .catch((error)=>{
+        const message = error.response.data.message;
+        
+        this.snackbar=true;
+        this.snackbarContent=message;
+      })
     },
   },
   created() {},

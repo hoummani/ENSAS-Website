@@ -16,7 +16,7 @@
             <v-text-field
               v-model="password"
               type="password"
-              :counter="6"
+              
               :rules="passwordRules"
               label="Password"
               required
@@ -34,11 +34,16 @@
         </v-container>
       </v-card>
     </v-container>
-    
+    <!--  snackbar  -->
+    <v-snackbar v-model="snackbar" left>
+      {{ snackbarContent }}
+      <v-btn color="primary" flat @click="snackbar = false">Fermer</v-btn>
+    </v-snackbar>
   </div>
 </template>
 
 <script>
+import axios from 'axios';
 export default {
   data() {
     return {
@@ -56,15 +61,43 @@ export default {
         v => /.+@.+\..+/.test(v) || "E-mail must be valid"
       ],
 
-      checkbox: false
+      checkbox: false,
+      //snackbar
+      snackbar: false,
+      snackbarContent: ""
     };
   },
   methods: {
     validate() {
       if (this.$refs.form.validate()) {
-        console.log(this.email);
-        console.log(this.password);
+        this.onLogin();
+      }else{
+        this.snackbar=true;
+        this.snackbarContent="Il faut valider toutes les champs !";
       }
+    },
+    onLogin(){
+      return axios({
+        method:'post',
+        data:{
+          
+          email:this.email,
+          password:this.password
+        },
+        url:'http://localhost:4000/users/login',
+        headers:{
+          'Content-Type': 'application/json',
+        }
+      }).then((response)=>{
+        window.localStorage.setItem('auth', response.data.token);
+        //console.log(response.data.token);
+      })
+      .catch((error)=>{
+        const message = error.response.data.message;
+        
+        this.snackbar=true;
+        this.snackbarContent=message;
+      })
     },
     reset() {
       this.$refs.form.reset();
