@@ -18,6 +18,7 @@ jwtOptions.secretOrKey = 'ensasecretkey';
 //application
 const app= express();
 const router = express.Router();
+
 app.use('/', router);
 //middlwares
 
@@ -42,7 +43,10 @@ router.get('/', function(req, res) {
 
 
 //run server
-mongoose.connect(`mongodb+srv://ensasMongo:${process.env.MONGO_PASSWORD}@cluster0-alkca.mongodb.net/admin?retryWrites=true&w=majority`,function() {
+
+//connect to cloud atlas
+//`mongodb+srv://ensasMongo:${process.env.MONGO_PASSWORD}@cluster0-alkca.mongodb.net/admin?retryWrites=true&w=majority`
+mongoose.connect(`${process.env.MONGO_CONNECTION}`,function() {
   app.listen(process.env.PORT,function() {
     console.log("Your server is up !... ):");
   });
