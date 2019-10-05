@@ -99,7 +99,6 @@
           </v-form>
         </v-container>
       </v-card>
-      
     </v-container>
 
     <!--  snackbar  -->
@@ -107,13 +106,12 @@
       {{ snackbarContent }}
       <v-btn color="primary" flat @click="snackbar = false">Fermer</v-btn>
     </v-snackbar>
-    
   </div>
 </template>
 
 <script>
 import { required, email, minLength, sameAs } from "vuelidate/lib/validators";
-import axios from 'axios';
+import axios from "axios";
 
 export default {
   data() {
@@ -121,7 +119,7 @@ export default {
       valid: false,
       show1: false,
       show2: false,
-      
+
       newUser: {
         firstName: "",
         lastName: "",
@@ -129,7 +127,7 @@ export default {
         password: "",
         confirmPassword: ""
       },
-      
+
       //snackbar
       snackbar: false,
       snackbarContent: ""
@@ -182,39 +180,39 @@ export default {
       } else {
         //console.log(this.newUser);
         this.onRegister();
-        
       }
     },
     //store jobs
-    onRegister(){
+    onRegister() {
       //this.$store.dispatch("register/onRegister",this.newUser);
       return axios({
-        method:'post',
-        data:{
-          firstName:this.newUser.firstName,
-          lastName:this.newUser.lastName,
-          email:this.newUser.email,
-          password:this.newUser.password
+        method: "post",
+        data: {
+          firstName: this.newUser.firstName,
+          lastName: this.newUser.lastName,
+          email: this.newUser.email,
+          password: this.newUser.password
         },
-        url:'http://localhost:4000/users/register',
-        headers:{
-          'Content-Type': 'application/json',
+        url: "http://localhost:4000/users/register",
+        headers: {
+          "Content-Type": "application/json"
         }
-      }).then((user)=>{
-        console.log(user);
       })
-      .catch((error)=>{
-        const message = error.response.data.message;
-        
-        this.snackbar=true;
-        this.snackbarContent=message;
-      })
-    },
+        .then(user => {
+          console.log(user);
+        })
+        .catch(error => {
+          const message = error.response.data.message;
+
+          this.snackbar = true;
+          this.snackbarContent = message;
+        });
+    }
   },
   created() {},
   computed: {
     //store jobs
-    currentUser(){
+    currentUser() {
       return this.$store.getters.getCurrentUser;
     },
     firstNameErrors() {

@@ -66,7 +66,12 @@ module.exports.controller = (app) => {
           if(isMatch){
             const payload = { id: user.id };
             const token = jwt.sign(payload, jwtOptions.secretOrKey);
-            res.send({ token });
+            const userSend = new User({
+              firstName:user.firstName,
+              lastName:user.lastName,
+              email:user.email
+            });
+            res.send({ token, userSend });
           }else{
             res.status(422).json({
               message:"The password is incorrect!"

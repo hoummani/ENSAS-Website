@@ -1,18 +1,104 @@
 import Vue from "vue";
 import Vuex from "vuex";
+import axios from "axios";
 
 //importing store modules
-
-import register from "./store/register";
 
 Vue.use(Vuex);
 
 export default new Vuex.Store({
-  /*state: {},
-  mutations: {},
-  actions: {},
-  getters: {}*/
-  modules: {
-    register
+  state: {
+    status: "",
+    token: localStorage.getItem("auth") || "",
+    user: {}
+  },
+  mutations: {
+    auth_request(state) {
+      state.status = "loading";
+    },
+    auth_success(state, user) {
+      state.status = "success";
+      state.user = user;
+    },
+    login_success(state, user, token) {
+      state.status = "success";
+      state.user = user;
+      state.token = token;
+    },
+    auth_error(state) {
+      state.status = "error";
+    },
+    logOut(state) {
+      state.status = "";
+      state.token = "";
+    }
+  },
+  actions: {
+    register({ commit }, user) {
+      return new Promise((resolve, reject) => {
+        commit("auth_request");
+        axios({
+          method: "post",
+          data: {
+            firstName: user.firstName,
+            lastName: user.lastName,
+            email: user.email,
+            password: user.password
+          },
+          url: "http://localhost:4000/users/register",
+          headers: {
+            "Content-Type": "application/json"
+          }
+        })
+          .then(response => {
+            const user = response.data.user;
+            commit("auth_success", user);
+            resolve(response);
+          })
+          .catch(err => {
+            commit("auth_error");
+            reject(err);
+          });
+      });
+    },
+    login({ commit }, user) {
+      return new Promise((resolve, reject) => {
+        commit("auth_request");
+        axios({
+          method: "post",
+          data: {
+            email: user.email,
+            password: user.password
+          },
+          url: "http://localhost:4000/users/login",
+          headers: {
+            "Content-Type": "application/json"
+          }
+        })
+          .then(response => {
+            const token = response.data.token;
+            const user = response.data.userSend;
+            localStorage.setItem("auth", token);
+            commit("login_success", user, token);
+            resolve(response);
+          })
+          .catch(error => {
+            commit("auth_error");
+            reject(error);
+          });
+      });
+    },
+    logOut({ commit }) {
+      return new Promise(resolve => {
+        commit("logOut");
+        localStorage.removeItem("auth");
+        resolve();
+      });
+    }
+  },
+  getters: {
+    isLoggedIn: state => !!state.token,
+    authStatus: state => state.status,
+    currentUser: state => state.user
   }
 });

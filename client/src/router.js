@@ -1,6 +1,7 @@
 import Vue from "vue";
 import Router from "vue-router";
 import Home from "./views/Home.vue";
+import store from "./store";
 
 //--->Import views
 
@@ -8,12 +9,13 @@ import Calendar from "./views/Calendar.vue";
 
 import About from "./views/About.vue";
 import Login from "./views/Login.vue";
+import Profile from "./views/Profile.vue";
 //import Register from "./views/Register.vue";
 
 import QuickRegister from "./views/QuickRegister.vue";
 Vue.use(Router);
 
-export default new Router({
+let router = new Router({
   mode: "history",
   base: process.env.BASE_URL,
   routes: [
@@ -41,6 +43,28 @@ export default new Router({
       path: "/register",
       name: "register",
       component: QuickRegister
+    },
+    {
+      path: "/profile",
+      name: "profile",
+      component: Profile,
+      meta: {
+        requiresAuth: true
+      }
+    },
+    {
+      path: "*",
+      redirect: "/login"
     }
   ]
 });
+
+router.beforeEach((to, from, next) => {
+  if (to.fullPath === "/profile") {
+    if (!store.getters.isLoggedIn) {
+      next("/login");
+    }
+  }
+  next();
+});
+export default router;

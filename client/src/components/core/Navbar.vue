@@ -28,22 +28,9 @@
         <v-btn color="grey" flat>Choix de filiere</v-btn>
         <v-btn color="grey" flat>Espace PFE</v-btn>
         <v-btn flat color="grey" to="/about">About</v-btn>
-        <v-btn flat color="grey" to="/login">Se connecter</v-btn>
-        <!--
-        <v-menu offset-y>
-          <v-btn flat slot="activator" color="grey">
-            <v-icon right>expand_more</v-icon>
-            <span>Comptes</span>
-          </v-btn>
-          <v-list>
-            <v-list-tile to="/login" router>
-              <v-list-tile-title>SE CONNECTER</v-list-tile-title>
-            </v-list-tile>
-            <v-list-tile router>
-              <v-list-tile-title>S'ENREGISTRER</v-list-tile-title>
-            </v-list-tile>
-          </v-list>
-        </v-menu>-->
+        <v-btn flat color="grey" v-if="isLoggedIn" @click="logOut">Deconnexion</v-btn>
+        <v-btn flat color="grey" to="/login" v-else>Se connecter</v-btn>
+        
       </v-toolbar-items>
     </v-toolbar>
     <!-- Navigation drawer -->
@@ -135,10 +122,16 @@
         </v-list-tile>
 
         <!-- 6 -->
-        <v-list-group prepend-icon="account_box">
+        <v-list-tile router v-if="isLoggedIn" @click="logOut">
+          <v-list-tile-action>
+            <v-icon>arrow_back</v-icon>
+          </v-list-tile-action>
+          <v-list-tile-title>Deconnexion</v-list-tile-title>
+        </v-list-tile>
+        <v-list-group prepend-icon="account_box" v-else>
           <template v-slot:activator>
             <v-list-tile>
-              <v-list-tile-title>Comptes</v-list-tile-title>
+              <v-list-tile-title>Compte</v-list-tile-title>
             </v-list-tile>
           </template>
           <v-list-group no-action sub-group>
@@ -157,14 +150,7 @@
             </template>
           </v-list-group>
         </v-list-group>
-        <!--
-        <v-list-tile >
-          <v-list-tile-action>
-            <v-icon >contact_support</v-icon>
-          </v-list-tile-action>
-          <v-list-tile-title>Contact Us</v-list-tile-title>
-        </v-list-tile>
-        -->
+        
       </v-list>
     </v-navigation-drawer>
   </nav>
@@ -179,7 +165,19 @@ export default {
       right: null,
       toolbar_items_show: true
     };
-  }
+  },
+  computed: {
+    isLoggedIn:function(){
+      return this.$store.getters.isLoggedIn;
+    }
+  },
+  methods: {
+    logOut(){
+      this.$store.dispatch("logOut").then(()=>{
+        this.$router.push("/login");
+      });
+    }
+  },
 };
 </script>
 
