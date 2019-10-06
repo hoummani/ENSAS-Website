@@ -33,7 +33,9 @@
             <v-layout row wrap justify-end class="mt-3">
               <!-- epic-spinners-3-k.gif -->
               <v-btn color="secondary" @click="reset" dark>Réinitialiser</v-btn>
-              <v-btn color="primary" @click="validate" :loading="submitLoading">Connexion</v-btn>
+              <v-btn color="primary" @click="validate" :loading="submitLoading"
+                >Connexion</v-btn
+              >
             </v-layout>
           </v-form>
         </v-container>
@@ -48,7 +50,6 @@
 </template>
 
 <script>
-import axios from "axios";
 export default {
   data() {
     return {
@@ -69,7 +70,7 @@ export default {
       checkbox: false,
       //snackbar
       snackbar: false,
-      
+
       snackbarContent: ""
     };
   },
@@ -83,12 +84,13 @@ export default {
       }
     },
     onLogin() {
-      const user={
-        email:this.email,
-        password:this.password
+      const user = {
+        email: this.email,
+        password: this.password
       };
-      this.$store.dispatch("login", user).then(() => {
-          
+      this.$store
+        .dispatch("login", user)
+        .then(() => {
           this.$router.push("/profile");
         })
         .catch(error => {
@@ -106,17 +108,17 @@ export default {
     }
   },
   computed: {
-    isLoggedIn:function(){
+    isLoggedIn: function() {
       return this.$store.getters.isLoggedIn;
     },
-    submitLoading:function(){
-      if(this.$store.getters.authStatus=="loading"){
+    submitLoading: function() {
+      if (this.$store.getters.authStatus == "loading") {
         return true;
-      }else{
+      } else {
         return false;
       }
     }
-  },
+  }
 };
 </script>
 <style lang="scss" scoped>

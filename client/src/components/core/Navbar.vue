@@ -28,9 +28,10 @@
         <v-btn color="grey" flat>Choix de filiere</v-btn>
         <v-btn color="grey" flat>Espace PFE</v-btn>
         <v-btn flat color="grey" to="/about">About</v-btn>
-        <v-btn flat color="grey" v-if="isLoggedIn" @click="logOut">Deconnexion</v-btn>
+        <v-btn flat color="grey" v-if="isLoggedIn" @click="logOut"
+          >Deconnexion</v-btn
+        >
         <v-btn flat color="grey" to="/login" v-else>Se connecter</v-btn>
-        
       </v-toolbar-items>
     </v-toolbar>
     <!-- Navigation drawer -->
@@ -150,7 +151,6 @@
             </template>
           </v-list-group>
         </v-list-group>
-        
       </v-list>
     </v-navigation-drawer>
   </nav>
@@ -167,17 +167,17 @@ export default {
     };
   },
   computed: {
-    isLoggedIn:function(){
+    isLoggedIn: function() {
       return this.$store.getters.isLoggedIn;
     }
   },
   methods: {
-    logOut(){
-      this.$store.dispatch("logOut").then(()=>{
+    logOut() {
+      this.$store.dispatch("logOut").then(() => {
         this.$router.push("/login");
       });
     }
-  },
+  }
 };
 </script>
 

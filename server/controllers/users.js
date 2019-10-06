@@ -3,6 +3,7 @@ const bcryptjs = require('bcryptjs');
 
 
 //jwt jobs
+const passport = require('passport');
 const passportJWT = require('passport-jwt');
 const jwt = require('jsonwebtoken');
 const ExtractJwt = passportJWT.ExtractJwt;
@@ -81,4 +82,9 @@ module.exports.controller = (app) => {
       }
     });
   });
+  /*
+  app.get("user/profile", passport.authenticate('jwt',{session : false}), (req, res) => {
+    const email = 
+  });
+  */
 }
