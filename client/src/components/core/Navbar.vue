@@ -1,6 +1,6 @@
 <template>
   <nav>
-    <v-toolbar app class="white" height="80">
+    <v-toolbar app class="white" height="80" :key="toolbarKey">
       <v-toolbar-side-icon @click="drawer = !drawer"></v-toolbar-side-icon>
 
       <div class="pt-3">
@@ -28,10 +28,28 @@
         <v-btn color="grey" flat>Choix de filiere</v-btn>
         <v-btn color="grey" flat>Espace PFE</v-btn>
         <v-btn flat color="grey" to="/about">About</v-btn>
-        <v-btn flat color="grey" v-if="isLoggedIn" @click="logOut"
+
+        <v-menu offset-y v-if="isAuth || isLoggedIn">
+          <v-btn color="primary" icon slot="activator">
+            <v-icon>account_circle</v-icon>
+          </v-btn>
+
+          <v-list>
+            <v-list-tile router to="/profile">
+              <v-list-tile-title>Profile</v-list-tile-title>
+            </v-list-tile>
+            <v-list-tile router @click="logOut">
+              <v-list-tile-title>Deconnexion</v-list-tile-title>
+            </v-list-tile>
+          </v-list>
+        </v-menu>
+        <v-btn flat color="grey" to="/login" v-else>Se connecter</v-btn>
+        <!--
+        <v-btn flat color="primary" v-if="isAuth || isLoggedIn" @click="logOut"
           >Deconnexion</v-btn
         >
         <v-btn flat color="grey" to="/login" v-else>Se connecter</v-btn>
+        -->
       </v-toolbar-items>
     </v-toolbar>
     <!-- Navigation drawer -->
@@ -47,9 +65,7 @@
       <v-toolbar flat>
         <v-list class="indigo lighten-2" dark>
           <v-list-tile>
-            <v-list-tile-title class="title text-xs-center"
-              >e-ENSAS</v-list-tile-title
-            >
+            <v-list-tile-title class="title text-xs-center">e-ENSAS</v-list-tile-title>
           </v-list-tile>
         </v-list>
       </v-toolbar>
@@ -163,12 +179,31 @@ export default {
     return {
       drawer: false,
       right: null,
-      toolbar_items_show: true
+      toolbar_items_show: true,
+      toolbarKey: 0,
+      isAuth: false,
+      
     };
   },
+
   computed: {
+    currentUser: function() {
+      return this.$store.getters.currentUser;
+    },
     isLoggedIn: function() {
       return this.$store.getters.isLoggedIn;
+    }
+  },
+  watch: {
+    $route(to, from) {
+      if (to.fullPath === "/profile") {
+        this.isAuth = true;
+      } else if (from.fullPath === "/profile" && this.isLoggedIn == true) {
+        this.isAuth = true;
+      } else {
+        this.isAuth = false;
+      }
+      //console.log(to.fullPath);
     }
   },
   methods: {

@@ -28,11 +28,6 @@
           @click="onValidate"
         >
           Verifier
-          <template v-slot:loader>
-            <span class="custom-loader">
-              <v-icon light>cached</v-icon>
-            </span>
-          </template>
         </v-btn>
       </v-flex>
       <div v-if="openVerifier" style="width:100%;">
@@ -49,35 +44,35 @@
             <v-flex xs12 sm4 md4 lg4>
               <div class="pa-1">
                 <h5 class="caption grey--text">Photo d'identite :</h5>
-                <img :src="studentObjectExemple.photo" />
+                <img :src="studentObject.photo" />
               </div>
             </v-flex>
             <v-flex xs12 sm6 md6 lg6>
               <v-flex xs12 sm12 md12 lg12>
                 <h5 class="caption grey--text">CIN :</h5>
                 <div class="font-weight-bold">
-                  {{ studentObjectExemple.cin }}
+                  {{ studentObject.cin }}
                 </div>
               </v-flex>
               <v-divider></v-divider>
               <v-flex xs12 sm12 md12 lg12>
                 <h5 class="caption grey--text">CNE :</h5>
                 <div class="font-weight-bold">
-                  {{ studentObjectExemple.cne }}
+                  {{ studentObject.cne }}
                 </div>
               </v-flex>
               <v-divider></v-divider>
               <v-flex xs12 sm12 md12 lg12>
                 <h5 class="caption grey--text">Nom :</h5>
                 <div class="font-weight-bold">
-                  {{ studentObjectExemple.firstName }}
+                  {{ studentObject.firstName }}
                 </div>
               </v-flex>
               <v-divider></v-divider>
               <v-flex xs12 sm12 md12 lg12>
                 <h5 class="caption grey--text">Prenom :</h5>
                 <div class="font-weight-bold">
-                  {{ studentObjectExemple.lastName }}
+                  {{ studentObject.lastName }}
                 </div>
               </v-flex>
             </v-flex>
@@ -258,6 +253,7 @@ export default {
     return {
       openVerifier: false,
       loader: false,
+      studentObject:{},
       studentObjectExemple: {
         photo: "https://cdn.vuetifyjs.com/images/lists/4.jpg",
         cin: "HH234567",
@@ -294,7 +290,13 @@ export default {
       return this.$store.getters.currentUser;
     }
   },
+  mounted() {
+    this.getCurrentStudent();
+  },
   methods: {
+    getCurrentStudent(){
+      this.studentObject=this.$store.getters.currentUser;
+    },
     onValidate() {
       if (this.openVerifier == true) {
         this.openVerifier = false;

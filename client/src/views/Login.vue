@@ -7,6 +7,8 @@
         >
           Connexion
         </h3>
+        <p>yassinehoummani.tsi@gmail.com</p>
+        <p>123qwe!@#QWE</p>
         <v-divider></v-divider>
         <v-container>
           <v-form ref="form" v-model="valid" class="form" lazy-validation>
