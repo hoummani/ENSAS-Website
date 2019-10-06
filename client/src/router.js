@@ -10,6 +10,7 @@ import Calendar from "./views/Calendar.vue";
 import About from "./views/About.vue";
 import Login from "./views/Login.vue";
 import Profile from "./views/Profile.vue";
+import ChoixFiliere from "./views/ChoixFiliere.vue";
 //import Register from "./views/Register.vue";
 
 import QuickRegister from "./views/QuickRegister.vue";
@@ -51,6 +52,26 @@ let router = new Router({
       meta: {
         requiresAuth: true
       }
+    },
+    {
+      path: "/choixFilieres",
+      name: "choixFilieres",
+      component: ChoixFiliere
+    },
+    {
+      path: "/pfe",
+      name: "pfe",
+      component: ChoixFiliere
+    },
+    {
+      path: "/ci3a",
+      name: "ci3a",
+      component: ChoixFiliere
+    },
+    {
+      path: "/ci4a",
+      name: "ci4a",
+      component: ChoixFiliere
     },
     {
       path: "*",

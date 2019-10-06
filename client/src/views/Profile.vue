@@ -5,11 +5,11 @@
         <v-tab> <v-icon left>mdi-account</v-icon>Mes informations </v-tab>
         <v-tab> <v-icon left>mdi-lock</v-icon> Changer password </v-tab>
         <v-tab> <v-icon left>edit</v-icon>Editer Mon Profile </v-tab>
-
+        <v-tab> <v-icon left>cloud_download</v-icon>Recu d'inscription </v-tab>
         <v-tab-item>
           <v-card flat>
             <!-- student info  -->
-            <ProfileInfo/>
+            <ProfileInfo />
           </v-card>
         </v-tab-item>
         <v-tab-item>
@@ -20,6 +20,12 @@
         <v-tab-item>
           <v-card flat>
             <!--  student edit profile  -->
+          </v-card>
+        </v-tab-item>
+
+        <v-tab-item>
+          <v-card flat>
+            <!--  Recu   -->
           </v-card>
         </v-tab-item>
       </v-tabs>
@@ -33,14 +39,10 @@ export default {
   data() {
     return {};
   },
-  mounted() {
-    
-  },
-  methods: {
-    
-  },
-  
-  components:{
+  mounted() {},
+  methods: {},
+
+  components: {
     ProfileInfo
   }
 };

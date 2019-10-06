@@ -10,10 +10,11 @@
         <v-divider></v-divider>
         <div class="pt-1 pb-1">
           <v-alert :value="true" color="warning" icon="priority_high" outline>
-            <p class="body-2">
+            <p class="body-2 pt-3">
               Priere de remplir et verifier vos informations
               <span class="red--text"
-                >La modofication se fait dans le block "Editer Mon Profile"</span
+                >La modofication se fait dans le block "Editer Mon
+                Profile"</span
               >
             </p>
           </v-alert>
@@ -253,7 +254,7 @@ export default {
     return {
       openVerifier: false,
       loader: false,
-      studentObject:{},
+      studentObject: {},
       studentObjectExemple: {
         photo: "https://cdn.vuetifyjs.com/images/lists/4.jpg",
         cin: "HH234567",
@@ -283,10 +284,10 @@ export default {
         bacDirection: "safi",
         bacAccademie: "Safi-Marrakech"
       }
-    }
+    };
   },
   computed: {
-    currentUser:function() {
+    currentUser: function() {
       return this.$store.getters.currentUser;
     }
   },
@@ -294,8 +295,8 @@ export default {
     this.getCurrentStudent();
   },
   methods: {
-    getCurrentStudent(){
-      this.studentObject=this.$store.getters.currentUser;
+    getCurrentStudent() {
+      this.studentObject = this.$store.getters.currentUser;
     },
     onValidate() {
       if (this.openVerifier == true) {
@@ -308,7 +309,6 @@ export default {
         }, 2000);
       }
     }
-  },
-}
+  }
+};
 </script>
-

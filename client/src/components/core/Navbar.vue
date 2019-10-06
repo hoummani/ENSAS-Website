@@ -16,17 +16,19 @@
             <span>Concour Ci</span>
           </v-btn>
           <v-list>
-            <v-list-tile router>
+            <v-list-tile router to="/ci3a">
               <v-list-tile-title>ACCES BAC+2</v-list-tile-title>
             </v-list-tile>
-            <v-list-tile router>
+            <v-list-tile router to="ci4a">
               <v-list-tile-title>ACCES BAC+3</v-list-tile-title>
             </v-list-tile>
           </v-list>
         </v-menu>
-        <v-btn color="grey" flat router to="/register">Reinscription</v-btn>
-        <v-btn color="grey" flat>Choix de filiere</v-btn>
-        <v-btn color="grey" flat>Espace PFE</v-btn>
+        <v-btn color="grey" flat router to="/register">Inscription</v-btn>
+        <v-btn color="grey" flat router to="/choixFilieres"
+          >Choix de filiere</v-btn
+        >
+        <v-btn color="grey" flat router to="/pfe">Espace PFE</v-btn>
         <v-btn flat color="grey" to="/about">About</v-btn>
 
         <v-menu offset-y v-if="isAuth || isLoggedIn">
@@ -65,7 +67,9 @@
       <v-toolbar flat>
         <v-list class="indigo lighten-2" dark>
           <v-list-tile>
-            <v-list-tile-title class="title text-xs-center">e-ENSAS</v-list-tile-title>
+            <v-list-tile-title class="title text-xs-center"
+              >e-ENSAS</v-list-tile-title
+            >
           </v-list-tile>
         </v-list>
       </v-toolbar>
@@ -95,7 +99,7 @@
           </template>
           <v-list-group no-action sub-group>
             <template v-slot:activator>
-              <v-list-tile>
+              <v-list-tile router to="/ci3a">
                 <v-list-tile-title>ACCES BAC+2</v-list-tile-title>
               </v-list-tile>
             </template>
@@ -103,28 +107,28 @@
 
           <v-list-group sub-group no-action>
             <template v-slot:activator>
-              <v-list-tile>
+              <v-list-tile router to="/ci4a">
                 <v-list-tile-title>ACCES BAC+3</v-list-tile-title>
               </v-list-tile>
             </template>
           </v-list-group>
         </v-list-group>
         <!-- 3 -->
-        <v-list-tile>
+        <v-list-tile router to="/register">
           <v-list-tile-action>
             <v-icon>group_add</v-icon>
           </v-list-tile-action>
-          <v-list-tile-title>Reinscription</v-list-tile-title>
+          <v-list-tile-title>Inscription</v-list-tile-title>
         </v-list-tile>
         <!-- 4  -->
-        <v-list-tile>
+        <v-list-tile router to="/choixFilieres">
           <v-list-tile-action>
             <v-icon>rate_review</v-icon>
           </v-list-tile-action>
           <v-list-tile-title>Choix de Filiere</v-list-tile-title>
         </v-list-tile>
         <!-- 5 -->
-        <v-list-tile>
+        <v-list-tile router to="/pfe">
           <v-list-tile-action>
             <v-icon>fas fa-certificate</v-icon>
           </v-list-tile-action>
@@ -181,8 +185,7 @@ export default {
       right: null,
       toolbar_items_show: true,
       toolbarKey: 0,
-      isAuth: false,
-      
+      isAuth: false
     };
   },
 
