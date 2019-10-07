@@ -20,6 +20,7 @@
         <v-tab-item>
           <v-card flat>
             <!--  student edit profile  -->
+            <EditProfile/>
           </v-card>
         </v-tab-item>
 
@@ -35,6 +36,7 @@
 
 <script>
 import ProfileInfo from "../components/profile/ProfileInfo";
+import EditProfile from "../components/profile/EditProfile";
 export default {
   data() {
     return {};
@@ -43,7 +45,8 @@ export default {
   methods: {},
 
   components: {
-    ProfileInfo
+    ProfileInfo,
+    EditProfile
   }
 };
 </script>

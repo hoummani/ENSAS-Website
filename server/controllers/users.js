@@ -85,7 +85,9 @@ module.exports.controller = (app) => {
   
   
   app.post("users/profile", (req, res) => {
-    const query = {email: req.body.email};
+    //const query = {email: req.body.userProfile.email};
+    const userProfile = req.body.userProfile;
+    /*
     const photo = req.body.photo;
     const cin =  req.body.cin;
     const cne = req.body.cne;
@@ -95,14 +97,35 @@ module.exports.controller = (app) => {
     const lastNameAr = req.body.lastNameAr;
     const birthDay = req.body.birthDay;
     const birthPlace = req.body.birthPlace;
-    User.findOneAndUpdate(query,{})
+    const address = req.body.address;
+    const nationality = req.body.nationality;
+    const phone = req.body.phone;
+    const fatherFullName = req.body.fatherFullName;
+    const fatherJob = req.body.fatherJob;
+    const motherFullName = req.body.motherFullName;
+    const motherJob = req.body.motherJob;
+    const parentAddress = req.body.parentAddress;
+    const parentPhone = req.body.parentPhone;
+    const level = req.body.level;
+    const filiere = req.body.filiere;
+    
+    const bacType = req.body.bacType;
+    const mention = req.body.mention;
+    const bacGetYear = req.body.bacGetYear;
+    const bacLycee = req.body.bacLycee;
+    const bacDirection = req.body.bacDirection;
+    const bacAccademie = req.body.bacAccademie;
+    */
+    User.find({ email })
       .then(user => {
         if(!user) {
           res.status(422).json({
               message:"The user does not exist!"
             });
         }else{
-
+          user=userProfile;
+          const user = user.save();
+          res.send({ user });
         }
       });
 
