@@ -203,13 +203,11 @@ export default {
         this.isAuth = true;
       } else if (from.fullPath === "/profile") {
         this.isAuth = true;
-      }else if(from.fullPath === "/profile" && to.fullPath === "/login"){
-        this.isAuth=true;
-      }
-       else {
+      } else if (from.fullPath === "/profile" && to.fullPath === "/login") {
+        this.isAuth = true;
+      } else {
         this.isAuth = false;
       }
-      
     }
   },
   methods: {
