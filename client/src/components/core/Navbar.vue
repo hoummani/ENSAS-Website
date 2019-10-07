@@ -201,12 +201,15 @@ export default {
     $route(to, from) {
       if (to.fullPath === "/profile") {
         this.isAuth = true;
-      } else if (from.fullPath === "/profile" && this.isLoggedIn == true) {
+      } else if (from.fullPath === "/profile") {
         this.isAuth = true;
-      } else {
+      }else if(from.fullPath === "/profile" && to.fullPath === "/login"){
+        this.isAuth=true;
+      }
+       else {
         this.isAuth = false;
       }
-      //console.log(to.fullPath);
+      
     }
   },
   methods: {

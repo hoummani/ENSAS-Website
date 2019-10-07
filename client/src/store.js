@@ -28,6 +28,9 @@ export default new Vuex.Store({
     auth_error(state) {
       state.status = "error";
     },
+    UPDATE_PROFILE(state, user) {
+      state.user = user;
+    },
     logOut(state) {
       state.status = "";
       state.token = "";
@@ -84,6 +87,55 @@ export default new Vuex.Store({
           })
           .catch(error => {
             commit("auth_error");
+            reject(error);
+          });
+      });
+    },
+    updateProfile({ commit }, user) {
+      return new Promise((resolve, reject) => {
+        axios({
+          method: "post",
+          data: {
+            email: user.email,
+            photo: user.photo,
+            cin: user.cin,
+            cne: user.cne,
+            firstName: user.firstName,
+            lastName: user.lastName,
+            firstNameAr: user.firstNameAr,
+            lastNameAr: user.lastNameAr,
+
+            birthDay: user.birthDay,
+            birthPlace: user.birthPlace,
+            address: user.address,
+            nationality: user.nationality,
+            phone: user.phone,
+            fatherFullName: user.fatherFullName,
+            fatherJob: user.fatherJob,
+            motherFullName: user.motherFullName,
+            motherJob: user.motherJob,
+            parentAddress: user.parentAddress,
+            parentPhone: user.parentPhone,
+            level: user.level,
+            filiere: user.filiere,
+            bacType: user.bacType,
+            mention: user.mention,
+            bacGetYear: user.bacGetYear,
+            bacLycee: user.bacLycee,
+            bacDirection: user.bacDirection,
+            bacAccademie: user.bacAccademie
+          },
+          url: "http://localhost:4000/users/profile",
+          headers: {
+            "Content-Type": "application/json"
+          }
+        })
+          .then(response => {
+            const user = response.data.user;
+            commit("UPDATE_PROFILE", user);
+            resolve(response);
+          })
+          .catch(error => {
             reject(error);
           });
       });

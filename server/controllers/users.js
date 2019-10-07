@@ -82,9 +82,30 @@ module.exports.controller = (app) => {
       }
     });
   });
-  /*
-  app.get("user/profile", passport.authenticate('jwt',{session : false}), (req, res) => {
-    const email = 
+  
+  
+  app.post("users/profile", (req, res) => {
+    const query = {email: req.body.email};
+    const photo = req.body.photo;
+    const cin =  req.body.cin;
+    const cne = req.body.cne;
+    const firstName = req.body.firstName;
+    const lastName = req.body.lastName;
+    const firstNameAr = req.body.firstNameAr;
+    const lastNameAr = req.body.lastNameAr;
+    const birthDay = req.body.birthDay;
+    const birthPlace = req.body.birthPlace;
+    User.findOneAndUpdate(query,{})
+      .then(user => {
+        if(!user) {
+          res.status(422).json({
+              message:"The user does not exist!"
+            });
+        }else{
+
+        }
+      });
+
   });
-  */
+  
 }
