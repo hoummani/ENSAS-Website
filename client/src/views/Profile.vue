@@ -15,12 +15,13 @@
         <v-tab-item>
           <v-card flat>
             <!-- student change password  -->
+            <EditPassword/>
           </v-card>
         </v-tab-item>
         <v-tab-item>
           <v-card flat>
             <!--  student edit profile  -->
-            <EditProfile/>
+            <EditProfile />
           </v-card>
         </v-tab-item>
 
@@ -37,6 +38,7 @@
 <script>
 import ProfileInfo from "../components/profile/ProfileInfo";
 import EditProfile from "../components/profile/EditProfile";
+import EditPassword from "../components/profile/EditPassword";
 export default {
   data() {
     return {};
@@ -46,7 +48,8 @@ export default {
 
   components: {
     ProfileInfo,
-    EditProfile
+    EditProfile,
+    EditPassword
   }
 };
 </script>
