@@ -28,6 +28,7 @@
         <v-tab-item>
           <v-card flat>
             <!--  Recu   -->
+            <RecuProfile/>
           </v-card>
         </v-tab-item>
       </v-tabs>
@@ -39,6 +40,7 @@
 import ProfileInfo from "../components/profile/ProfileInfo";
 import EditProfile from "../components/profile/EditProfile";
 import EditPassword from "../components/profile/EditPassword";
+import RecuProfile from "../components/profile/RecuProfile";
 export default {
   data() {
     return {};
@@ -49,7 +51,8 @@ export default {
   components: {
     ProfileInfo,
     EditProfile,
-    EditPassword
+    EditPassword,
+    RecuProfile
   }
 };
 </script>
