@@ -2,7 +2,7 @@
   <div>
     <v-layout>
       <h3
-        class="display-1 text-sm-center grey--text text--darken-2 font-weight-light"
+        class="display-1 text-xs-center grey--text text--darken-2 font-weight-light" style="text-align:center"
       >Telecharger votre recu d'inscription</h3>
     </v-layout>
     <v-divider></v-divider>

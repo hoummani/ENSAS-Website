@@ -519,6 +519,9 @@
                           alt="John"
                         />
                       </div>
+                      <div v-else>
+                        <img width="140px" height="120px" src="/img/01-Straight-A-students.jpg" />
+                      </div>
                     </v-flex>
                   </v-layout>
                 </v-card-text>

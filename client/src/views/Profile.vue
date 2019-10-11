@@ -46,6 +46,11 @@ export default {
     return {};
   },
   mounted() {},
+  destroyed() {
+    this.$store.dispatch('logOut').then(()=>{
+      console.log("Destroyed !");
+    });
+  },
   methods: {},
 
   components: {
