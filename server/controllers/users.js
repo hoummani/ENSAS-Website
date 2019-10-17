@@ -85,14 +85,14 @@ module.exports.controller = (app) => {
   
   
   app.post("users/profile", (req, res) => {
-    //const query = {email: req.body.userProfile.email};
-    const userProfile = req.body.userProfile;
-    /*
+    const query = {email: req.body.email};
+    //const userProfile = req.body.userProfile;
+    
     const photo = req.body.photo;
     const cin =  req.body.cin;
     const cne = req.body.cne;
-    const firstName = req.body.firstName;
-    const lastName = req.body.lastName;
+    
+    
     const firstNameAr = req.body.firstNameAr;
     const lastNameAr = req.body.lastNameAr;
     const birthDay = req.body.birthDay;
@@ -115,7 +115,7 @@ module.exports.controller = (app) => {
     const bacLycee = req.body.bacLycee;
     const bacDirection = req.body.bacDirection;
     const bacAccademie = req.body.bacAccademie;
-    */
+    
     User.find({ email })
       .then(user => {
         if(!user) {
@@ -123,8 +123,8 @@ module.exports.controller = (app) => {
               message:"The user does not exist!"
             });
         }else{
-          user=userProfile;
-          const user = user.save();
+          const editedUser = new User({photo, cin, cne, firstNameAr, lastNameAr, birthDay, birthPlace, address, nationality, phone, fatherFullName, fatherJob, motherFullName, motherJob, parentAddress, parentPhone, level, filiere, bacType, mention, bacGetYear, bacLycee, bacDirection, bacAccademie});
+          const user = editedUser.save();
           res.send({ user });
         }
       });

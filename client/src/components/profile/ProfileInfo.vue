@@ -290,6 +290,11 @@ export default {
   created() {
     this.getCurrentStudent();
   },
+  destroyed() {
+    this.$store.dispatch('logOut').then(()=> {
+      console.log('Destroyed !');
+    })
+  },
   mounted() {
     this.getCurrentStudent();
   },
