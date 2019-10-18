@@ -4,6 +4,11 @@ const bodyParser = require('body-parser');
 
 const app = express();
 
+//routes require
+
+const userRoutes = require('./api/routes/userRoutes');
+const profileRoutes = require('./api/routes/profileRoutes');
+
 //middlewares
 app.use(morgan('dev'));
 app.use(bodyParser.urlencoded({extended : false}));
@@ -24,6 +29,8 @@ app.use((req, res, next)=>{
 
 
 //routes
+app.use('/user', userRoutes);
+app.use('/profile', profileRoutes);
 app.get('/',(req,res)=>{
   res.status(200).json({
     message:"You backend is ready !"
