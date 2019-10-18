@@ -1,11 +1,12 @@
 const express = require('express');
 const router = express.Router();
-const mongoose = require('mongoose');
+const profileController = require('../controllers/profileController');
 
-router.get('/', (req, res, next)=>{
-  res.status(200).json({
-    message: "GET on profile !"
-  })
-});
+
+//get profile
+router.get('/:userId', profileController.getProfile);
+
+router.post('/:userId', profileController.createProfile);
+
 
 module.exports = router;

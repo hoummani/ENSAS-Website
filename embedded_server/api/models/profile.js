@@ -8,99 +8,123 @@ const profileSchema = mongoose.Schema({
   },
   photo:{
     type:String,
-    required : true
+    required : true,
+    default:""
   },
   cin:{
     type:String,
-    required : true
+    required : true,
+    default:""
   },
   cne:{
     type:String,
-    required : true
+    required : true,
+    default:""
   },
   firstNameAr:{
     type:String,
-    required : true
+    required : true,
+    default:""
   },
   lastNameAr:{
     type:String,
-    required : true
+    required : true,
+    default:""
   },
   birthDay:{
     type:String,
-    required : true
+    required : true,
+    default:""
   },
   birthPlace:{
     type:String,
-    required : true
+    required : true,
+    default:""
   },
   address:{
     type:String,
-    required : true
+    required : true,
+    default:""
   },
   nationality:{
     type:String,
-    required : true
+    required : true,
+    default:""
   },
   phone:{
     type:String,
-    required : true
+    required : true,
+    default:""
   },
   fatherFullName:{
     type:String,
-    required : true
+    required : true,
+    default:""
   },
   fatherJob:{
     type:String,
-    required : true
+    required : true,
+    default:""
   },
   motherFullName:{
     type:String,
-    required : true
+    required : true,
+    default:""
   },
   motherJob:{
     type:String,
-    required : true
+    required : true,
+    default:""
   },
   parentAddress:{
     type:String,
-    required : true
+    required : true,
+    default:""
   },
   parentPhone:{
     type:String,
-    required : true
+    required : true,
+    default:""
   },
   level:{
     type:String,
-    required : true
+    required : true,
+    default:""
   },
   filiere:{
     type:String,
-    required : true
+    required : true,
+    default:""
   },
   bacType:{
     type:String,
-    required : true
+    required : true,
+    default:""
   },
   mention:{
     type:String,
-    required : true
+    required : true,
+    default:""
   },
   bacGetYear:{
     type:String,
-    required : true
+    required : true,
+    default:""
   },
   bacLycee:{
     type:String,
-    required : true
+    required : true,
+    default:""
   },
   bacDirection:{
     type:String,
-    required : true
+    required : true,
+    default:""
   },
   bacAccademie:{
     type:String,
-    required : true
+    required : true,
+    default:""
   }
 });
 

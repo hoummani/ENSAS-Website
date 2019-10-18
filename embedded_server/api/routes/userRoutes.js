@@ -1,14 +1,14 @@
 const express = require('express');
 const router = express.Router();
-const mongoose = require('mongoose');
+
+const userController = require('../controllers/userController');
 
 
+//Login
+router.post('/login', userController.login);
 
-//GET
-router.get('/', (req, res, next)=>{
-  res.status(200).json({
-    message: "GET on user !"
-  })
-});
+router.post('/register', userController.register);
 
+//register
+router.get('/register', userController.register);
 module.exports = router;
