@@ -62,7 +62,13 @@ exports.register = (req, res, next) => {
       })
       user.save()
       .then(result => {
-        res.status(200).json(result);
+        const createdUser = new User({
+          _id:result._id,
+          firstName:result.firstName,
+          lastName:result.lastName,
+          email:result.email
+        });
+        res.status(200).json(createdUser);
       })
       .catch(error => {
         res.status(500).json({

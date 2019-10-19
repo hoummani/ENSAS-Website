@@ -1,6 +1,7 @@
 const Profile = require('../models/profile');
 const mongoose = require('mongoose');
 
+
 exports.getProfile = (req, res, next) => {
   const userId = req.params.userId;
   Profile.find({user: userId})
@@ -11,8 +12,8 @@ exports.getProfile = (req, res, next) => {
   .catch(error => {
     res.status(500).json({
       error: error
-    })
-  })
+    });
+  });
 };
 exports.createProfile = (req, res, next) => {
   const userId = req.params.userId;
@@ -46,7 +47,6 @@ exports.createProfile = (req, res, next) => {
     
   });
   profile.save()
-  .exec()
   .then(result => {
     if(result){
       res.status(200).json(result);
