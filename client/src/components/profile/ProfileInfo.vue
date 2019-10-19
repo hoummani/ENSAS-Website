@@ -283,19 +283,9 @@ export default {
     };
   },
   computed: {
-    currentUser: function() {
-      return this.$store.getters.currentUser;
-    }
+    
   },
   created() {
-    this.getCurrentStudent();
-  },
-  destroyed() {
-    this.$store.dispatch('logOut').then(()=> {
-      console.log('Destroyed !');
-    })
-  },
-  mounted() {
     this.getCurrentStudent();
   },
   methods: {

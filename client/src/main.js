@@ -17,6 +17,8 @@ Vue.use(VueGoogleMaps, {
   }
 });
 
+export const bus = new Vue();
+
 new Vue({
   router,
   store,

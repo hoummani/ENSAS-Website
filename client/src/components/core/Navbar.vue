@@ -31,27 +31,24 @@
         <v-btn color="grey" flat router to="/pfe">Espace PFE</v-btn>
         <v-btn flat color="grey" to="/about">About</v-btn>
 
-        <v-menu offset-y v-if="isAuth || isLoggedIn">
+        <v-menu offset-y >
           <v-btn color="primary" icon slot="activator">
             <v-icon>account_circle</v-icon>
           </v-btn>
 
           <v-list>
-            <v-list-tile router to="/profile">
+            <v-list-tile v-if="isLogged === true" router to="/profile">
               <v-list-tile-title>Profile</v-list-tile-title>
             </v-list-tile>
-            <v-list-tile router @click="logOut">
+            <v-list-tile v-if="isLogged === false" router to="/login">
+              <v-list-tile-title>Se Connecter</v-list-tile-title>
+            </v-list-tile>
+            <v-list-tile v-else router @click="logOut">
               <v-list-tile-title>Deconnexion</v-list-tile-title>
             </v-list-tile>
           </v-list>
         </v-menu>
-        <v-btn flat color="grey" to="/login" v-else>Se connecter</v-btn>
-        <!--
-        <v-btn flat color="primary" v-if="isAuth || isLoggedIn" @click="logOut"
-          >Deconnexion</v-btn
-        >
-        <v-btn flat color="grey" to="/login" v-else>Se connecter</v-btn>
-        -->
+        
       </v-toolbar-items>
     </v-toolbar>
     <!-- Navigation drawer -->
@@ -143,7 +140,7 @@
         </v-list-tile>
 
         <!-- 6 -->
-        <v-list-tile router v-if="isLoggedIn" @click="logOut">
+        <v-list-tile router v-if="isLogged" @click="logOut">
           <v-list-tile-action>
             <v-icon>arrow_back</v-icon>
           </v-list-tile-action>
@@ -177,6 +174,8 @@
 </template>
 
 <script>
+
+import { bus } from '../../main';
 export default {
   components: {},
   data() {
@@ -185,36 +184,34 @@ export default {
       right: null,
       toolbar_items_show: true,
       toolbarKey: 0,
-      isAuth: false
+      isLogged:this.checkIsLogged()
     };
+  },
+  created() {
+    bus.$on('logged', () => {
+      this.isLogged = this.checkIsLogged();
+    })
   },
 
   computed: {
-    currentUser: function() {
-      return this.$store.getters.currentUser;
-    },
-    isLoggedIn: function() {
-      return this.$store.getters.isLoggedIn;
-    }
+    
+    
   },
-  watch: {
-    $route(to, from) {
-      if (to.fullPath === "/profile") {
-        this.isAuth = true;
-      } else if (from.fullPath === "/profile") {
-        this.isAuth = true;
-      } else if (from.fullPath === "/profile" && to.fullPath === "/login") {
-        this.isAuth = true;
-      } else {
-        this.isAuth = false;
-      }
-    }
-  },
+  
   methods: {
+
     logOut() {
       this.$store.dispatch("logOut").then(() => {
+        this.isLogged = this.checkIsLogged();
         this.$router.push("/login");
       });
+    },
+    checkIsLogged() {
+      if(localStorage.getItem('token') != null) {
+        return true;
+      }else {
+        return false;
+      }
     }
   }
 };

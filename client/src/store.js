@@ -9,7 +9,7 @@ Vue.use(Vuex);
 export default new Vuex.Store({
   state: {
     status: "",
-    token: localStorage.getItem("auth") || "",
+    token: localStorage.getItem("token") || "",
     user: {}
   },
   mutations: {
@@ -48,7 +48,7 @@ export default new Vuex.Store({
             email: user.email,
             password: user.password
           },
-          url: "http://localhost:4000/users/register",
+          url: "http://localhost:3000/user/register",
           headers: {
             "Content-Type": "application/json"
           }
@@ -73,7 +73,7 @@ export default new Vuex.Store({
             email: user.email,
             password: user.password
           },
-          url: "http://localhost:4000/users/login",
+          url: "http://localhost:3000/user/login",
           headers: {
             "Content-Type": "application/json"
           }
@@ -81,7 +81,7 @@ export default new Vuex.Store({
           .then(response => {
             const token = response.data.token;
             const user = response.data.userSend;
-            localStorage.setItem("auth", token);
+            localStorage.setItem("token", token);
             commit("login_success", user, token);
             resolve(response);
           })
@@ -91,7 +91,8 @@ export default new Vuex.Store({
           });
       });
     },
-    updateProfile({ commit }, user) {
+    updateProfile({ commit, getters }, user) {
+      const activeToken = getters.activeToken;
       return new Promise((resolve, reject) => {
         axios({
           method: "post",
@@ -122,9 +123,10 @@ export default new Vuex.Store({
             bacDirection: user.bacDirection,
             bacAccademie: user.bacAccademie
           },
-          url: "http://localhost:4000/users/profile",
+          url: "http://localhost:3000/users/profile",
           headers: {
-            "Content-Type": "application/json"
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${activeToken}`
           }
         })
           .then(response => {
@@ -140,7 +142,7 @@ export default new Vuex.Store({
     logOut({ commit }) {
       return new Promise(resolve => {
         commit("logOut");
-        localStorage.removeItem("auth");
+        localStorage.removeItem("token");
         resolve();
       });
     }
@@ -148,6 +150,7 @@ export default new Vuex.Store({
   getters: {
     isLoggedIn: state => !!state.token,
     authStatus: state => state.status,
+    activeToken: state => state.token,
     currentUser: state => state.user
   }
 });
