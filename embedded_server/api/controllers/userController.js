@@ -11,15 +11,11 @@ exports.login = (req, res, next) => {
   .then(user => {
     if(user.length < 1) {
       return res.status(401).json({
-        message: 'User not exist !'
+        message: 'Auth failed !'
       });
     }
     bcrypt.compare(req.body.password, user[0].password, (err, response) => {
-      if(err) {
-        return res.status(401).json({
-          message: 'Password don\'t much  !'
-        });
-      }
+      
       if(response) {
         try {
           const token = jwt.sign({email: user[0].email, userId: user[0]._id}, `${process.env.JWT_KEY}`, { expiresIn:'1h'});
@@ -33,6 +29,11 @@ exports.login = (req, res, next) => {
           })
         }
         
+      }
+      else {
+        return res.status(401).json({
+          message: 'Auth failed !'
+        });
       }
     })
     

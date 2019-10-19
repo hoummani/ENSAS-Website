@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const profileController = require('../controllers/profileController');
 
+const checkAuth = require('../middlewares/checkAuth');
 const multer = require('multer');
 
 const storage = multer.diskStorage({
@@ -31,11 +32,11 @@ const upload = multer({
 
 
 //get profile
-router.get('/:userId', profileController.getProfile);
+router.get('/:userId', checkAuth, profileController.getProfile);
 
 
 //create profile
-router.post('/:userId', upload.single('photo'), profileController.createProfile);
+router.post('/:userId', checkAuth, upload.single('photo'), profileController.createProfile);
 
 
 module.exports = router;
