@@ -9,30 +9,37 @@ const jwt = require('jsonwebtoken');
 exports.login = (req, res, next) => {
   User.find({email: req.body.email}).exec()
   .then(user => {
-    if(user) {
-      bcrypt.compare(req.body.password, user.password, (err, response) => {
-        if(err) {
-          return res.status(401).json({
-            message: 'Auth failed !'
-          });
-        }
-        if(response) {
-          const token = jwt.sign({email: user.email, userId: user._id}, process.env.KEY,{ expiresIn:'1h'});
+    if(user.length < 1) {
+      return res.status(401).json({
+        message: 'User not exist !'
+      });
+    }
+    bcrypt.compare(req.body.password, user[0].password, (err, response) => {
+      if(err) {
+        return res.status(401).json({
+          message: 'Password don\'t much  !'
+        });
+      }
+      if(response) {
+        try {
+          const token = jwt.sign({email: user[0].email, userId: user[0]._id}, `${process.env.JWT_KEY}`, { expiresIn:'1h'});
           return res.status(200).json({
             message: 'Auth successful !',
             token: token
           });
+        } catch (error) {
+          return res.status(500).json({
+            message: error.message 
+          })
         }
-      })
-    }else {
-      return res.status(401).json({
-        message: 'Auth failed !'
-      })
-    }
+        
+      }
+    })
+    
   })
   .catch(error => {
     res.status(401).json({
-      message: 'Auth fialed !'
+      error: error
     })
   })
 };
@@ -53,7 +60,7 @@ exports.register = (req, res, next) => {
         email: req.body.email,
         password: hash
       })
-      user.save().exec()
+      user.save()
       .then(result => {
         res.status(200).json(result);
       })
