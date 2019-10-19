@@ -57,4 +57,10 @@ exports.createProfile = (req, res, next) => {
       error:error
     })
   })
+};
+
+exports.getDetails = (req, res, next) => {
+  return res.status(200).json({
+    message: 'Check Auth verified !'
+  })
 }

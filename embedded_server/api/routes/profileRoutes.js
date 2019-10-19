@@ -31,12 +31,17 @@ const upload = multer({
 });
 
 
+
+//test check Auth
+router.get('/details', checkAuth, profileController.getDetails);
 //get profile
 router.get('/:userId', checkAuth, profileController.getProfile);
 
 
 //create profile
 router.post('/:userId', checkAuth, upload.single('photo'), profileController.createProfile);
+
+
 
 
 module.exports = router;
