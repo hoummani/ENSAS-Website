@@ -52,8 +52,7 @@
 </template>
 
 <script>
-
-import { bus } from '../main';
+import { bus } from "../main";
 export default {
   data() {
     return {
@@ -95,7 +94,7 @@ export default {
       this.$store
         .dispatch("login", user)
         .then(() => {
-          bus.$emit('logged', 'User logged !');
+          bus.$emit("logged", "User logged !");
           this.$router.push("/profile");
         })
         .catch(error => {

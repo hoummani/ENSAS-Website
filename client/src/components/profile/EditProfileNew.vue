@@ -3,7 +3,7 @@
     <h3
       class="display-1 text-sm-center grey--text text--darken-2 font-weight-light"
     >
-      Les phases d'editer mon profile
+      Les etapes d'editer le profile
     </h3>
     <v-container>
       <v-stepper v-model="e1">
@@ -23,7 +23,11 @@
         <v-stepper-items>
           <!-- basic info  -->
           <v-stepper-content v-for="n in steps" :key="`${n}-content`" :step="n">
-            <v-form v-model="registerValid" lazy-validation>
+            <v-form
+              v-model="registerValid"
+              lazy-validation
+              @submit.prevent="handleSubmit"
+            >
               <v-card v-if="n === 1" class="mb-3" flat>
                 <v-card-title>
                   <h5 class="subheading text-uppercase grey--text">
@@ -43,6 +47,10 @@
                         label="CIN(Code d'Identité National)"
                         type="text"
                         v-model="studentObject.cin"
+                        @input="$v.studentObject.cin.$touch()"
+                        @blur="$v.studentObject.cin.$touch()"
+                        :error-messages="cinErrors"
+                        required
                       ></v-text-field>
                     </v-flex>
                     <v-flex xs12 sm5 md4 lg4>
@@ -50,6 +58,10 @@
                         label="CNE(Code Nationnal de l'étudiant)"
                         type="text"
                         v-model="studentObject.cne"
+                        @input="$v.studentObject.cne.$touch()"
+                        @blur="$v.studentObject.cne.$touch()"
+                        :error-messages="cneErrors"
+                        required
                       ></v-text-field>
                     </v-flex>
                   </v-layout>
@@ -83,6 +95,7 @@
                         v-model="studentObject.lastNameAr"
                         pattern=".{3,}"
                         @focus="lastNameArFocus"
+                        required
                         style="unicode-bidi:bidi-override;
                             direction: RTL; text-align:right;"
                       ></v-text-field>
@@ -155,6 +168,7 @@
                         v-model="studentObject.firstNameAr"
                         pattern=".{3,}"
                         @focus="firstNameArFocus"
+                        required
                         style="unicode-bidi:bidi-override;
                             direction: RTL; text-align:right;"
                       ></v-text-field>
@@ -226,6 +240,9 @@
                         type="date"
                         label="Date de naissance"
                         v-model="studentObject.birthDay"
+                        @input="$v.studentObject.birthDay.$touch()"
+                        @blur="$v.studentObject.birthDay.$touch()"
+                        :error-messages="birthDayErrors"
                       ></v-text-field>
                     </v-flex>
                     <!-- last name  -->
@@ -234,6 +251,9 @@
                         type="text"
                         label="Lieu de naissance"
                         v-model="studentObject.birthPlace"
+                        @input="$v.studentObject.birthPlace.$touch()"
+                        @blur="$v.studentObject.birthPlace.$touch()"
+                        :error-messages="birthPlaceErrors"
                       ></v-text-field>
                     </v-flex>
                   </v-layout>
@@ -244,12 +264,20 @@
                         v-model="studentObject.nationality"
                         :items="nationalities"
                         label="Nationalitee"
+                        @input="$v.studentObject.nationality.$touch()"
+                        @blur="$v.studentObject.nationality.$touch()"
+                        :error-messages="nationalityErrors"
+                        required
                       ></v-select>
                     </v-flex>
                     <v-flex xs12 sm5 md4 lg4>
                       <v-text-field
                         label="Telephone"
                         v-model="studentObject.phone"
+                        @input="$v.studentObject.phone.$touch()"
+                        @blur="$v.studentObject.phone.$touch()"
+                        :error-messages="phoneErrors"
+                        required
                       ></v-text-field>
                     </v-flex>
                   </v-layout>
@@ -257,10 +285,14 @@
                     <v-flex xs12 sm10 md8 lg8>
                       <v-textarea
                         v-model="studentObject.address"
+                        @input="$v.studentObject.address.$touch()"
+                        @blur="$v.studentObject.address.$touch()"
                         label="Adresse"
                         clearable
                         hint="Exemple: 00, Residence XX Quartier YY ville-pays"
                         persistent-hint
+                        :error-messages="addressErrors"
+                        required
                       ></v-textarea>
                     </v-flex>
                   </v-layout>
@@ -288,6 +320,9 @@
                         type="text"
                         label="Nom et Prenom du pere"
                         v-model="studentObject.fatherFullName"
+                        @input="$v.studentObject.fatherFullName.$touch()"
+                        @blur="$v.studentObject.fatherFullName.$touch()"
+                        :error-messages="fatherFullNameErrors"
                       ></v-text-field>
                     </v-flex>
                     <v-flex xs12 sm5 md4 lg4>
@@ -295,6 +330,10 @@
                         v-model="studentObject.fatherJob"
                         :items="jobs"
                         label="Profession du pere"
+                        @input="$v.studentObject.fatherJob.$touch()"
+                        @blur="$v.studentObject.fatherJob.$touch()"
+                        :error-messages="fatherJobErrors"
+                        required
                       ></v-select>
                     </v-flex>
                   </v-layout>
@@ -306,6 +345,9 @@
                         type="text"
                         label="Nom et Prenom du mere"
                         v-model="studentObject.motherFullName"
+                        @input="$v.studentObject.motherFullName.$touch()"
+                        @blur="$v.studentObject.motherFullName.$touch()"
+                        :error-messages="motherFullNameErrors"
                       ></v-text-field>
                     </v-flex>
                     <v-flex xs12 sm5 md4 lg4>
@@ -313,6 +355,10 @@
                         v-model="studentObject.motherJob"
                         :items="jobs"
                         label="Profession du mere"
+                        @input="$v.studentObject.motherJob.$touch()"
+                        @blur="$v.studentObject.motherJob.$touch()"
+                        :error-messages="motherJobErrors"
+                        required
                       ></v-select>
                     </v-flex>
                   </v-layout>
@@ -323,6 +369,9 @@
                         type="text"
                         label="Adresse du parents"
                         v-model="studentObject.parentAddress"
+                        @input="$v.studentObject.parentAddress.$touch()"
+                        @blur="$v.studentObject.parentAddress.$touch()"
+                        :error-messages="parentAddressErrors"
                       ></v-text-field>
                     </v-flex>
                     <v-flex xs12 sm5 md4 lg4>
@@ -330,6 +379,10 @@
                         v-model="studentObject.parentPhone"
                         type="phone"
                         label="Telephone des parents"
+                        @input="$v.studentObject.parentPhone.$touch()"
+                        @blur="$v.studentObject.parentPhone.$touch()"
+                        :error-messages="parentPhoneErrors"
+                        required
                       ></v-text-field>
                     </v-flex>
                   </v-layout>
@@ -359,9 +412,13 @@
                         label="Filiere"
                         hint="Les etudiants de cycle prepa doivent choisir STI comme filiere"
                         persistent-hint
+                        @input="$v.studentObject.filiere.$touch()"
                         item-text="name"
                         item-value="value"
                         clearable
+                        @blur="$v.studentObject.filiere.$touch()"
+                        :error-messages="filiereErrors"
+                        required
                       ></v-select>
                     </v-flex>
                     <v-flex xs12 sm5 md4 lg4>
@@ -372,6 +429,9 @@
                         item-text="name"
                         item-value="value"
                         clearable
+                        @blur="$v.studentObject.level.$touch()"
+                        :error-messages="levelErrors"
+                        required
                       ></v-select>
                     </v-flex>
                   </v-layout>
@@ -382,23 +442,35 @@
                         :items="bacs"
                         v-model="studentObject.bacType"
                         clearable
+                        @input="$v.studentObject.bacType.$touch()"
+                        @blur="$v.studentObject.bacType.$touch()"
+                        :error-messages="bacTypeErrors"
                         label="Type de Bac"
+                        required
                       ></v-select>
                     </v-flex>
                     <v-flex xs12 sm3 md2 lg2>
                       <v-select
                         :items="bacGetYearArea"
                         v-model="studentObject.bacGetYear"
+                        @input="$v.studentObject.bacGetYear.$touch()"
+                        @blur="$v.studentObject.bacGetYear.$touch()"
+                        :error-messages="bacGetYearErrors"
                         clearable
                         label="Annee d'obtention"
+                        required
                       ></v-select>
                     </v-flex>
                     <v-flex xs12 sm3 md2 lg2>
                       <v-select
                         :items="mentions"
                         v-model="studentObject.mention"
+                        @input="$v.studentObject.mention.$touch()"
+                        @blur="$v.studentObject.mention.$touch()"
+                        :error-messages="mentionErrors"
                         clearable
                         label="Mention"
+                        required
                       ></v-select>
                     </v-flex>
                   </v-layout>
@@ -408,6 +480,10 @@
                         type="text"
                         v-model="studentObject.bacLycee"
                         label="Lycee"
+                        @input="$v.studentObject.bacLycee.$touch()"
+                        @blur="$v.studentObject.bacLycee.$touch()"
+                        :error-messages="bacLyceeErrors"
+                        required
                       ></v-text-field>
                     </v-flex>
                     <v-flex xs12 sm3 md2 lg2>
@@ -415,6 +491,10 @@
                         type="text"
                         v-model="studentObject.bacDirection"
                         label="La Direction"
+                        @input="$v.studentObject.bacDirection.$touch()"
+                        @blur="$v.studentObject.bacDirection.$touch()"
+                        :error-messages="bacDirectionErrors"
+                        required
                       ></v-text-field>
                     </v-flex>
                     <v-flex xs12 sm3 md2 lg2>
@@ -422,6 +502,10 @@
                         type="text"
                         v-model="studentObject.bacAccademie"
                         label="Accademie"
+                        @input="$v.studentObject.bacAccademie.$touch()"
+                        @blur="$v.studentObject.bacAccademie.$touch()"
+                        :error-messages="bacAccademieErrors"
+                        required
                       ></v-text-field>
                     </v-flex>
                   </v-layout>
@@ -450,6 +534,7 @@
                             v-model="studentObject.degre"
                             :items="degres"
                             label="Diplome precedent"
+                            required
                           ></v-select>
                         </v-flex>
                         <v-flex xs12 sm3 md2 lg2>
@@ -457,6 +542,7 @@
                             type="text"
                             v-model="studentObject.etablissement"
                             label="Etablissement"
+                            required
                           ></v-text-field>
                         </v-flex>
                         <v-flex xs12 sm3 md2 lg2>
@@ -464,6 +550,7 @@
                             type="text"
                             v-model="studentObject.city"
                             label="Ville"
+                            required
                           ></v-text-field>
                         </v-flex>
                       </v-layout>
@@ -516,8 +603,8 @@
                         />
                       </div>
                       <div v-else>
-                        <p class="caption text-uppercase">
-                          Aucune image selectionee
+                        <p class="caption text-uppercase red--text">
+                          Aucune image selectionee !
                         </p>
                       </div>
                     </v-flex>
@@ -530,8 +617,8 @@
                 <v-btn color="secondary" v-if="n === 5" @click="reset"
                   >Initialiser</v-btn
                 >
-                <v-btn @click="handleSubmit" color="primary" v-if="n === 5"
-                  >Editer</v-btn
+                <v-btn type="submit" color="primary" v-if="n === 5"
+                  >Enregistrer</v-btn
                 >
 
                 <v-btn color="primary" v-else @click="nextStep(n)"
@@ -556,6 +643,7 @@
 </template>
 
 <script>
+import { required, email, minLength, sameAs } from "vuelidate/lib/validators";
 import myUpload from "vue-image-crop-upload";
 
 export default {
@@ -572,7 +660,10 @@ export default {
       studentObject: {
         cin: "",
         cne: "",
-        photo: "",
+        email: "",
+        password: "",
+        firstName: "",
+        lastName: "",
         firstNameAr: "",
         lastNameAr: "",
         birthDay: "",
@@ -595,9 +686,6 @@ export default {
         parentAddress: "",
         parentPhone: ""
       },
-
-      dialog: false,
-      studentObjectExemple: {},
 
       //some select fields data
       jobs: [],
@@ -626,13 +714,9 @@ export default {
       ],
       levels: [
         { name: "Premiere Annee", value: "1" },
-
         { name: "Deuxieme Annee", value: "2" },
-
         { name: "3eme Annee", value: "3" },
-
         { name: "4eme Annee", value: "4" },
-
         { name: "5eme Annee", value: "5" }
       ],
       bacs: [
@@ -657,27 +741,134 @@ export default {
       ],
       //user image
       show: false,
-
       //snackbar informations
       snackbar: false,
       snackbarContent: "",
-
       //arabic keyboard
       lastKeyboard: false,
       firstKeyboard: false,
       keyboardKeys: []
     };
   },
+  validations: {
+    studentObject: {
+      cin: {
+        required,
+        minLength: minLength(6)
+      },
+      cne: {
+        required,
+        minLength: minLength(6)
+      },
 
+      firstNameAr: {
+        required,
+        minLength: minLength(3)
+      },
+      lastNameAr: {
+        required,
+        minLength: minLength(3)
+      },
+      birthDay: {
+        required
+      },
+      birthPlace: {
+        required,
+        minLength: minLength(3)
+      },
+      nationality: {
+        required
+      },
+      phone: {
+        required,
+        minLength: minLength(9)
+      },
+      address: {
+        required,
+        minLength: minLength(6)
+      },
+      fatherFullName: {
+        required,
+        minLength: minLength(6)
+      },
+      fatherJob: {
+        required
+      },
+      motherFullName: {
+        required,
+        minLength: minLength(6)
+      },
+      motherJob: {
+        required
+      },
+      parentAddress: {
+        required,
+        minLength: minLength(6)
+      },
+      parentPhone: {
+        required,
+        minLength: minLength(9)
+      },
+      filiere: {
+        required
+      },
+      level: {
+        required
+      },
+      bacType: {
+        required
+      },
+      bacGetYear: { required },
+      mention: {
+        required
+      },
+      bacLycee: {
+        required,
+        minLength: minLength(3)
+      },
+      bacDirection: {
+        required,
+        minLength: minLength(3)
+      },
+      bacAccademie: {
+        required,
+        minLength: minLength(3)
+      }
+    }
+  },
   watch: {
     steps(val) {
       if (this.e1 > val) {
         this.e1 = val;
       }
+    },
+    newStudent(val) {
+      if (val == true) {
+        if (this.studentObject != undefined) {
+          this.studentObject.degre = "";
+          this.studentObject.etablissement = "";
+          this.studentObject.city = "";
+        }
+      } else {
+        if (this.studentObject != undefined) {
+          delete this.studentObject.degre;
+          delete this.studentObject.etablissement;
+          delete this.studentObject.city;
+        }
+      }
     }
   },
-
+  created() {
+    this.initializeKeyboard();
+    this.initializeJobs();
+    this.getCurrentStudent();
+  },
   methods: {
+    getCurrentStudent() {
+      if (this.$store.getters.currentUser) {
+        this.studentObject = this.$store.getters.currentUser;
+      }
+    },
     nextStep(n) {
       if (n == 5) {
         this.e1 = 1;
@@ -685,7 +876,6 @@ export default {
       this.e1 = n + 1;
       this.editable[n + 1] = true;
     },
-
     lastNameClick(name, character) {
       if (name == "space") {
         this.studentObject.lastNameAr += " ";
@@ -697,7 +887,6 @@ export default {
       }
       this.studentObject.lastNameAr += character;
     },
-
     firstNameClick(name, character) {
       if (name == "space") {
         this.studentObject.firstNameAr += " ";
@@ -713,63 +902,77 @@ export default {
       this.lastKeyboard = true;
       this.firstKeyboard = false;
     },
-
     firstNameArFocus() {
       this.lastKeyboard = false;
       this.firstKeyboard = true;
     },
-
     toggleShow() {
       this.show = !this.show;
     },
-
+    /**
+     * crop success
+     *
+     * [param] imgDataUrl
+     * [param] field
+     */
     cropSuccess(imgDataUrl) {
       console.log("-------- crop success --------");
       this.studentObject.photo = imgDataUrl;
+      //console.log(this.studentObject.photo);
     },
-
+    /**
+     * upload success
+     *
+     * [param] jsonData  server api return data, already json encode
+     * [param] field
+     */
     cropUploadSuccess(jsonData) {
       console.log("-------- upload success --------");
       console.log(jsonData);
     },
-
+    /**
+     * upload fail
+     *
+     * [param] status    server api return error status, like 500
+     * [param] field
+     */
     cropUploadFail(status) {
       console.log("-------- upload fail --------");
       console.log(status);
     },
-
     //update profile
     onUpdate() {
       this.dialog = !this.dialog;
       this.e1 = 1;
     },
-
     //submit the form
     handleSubmit() {
       // stop here if form is invalid
-      /*
+
       this.$store
-        .dispatch("updateProfile", this.studentObject)
-        .then(() => {
-          this.snackbar = true;
-          this.snackbarContent = "Le profile a ete mis a jourer aves succes !";
-          this.getCurrentUser();
-            
+        .dispatch("updateTest")
+        .then(resp => {
+          console.log(resp);
         })
-        .catch(err => {
-          console.log(err);
-          this.snackbar = true;
-          this.snackbarContent =
-            "Un probleme se produit a niveau d'edition !";
+        .catch(error => {
+          console.log(error);
         });
-        */
-      console.log(this.studentObject);
+      /*
+      this.$v.$touch();
+      if (this.$v.$invalid) {
+        this.snackbar = true;
+        this.snackbarContent = "Veuillez verifiez toutes les champs !";
+      } else {
+        this.submitted = true;
+        console.log(this.studentObject)
+        
+      }*/
     },
     reset() {
+      this.$v.$reset();
       this.e1 = 1;
       this.editable = [false, true, false, false, false, false];
     },
-
     initializeKeyboard() {
       this.keyboardKeys = [
         {
@@ -800,7 +1003,6 @@ export default {
           name: "ف",
           character: "ف"
         },
-
         {
           name: "غ",
           character: "غ"
@@ -913,7 +1115,6 @@ export default {
           name: "ظ",
           character: "ظ"
         },
-
         {
           name: "space",
           character: " "
@@ -963,26 +1164,17 @@ export default {
         "Sans",
         "Autre"
       ];
-    },
-    //get current user
-    getCurrentUser() {
-      if (this.$store.getters.currentUser) {
-        this.studentObject = this.$store.getters.currentUser;
-      }
     }
   },
-  created() {
-    this.initializeKeyboard();
-    this.initializeJobs();
-    this.getCurrentUser();
-  },
+  //-----------------
+  //    Created life cycle
+  //----------------------
+
   computed: {
     //date select area
     //new Date().getFullYear().toString()
-
     bacGetYearArea() {
       const years = [];
-
       const rangeDate = [
         new Date().getFullYear() - 5,
         new Date().getFullYear() - 4,
@@ -995,6 +1187,194 @@ export default {
         years.push(i.toString());
       }
       return years;
+    },
+    //validations computed
+    cinErrors() {
+      const errors = [];
+      if (!this.$v.studentObject.cin.$dirty) return errors;
+      !this.$v.studentObject.cin.minLength &&
+        errors.push("Must be valid Field CIN");
+      !this.$v.studentObject.cne.required && errors.push("CIN is required");
+      return errors;
+    },
+    cneErrors() {
+      const errors = [];
+      if (!this.$v.studentObject.cne.$dirty) return errors;
+      !this.$v.studentObject.cne.minLength &&
+        errors.push("Must be valid Field CNE");
+      !this.$v.studentObject.cne.required && errors.push("CNE is required");
+      return errors;
+    },
+    firstNameArErrors() {
+      const errors = [];
+      if (!this.$v.studentObject.firstNameAr.$dirty) return errors;
+      !this.$v.studentObject.firstNameAr.minLength &&
+        errors.push("الاسم العائلي يجب ان يكون مستوفيا");
+      !this.$v.studentObject.firstNameAr.required &&
+        errors.push("الاسم العائلي ضروريا");
+      return errors;
+    },
+    lastNameArErrors() {
+      const errors = [];
+      if (!this.$v.studentObject.lastNameAr.$dirty) return errors;
+      !this.$v.studentObject.lastNameAr.minLength &&
+        errors.push("الاسم الشخصي يجب ان يكون مستوفيا");
+      !this.$v.studentObject.firstNameAr.required &&
+        errors.push("الاسم الشخصي ضروريا");
+      return errors;
+    },
+    birthDayErrors() {
+      const errors = [];
+      if (!this.$v.studentObject.birthDay.$dirty) return errors;
+      !this.$v.studentObject.birthDay.required &&
+        errors.push("Champ obligatoire !");
+      return errors;
+    },
+    birthPlaceErrors() {
+      const errors = [];
+      if (!this.$v.studentObject.birthPlace.$dirty) return errors;
+      !this.$v.studentObject.birthPlace.minLength &&
+        errors.push("M'a pas de sense !");
+      !this.$v.studentObject.birthPlace.required &&
+        errors.push("Champ obligatoire !");
+      return errors;
+    },
+    nationalityErrors() {
+      const errors = [];
+      if (!this.$v.studentObject.nationality.$dirty) return errors;
+      !this.$v.studentObject.nationality.required &&
+        errors.push("Champ obligatoire !");
+      return errors;
+    },
+    phoneErrors() {
+      const errors = [];
+      if (!this.$v.studentObject.phone.$dirty) return errors;
+      !this.$v.studentObject.phone.minLength &&
+        errors.push("Telephone non valide !");
+      !this.$v.studentObject.phone.required &&
+        errors.push("Champ obligatoire !");
+      return errors;
+    },
+    addressErrors() {
+      const errors = [];
+      if (!this.$v.studentObject.address.$dirty) return errors;
+      !this.$v.studentObject.address.minLength &&
+        errors.push("Adresse non valide !");
+      !this.$v.studentObject.address.required &&
+        errors.push("Champ obligatoire !");
+      return errors;
+    },
+    fatherFullNameErrors() {
+      const errors = [];
+      if (!this.$v.studentObject.fatherFullName.$dirty) return errors;
+      !this.$v.studentObject.fatherFullName.minLength &&
+        errors.push("Les informations ne sont pas completes !");
+      !this.$v.studentObject.fatherFullName.required &&
+        errors.push("Champ obligatoire !");
+      return errors;
+    },
+    fatherJobErrors() {
+      const errors = [];
+      if (!this.$v.studentObject.fatherJob.$dirty) return errors;
+      !this.$v.studentObject.fatherJob.required &&
+        errors.push("Champ obligatoire !");
+      return errors;
+    },
+    motherFullNameErrors() {
+      const errors = [];
+      if (!this.$v.studentObject.motherFullName.$dirty) return errors;
+      !this.$v.studentObject.motherFullName.minLength &&
+        errors.push("Les informations ne sont pas completes !");
+      !this.$v.studentObject.motherFullName.required &&
+        errors.push("Champ obligatoire !");
+      return errors;
+    },
+    motherJobErrors() {
+      const errors = [];
+      if (!this.$v.studentObject.motherJob.$dirty) return errors;
+      !this.$v.studentObject.motherJob.required &&
+        errors.push("Champ obligatoire !");
+      return errors;
+    },
+    parentAddressErrors() {
+      const errors = [];
+      if (!this.$v.studentObject.parentAddress.$dirty) return errors;
+      !this.$v.studentObject.parentAddress.minLength &&
+        errors.push("Adresse non valide !");
+      !this.$v.studentObject.parentAddress.required &&
+        errors.push("Champ obligatoire !");
+      return errors;
+    },
+    parentPhoneErrors() {
+      const errors = [];
+      if (!this.$v.studentObject.parentPhone.$dirty) return errors;
+      !this.$v.studentObject.parentPhone.minLength &&
+        errors.push("Telephone non valide !");
+      !this.$v.studentObject.parentPhone.required &&
+        errors.push("Champ obligatoire !");
+      return errors;
+    },
+    filiereErrors() {
+      const errors = [];
+      if (!this.$v.studentObject.filiere.$dirty) return errors;
+      !this.$v.studentObject.filiere.required &&
+        errors.push("Champ obligatoire !");
+      return errors;
+    },
+    levelErrors() {
+      const errors = [];
+      if (!this.$v.studentObject.level.$dirty) return errors;
+      !this.$v.studentObject.level.required &&
+        errors.push("Champ obligatoire !");
+      return errors;
+    },
+    bacTypeErrors() {
+      const errors = [];
+      if (!this.$v.studentObject.bacType.$dirty) return errors;
+      !this.$v.studentObject.bacType.required &&
+        errors.push("Champ obligatoire !");
+      return errors;
+    },
+    bacGetYearErrors() {
+      const errors = [];
+      if (!this.$v.studentObject.bacGetYear.$dirty) return errors;
+      !this.$v.studentObject.bacGetYear.required &&
+        errors.push("Champ obligatoire !");
+      return errors;
+    },
+    mentionErrors() {
+      const errors = [];
+      if (!this.$v.studentObject.mention.$dirty) return errors;
+      !this.$v.studentObject.mention.required &&
+        errors.push("Champ obligatoire !");
+      return errors;
+    },
+    bacLyceeErrors() {
+      const errors = [];
+      if (!this.$v.studentObject.bacLycee.$dirty) return errors;
+      !this.$v.studentObject.bacLycee.minLength &&
+        errors.push("N'a pas de sense !");
+      !this.$v.studentObject.bacLycee.required &&
+        errors.push("Champ obligatoire !");
+      return errors;
+    },
+    bacDirectionErrors() {
+      const errors = [];
+      if (!this.$v.studentObject.bacDirection.$dirty) return errors;
+      !this.$v.studentObject.bacDirection.minLength &&
+        errors.push("N'a pas de sense !");
+      !this.$v.studentObject.bacDirection.required &&
+        errors.push("Champ obligatoire !");
+      return errors;
+    },
+    bacAccademieErrors() {
+      const errors = [];
+      if (!this.$v.studentObject.bacAccademie.$dirty) return errors;
+      !this.$v.studentObject.bacAccademie.minLength &&
+        errors.push("N'a pas de sense !");
+      !this.$v.studentObject.bacAccademie.required &&
+        errors.push("Champ obligatoire !");
+      return errors;
     }
   },
   components: {

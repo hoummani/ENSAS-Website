@@ -31,7 +31,7 @@
         <v-btn color="grey" flat router to="/pfe">Espace PFE</v-btn>
         <v-btn flat color="grey" to="/about">About</v-btn>
 
-        <v-menu offset-y >
+        <v-menu offset-y>
           <v-btn color="primary" icon slot="activator">
             <v-icon>account_circle</v-icon>
           </v-btn>
@@ -48,7 +48,6 @@
             </v-list-tile>
           </v-list>
         </v-menu>
-        
       </v-toolbar-items>
     </v-toolbar>
     <!-- Navigation drawer -->
@@ -140,13 +139,13 @@
         </v-list-tile>
 
         <!-- 6 -->
-        <v-list-tile router v-if="isLogged" @click="logOut">
+        <v-list-tile router v-if="isLogged === true" @click="logOut">
           <v-list-tile-action>
             <v-icon>arrow_back</v-icon>
           </v-list-tile-action>
           <v-list-tile-title>Deconnexion</v-list-tile-title>
         </v-list-tile>
-        <v-list-group prepend-icon="account_box" v-else>
+        <v-list-group prepend-icon="account_box" v-if="isLogged === false">
           <template v-slot:activator>
             <v-list-tile>
               <v-list-tile-title>Compte</v-list-tile-title>
@@ -174,8 +173,7 @@
 </template>
 
 <script>
-
-import { bus } from '../../main';
+import { bus } from "../../main";
 export default {
   components: {},
   data() {
@@ -184,22 +182,18 @@ export default {
       right: null,
       toolbar_items_show: true,
       toolbarKey: 0,
-      isLogged:this.checkIsLogged()
+      isLogged: this.checkIsLogged()
     };
   },
   created() {
-    bus.$on('logged', () => {
+    bus.$on("logged", () => {
       this.isLogged = this.checkIsLogged();
-    })
+    });
   },
 
-  computed: {
-    
-    
-  },
-  
+  computed: {},
+
   methods: {
-
     logOut() {
       this.$store.dispatch("logOut").then(() => {
         this.isLogged = this.checkIsLogged();
@@ -207,9 +201,9 @@ export default {
       });
     },
     checkIsLogged() {
-      if(localStorage.getItem('token') != null) {
+      if (localStorage.getItem("token") != null) {
         return true;
-      }else {
+      } else {
         return false;
       }
     }

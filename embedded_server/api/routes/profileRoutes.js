@@ -41,6 +41,16 @@ router.get('/:userId', checkAuth, profileController.getProfile);
 //create profile
 router.post('/:userId', checkAuth, upload.single('photo'), profileController.createProfile);
 
+//check image file
+router.post('/photo/:userId', checkAuth, (req, res, next) => {
+  const _id = req.params.userId;
+  
+  console.log("------------------------------------");
+  console.log(_id);
+  
+})
+
+
 
 
 

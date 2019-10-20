@@ -2,7 +2,9 @@
   <div>
     <h3
       class="display-1 text-sm-center grey--text text--darken-2 font-weight-light"
-    >Changer votre mot de passe</h3>
+    >
+      Changer votre mot de passe
+    </h3>
     <v-container>
       <v-form v-model="valid" lazy-validation @submit.prevent="handleSubmit">
         <!-- password -->
@@ -58,7 +60,7 @@ import { required, minLength, sameAs } from "vuelidate/lib/validators";
 export default {
   data() {
     return {
-      valid:false,
+      valid: false,
       show1: false,
       show2: false,
       password: "",
@@ -82,9 +84,9 @@ export default {
       }
     },
     confirmPassword: {
-        required,
-        sameAsPassword: sameAs("password")
-      }
+      required,
+      sameAsPassword: sameAs("password")
+    }
   },
   methods: {
     reset() {
@@ -99,7 +101,7 @@ export default {
         this.snackbar = true;
         this.snackbarContent = "Veuillez verifiez toutes les champs !";
       } else {
-        this.valid=true;
+        this.valid = true;
         this.snackbar = true;
         this.snackbarContent = "Votre mot de passe a ete modifie avec succes !";
       }
@@ -128,4 +130,3 @@ export default {
   }
 };
 </script>
-

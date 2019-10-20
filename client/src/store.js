@@ -10,7 +10,7 @@ export default new Vuex.Store({
   state: {
     status: "",
     token: localStorage.getItem("token") || "",
-    user: {}
+    user: JSON.parse(localStorage.getItem("user")) || {}
   },
   mutations: {
     auth_request(state) {
@@ -54,8 +54,8 @@ export default new Vuex.Store({
           }
         })
           .then(response => {
-            const user = response.data.user;
-            commit("auth_success", user);
+            //const user = response.data.user;
+            //commit("auth_success", user);
             resolve(response);
           })
           .catch(err => {
@@ -82,6 +82,7 @@ export default new Vuex.Store({
             const token = response.data.token;
             const user = response.data.userSend;
             localStorage.setItem("token", token);
+            localStorage.setItem("user", JSON.stringify(user));
             commit("login_success", user, token);
             resolve(response);
           })
@@ -139,10 +140,37 @@ export default new Vuex.Store({
           });
       });
     },
+    updateTest({ getters }) {
+      const activeToken = getters.activeToken;
+      //const user = JSON.parse(localStorage.getItem("user"));
+      const userId = getters.currentUser[0]._id;
+      //console.log("Token :" + activeToken);
+      //console.log("User Id :" + userId);
+
+      return new Promise((resolve, reject) => {
+        axios({
+          method: "post",
+          data: {},
+          url: "http://localhost:3000/profile/photo/" + userId,
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: "Bearer " + activeToken
+          }
+        })
+          .then(response => {
+            resolve(response);
+          })
+          .catch(error => {
+            reject(error);
+          });
+      });
+    },
+
     logOut({ commit }) {
       return new Promise(resolve => {
         commit("logOut");
         localStorage.removeItem("token");
+        localStorage.removeItem("user");
         resolve();
       });
     }
